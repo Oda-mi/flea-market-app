@@ -5,21 +5,6 @@
 @endsection
 
 @section('content')
-<header class="header">
-    <div class="header__inner">
-        <a href="/" class="header__logo">
-            <img src="{{ asset('images/logo.svg') }}" alt="CoachTechLogo">
-        </a>
-        <div class="header__item">
-            <div class="item-search">なにをお探しですか？</div>
-        </div>
-        <div class="header__button">
-            <a href="" class="button-logout">ログアウト</a>
-            <a href="" class="button-mypage">マイページ</a>
-            <a href="" class="button-sell">出品</a>
-        </div>
-    </div>
-</header>
 
 <div class="nav">
     <div class="nav__tabs">

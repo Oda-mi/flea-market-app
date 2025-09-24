@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/auth/register.css') }}">
@@ -6,13 +6,6 @@
 
 @section('content')
 
-<header class="header">
-    <div class="header__inner">
-        <a href="/" class="header__logo">
-            <img src="{{ asset('images/logo.svg') }}" alt="CoachTechLogo">
-        </a>
-    </div>
-</header>
 
 <div class="auth__content">
     <div class="auth__heading">

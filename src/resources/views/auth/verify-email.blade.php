@@ -1,18 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/auth/verify-email.css') }}">
 @endsection
 
 @section('content')
-
-<header class="header">
-    <div class="header__inner">
-        <a href="/" class="header__logo">
-            <img src="{{ asset('images/logo.svg') }}" alt="CoachTechLogo">
-        </a>
-    </div>
-</header>
 
 <div class="verify-email__content">
     <p>

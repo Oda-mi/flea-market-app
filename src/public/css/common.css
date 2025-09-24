@@ -1,0 +1,74 @@
+/*全体のデフォルト余白をリセット*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/*ヘッダー部分*/
+.header {
+    background: #000;
+    width: 100%;
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1540px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    box-sizing: border-box;
+}
+
+/*ロゴ部分*/
+.header__logo {
+    flex-shrink: 0; /*縮み率*/
+}
+
+.header__item {
+    flex-grow: 0;        /* 残りスペース全部使う */
+    min-width: 100px; /*ここ調整するとレイアウト崩れしない*/
+}
+
+.header__search {
+    width: 100%;
+    max-width: 550px;
+    min-width: 200px;
+    margin: 0 auto;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.search-input::placeholder {
+    color: #000;   /* グレーにする例 */
+    font-size: 16px;
+}
+
+.header__button {
+    display: flex;
+    gap: 30px;
+    flex-shrink: 1;  /* 縮み率ボタンは縮まない *//*ここ調整するとレイアウト崩れしない*/
+}
+
+
+.button-logout,
+.button-mypage,
+.button-sell {
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.button-sell {
+    padding: 5px 10px;
+    background: #fff;
+    color: #000;
+    border-radius: 3px;
+}

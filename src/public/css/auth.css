@@ -1,0 +1,16 @@
+/*全体のデフォルト余白をリセット*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/*ヘッダー*/
+.header {
+    background: #000;
+}
+
+.header__inner {
+    padding: 20px 15px;
+    max-width: 1230px;
+}
+
