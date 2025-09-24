@@ -1,0 +1,48 @@
+@extends('layouts.app')
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/items/items-index.css') }}">
+@endsection
+
+@section('content')
+<header class="header">
+    <div class="header__inner">
+        <a href="/" class="header__logo">
+            <img src="{{ asset('images/logo.svg') }}" alt="CoachTechLogo">
+        </a>
+        <div class="header__item">
+            <div class="item-search">なにをお探しですか？</div>
+        </div>
+        <div class="header__button">
+            <a href="" class="button-logout">ログアウト</a>
+            <a href="" class="button-mypage">マイページ</a>
+            <a href="" class="button-sell">出品</a>
+        </div>
+    </div>
+</header>
+
+<div class="nav">
+    <div class="nav__tabs">
+    <a href="" class="nav__tab nav__tab--active">おすすめ</a>
+    <a href="" class="nav__tab">マイリスト</a>
+    </div>
+</div>
+
+<div class="product">  {{--商品--}}
+    <div class="product__list">
+        <div class="product__item">
+            <img src="{{ asset('images/clock.jpg') }}" alt="商品１">
+            <p class="product__name">腕時計</p>
+        </div>
+        <div class="product__item">
+            <img src="{{ asset('images/onion.jpg') }}" alt="商品２">
+            <p class="product__name">たまねぎ</p>
+        </div>
+        <div class="product__item">
+            <img src="{{ asset('images/mic.jpg') }}" alt="商品３">
+            <p class="product__name">マイク</p>
+        </div>
+    </div>
+</div>
+
+@endsection

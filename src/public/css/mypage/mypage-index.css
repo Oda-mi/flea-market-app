@@ -1,0 +1,187 @@
+/*全体のデフォルト余白をリセットする*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/*ヘッダー部分*/
+.header {
+    background: #000;
+    width: 100%;
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    box-sizing: border-box;
+}
+
+.header__item {
+    flex: 1 1 auto;   /* 残りスペースを全部使う */
+    text-align: left;
+}
+
+.item-search {
+    width: 400px;    /* 固定幅で安定させる */
+    max-width: 400px;
+    min-width: 400px;
+    margin: 0 auto;
+    padding: 10px 15px;
+    background: #fff;
+    border-radius: 3px;
+    font-size: 18px;
+    box-sizing: border-box;
+
+    pointer-events: none;  /* クリックできない */
+    user-select: none;     /* 選択できない */
+    cursor: default;       /* マウスカーソルは矢印 */
+}
+
+.header__button {
+    display: flex;
+    gap: 30px;
+    flex-shrink: 0;  /* ボタンは縮まない */
+}
+
+
+.button-logout,
+.button-mypage,
+.button-sell {
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.button-sell {
+    padding: 5px 10px;
+    background: #fff;
+    color: #000;
+    border-radius: 3px;
+}
+
+
+/*ページ全体*/
+.profile-page {
+    margin: 0 auto;
+    max-width: 1230px;
+    box-sizing: border-box;
+}
+
+/* プロフィール部分 */
+.profile__header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: fit-content;   /* 横幅は中身に合わせる */
+    height: 200px;
+    margin: 50px auto;
+    gap: 100px;
+}
+
+.profile__image{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
+
+.image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* 丸にする */
+    object-fit: cover; /* 画像を枠にフィットさせる */
+    border: 2px solid #ddd;
+    background: #f0f0f0; /* デフォでグレー */
+}
+
+.profile__info {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.profile__name {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.profile__edit {
+    display: flex;
+    align-items: center;
+    margin-left: 200px;
+}
+
+.profile__edit-btn {
+    display: inline-block;
+    padding: 10px 30px;
+    color: #FF5655;
+    font-weight: bold;
+    font-size: 18px;
+    border: 2px solid #FF5655;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/*ナビ部分*/
+.nav {
+    display: flex;
+    width: 100vw;  /* 画面幅max */
+    height: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-bottom: 3px solid #ccc;
+    margin-left: calc(-50vw + 50%); /* 中央寄せ親からはみ出す調整 */
+}
+
+.nav__tabs {
+    display: flex;
+    gap: 50px;
+    margin-left: 200px;
+    margin-bottom: 20px;
+}
+
+.nav__tab {
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: gray;
+}
+
+.nav__tab--active {
+    color: red;
+}
+
+/* 商品リスト*/
+.product {
+    margin-top: 40px;
+    margin-bottom: 60px;
+    width: 100%;
+}
+
+/*グリッドレイアウト使用*/
+.product__list {
+    display: grid;
+    grid-template-columns: repeat(4,1fr); /*4列*/
+    gap: 50px;
+    margin-bottom: 50px;
+    padding: 0 50px;
+    box-sizing: border-box;
+}
+
+.product__item img {
+    width: 100%;
+    aspect-ratio: 1/1; /*縦横比1対1 height:100pxと同じ役割*/
+    object-fit: cover; /*画像を枠いっぱいに切り抜く*/
+}
+
+.product__name {
+    margin-top: 10px;
+    font-size: 16px;
+    width: 100%;
+    text-align: left;
+}

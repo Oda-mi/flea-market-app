@@ -1,0 +1,60 @@
+/*全体のデフォルト余白をリセット*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/*ヘッダー*/
+.header {
+    background: #000;
+}
+
+.header__inner {
+    padding: 20px 15px;
+    max-width: 1230px;
+}
+
+
+
+/*ページ全体*/
+.verify-email__content {
+    margin: 0 auto;
+    padding: 20px 15px;
+    max-width: 1230px;
+    text-align: center;
+}
+
+.verify-email__content p {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 200px;
+}
+
+.verify-email__button {
+    margin-top: 50px;
+}
+
+.verify-email__button button {
+    width: 220px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 1px solid #000;
+    border-radius: 8px;
+}
+
+.verify-email__link {
+    margin-top: 50px;
+}
+
+.verify-email__link a {
+    font-size: 15px;
+    color: #0073CC;
+    border: none;
+    text-decoration: none;
+}
+
+/* ホバー時の色変更 */
+.verify-email__link a:hover {
+    color: #0056b3;
+}

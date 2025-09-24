@@ -1,0 +1,231 @@
+/*ヘッダー部分*/
+/*全体のデフォルト余白をリセットする*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background: #000;
+    width: 100%;
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    box-sizing: border-box;
+}
+
+.header__item {
+    flex: 1 1 auto;   /* 残りスペースを全部使う */
+    text-align: left;
+}
+
+.item-search {
+    width: 400px;    /* 固定幅で安定させる */
+    max-width: 400px;
+    min-width: 400px;
+    margin: 0 auto;
+    padding: 10px 15px;
+    background: #fff;
+    border-radius: 3px;
+    font-size: 18px;
+    box-sizing: border-box;
+
+    pointer-events: none;  /* クリックできない */
+    user-select: none;     /* 選択できない */
+    cursor: default;       /* マウスカーソルは矢印 */
+}
+
+.header__button {
+    display: flex;
+    gap: 30px;
+    flex-shrink: 0;  /* ボタンは縮まない */
+}
+
+
+.button-logout,
+.button-mypage,
+.button-sell {
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.button-sell {
+    padding: 5px 10px;
+    background: #fff;
+    color: #000;
+    border-radius: 3px;
+}
+
+
+
+/*ページ全体*/
+.purchase {
+    display: flex;
+    gap: 50px;
+    max-width: 1500px;
+    margin: 40px 150px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 左カラム */
+.purchase__left {
+    flex: 2;  /*flex(左右)を2:1 の割合で分け合う*/
+}
+
+/*商品情報*/
+.purchase__item {
+    display: flex;
+    align-items: flex-start;  /*上揃え*/
+    gap: 20px;
+    border-bottom: 1px solid #000;
+    padding: 15px;
+}
+
+.purchase__item img {
+    width: 200px;
+    height: 200px;
+}
+
+.purchase__item-info {
+    display: flex;
+    flex-direction: column;  /*テキストを縦に積む*/
+    justify-content: flex-start;  /*上揃え*/
+    margin-left: 30px;
+}
+
+.purchase__item-name {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.purchase__item-price {
+    font-size: 20px;
+}
+
+/*支払い方法*/
+.purchase__payment {
+    border-bottom: 1px solid #000;
+    padding: 20px;
+}
+
+.purchase__payment h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.purchase__payment-select {
+    font-size: 17px;
+    border-radius: 3px;
+    margin-left: 100px;
+    padding-left: 10px;
+    width: 300px;
+    height: 30px;
+    appearance: none;    /* ブラウザデフォルトの矢印を消す */
+
+    /* プルダウン▼マーク */
+    /* url("data:image/svg+xml;utf8,<svg fill='色' height='高さ' viewBox='0 0 24 24' width='幅' xmlns='http://www.w3.org/2000/svg'><path d='パスデータ'/></svg>")
+ */
+    background: url("data:image/svg+xml;utf8,<svg fill='black' height='30' viewBox='0 0 24 24' width='30' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")
+        no-repeat right 5px center/30px auto;
+    background-color: #fff;
+}
+
+.purchase__payment-select option {
+    background-color: #636769;
+    color: #fff;
+}
+
+/*配送先*/
+.purchase__address {
+    border-bottom: 1px solid #000;
+    padding: 20px;
+}
+
+.purchase__address-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.purchase__address-header h3{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.btn-change-address {
+    color: #007BFF;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: underline;  /*下線をつける*/
+}
+
+.btn-change-address:hover {  /*マウスカーソルが上に乗った時に色変わる*/
+    color: #0056b3;
+}
+
+
+.purchase__address-body {
+    margin-left: 100px;
+}
+
+.purchase__address-body p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
+
+/*右側カラム*/
+.purchase__right {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.purchase__summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #000;
+    padding: 20px;
+    font-size: 17px;
+    margin-bottom: -1px;
+}
+
+.purchase__summary p {
+    margin-left: 10px;
+}
+.purchase__summary-price ,
+.purchase__summary-method {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.purchase__button {
+    margin-top: 50px;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 3px;
+    background: #FF5555;
+    color: #fff;
+    border-style: none;
+}
+
+.purchase__button:hover {
+    background-color: #e04c4c;
+}

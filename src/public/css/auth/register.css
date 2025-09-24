@@ -1,0 +1,98 @@
+/*全体のデフォルト余白をリセット*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background: #000;
+}
+
+.header__inner {
+    padding: 20px 15px;
+    max-width: 1230px;
+}
+
+
+/*ページ全体*/
+.auth__content {
+    margin: 0 auto;
+    padding: 20px 15px;
+    max-width: 1230px;
+}
+
+/*h2見出し部分*/
+.auth__heading {
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/*フォーム*/
+.auth__form {
+    margin: 0 auto;
+    padding: 10px 15px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/*ラベル*/
+.form__group-label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+    display: block;
+}
+
+/*input部分*/
+.form__group-input input {
+    width: 100%;
+    height: 40px;
+    border-radius: 3px;
+    border-width: 1px;
+    font-size: 20px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+/*登録ボタン*/
+.form__button {
+    margin-top: 30px;
+    text-align: center;
+    width:100%;
+}
+
+.form__button-submit {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0;
+    width: 100%;
+    height: 42px;
+    border: none;
+    border-radius: 3px;
+    background: #FF5555;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+/*ログインページへ移動ボタン*/
+.auth__link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.link-button {
+    font-size: 15px;
+}
+
