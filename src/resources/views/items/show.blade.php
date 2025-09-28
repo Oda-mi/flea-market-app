@@ -1,37 +1,37 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/items/items-show.css') }}">
+<link rel="stylesheet" href="{{ asset('css/items/show.css') }}">
 @endsection
 
 @section('content')
 
 <div class="item">
     <div class="item__image">
-        <img src="{{ asset('images/coffee.jpg') }}" alt="商品画像">
+        <img src="{{ asset('images/' . $item->img_url) }}" alt="{{ $item->name }}">
     </div>
     <div class="item__info">
-        <h1 class="item__name">商品名</h1>
-        <p class="item__brand">ブランド名</p>
-        <p class="item__price">¥12,345（税込）</p>
+        <h1 class="item__name">{{ $item->name }}</h1>
+        <p class="item__brand">{{ $item->brand }}</p>
+        <p class="item__price">&yen;{{ $item->price }}（税込）</p>
         <div class="item__actions">
             <button class="btn-favorite">☆</button>
             <button class="btn-comment">💭</button>
         </div>
-        <button class="btn-purchase">購入手続きへ</button>
+        <a href="{{ route('purchase.index', $item->id) }}" class="btn-purchase">購入手続きへ</a>
 
         <div class="item__details">
             <h3>商品の説明</h3>
-            <p>ここに商品説明が入る</p>
+            <p>{{ $item->description }}</p>
             <h3>商品の情報</h3>
             <div class="detail-category">
                 <div>カテゴリー</div>
-                <div>カテゴリが表示される</div>
+                <div>{{ $item->category }}</div>
             </div>
 
             <div class="detail-condition">
                 <div>商品の状態</div>
-                <div>新品or中古品が表示される</div>
+                <div>{{ $item->condition->name }}</div>
             </div>
         </div>
 

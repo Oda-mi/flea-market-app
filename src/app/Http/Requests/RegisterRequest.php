@@ -25,8 +25,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|max:20',
-            'email' => 'required|email|unique:users,email',  /*users=テーブル名 email=カラム名*/
-            'password' => 'required|min:8|confirmed',  /*confirmedはパスワードと確認用パスワードが一致しているかチェック*/
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
         ];
     }
 

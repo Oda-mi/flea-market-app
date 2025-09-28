@@ -58,7 +58,23 @@ body {
 }
 
 
-.button-logout,
+.button-login {
+    font-size: 20px;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button-logout {
+    font-size: 20px;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
 .button-mypage,
 .button-sell {
     font-size: 20px;

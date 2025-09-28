@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/purchase/purchase-index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/purchase/index.css') }}">
 @endsection
 
 @section('content')
@@ -10,13 +10,15 @@
     {{--左側カラム--}}
     <div class="purchase__left">
         <div class="purchase__item">
-            <img src="{{ asset('images/coffee.jpg') }}" alt="商品画像">
+            <img src="{{ asset('images/' . $item->img_url) }}" alt="{{ $item->name }}">
             <div class="purchase__item-info">
-                <p class="purchase__item-name">商品名が入ります</p>
-                <p class="purchase__item-price">¥12,345</p>
+                <p class="purchase__item-name">{{ $item->name }}</p>
+                <p class="purchase__item-price">&yen;{{ $item->price }}</p>
             </div>
         </div>
 
+        <form action="{{ route('purchase.store' , $item->id) }}" method="post">
+            @csrf
         <div class="purchase__payment">  {{--購入__支払い--}}
             <h3>支払い方法</h3>
             <select name="payment_method" id="" class="purchase__payment-select">  {{--支払い選択--}}
@@ -35,7 +37,7 @@
         <div class="purchase__address">
             <div class="purchase__address-header">
                 <h3>配送先</h3>
-                <a href="" class="btn-change-address">変更する</a>
+                <a href="{{ route('purchase.address' ,['item_id' => $item->id]) }}" class="btn-change-address">変更する</a>
             </div>
             <div class="purchase__address-body">
             <p>〒123-4567</p>
@@ -47,13 +49,14 @@
     <div class="purchase__right">
         <div class="purchase__summary">  {{--購入__概要--}}
             <p>商品代金</p>
-            <p class="purchase__summary-price">￥12,345</p>
+            <p class="purchase__summary-price">&yen;{{ $item->price }}</p>
         </div>
         <div class="purchase__summary">
             <p>支払方法</p>
             <p class="purchase__summary-method">支払方法表示</p>  {{--概要__方法--}}
         </div>
         <button class="purchase__button">購入する</button>
+        </form>
     </div>
 </div>
 

@@ -21,9 +21,20 @@
             </form>
         </div>
         <div class="header__button">
-            <a href="" class="button-logout">ログアウト</a>
-            <a href="" class="button-mypage">マイページ</a>
-            <a href="" class="button-sell">出品</a>
+            @guest
+            <a href="{{ route('login') }}" class="button-login">ログイン</a>
+            <a href="{{ route('mypage.index') }}" class="button-mypage">マイページ</a>
+            <a href="{{ route('items.sell') }}" class="button-sell">出品</a>
+            @endguest
+
+            @auth
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <button type="submit" class="button-logout">ログアウト</button>
+            </form>
+            <a href="{{ route('mypage.index') }}" class="button-mypage">マイページ</a>
+            <a href="{{ route('items.sell') }}" class="button-sell">出品</a>
+            @endauth
         </div>
     </div>
 </header>

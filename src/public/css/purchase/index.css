@@ -25,6 +25,7 @@
 .purchase__item img {
     width: 200px;
     height: 200px;
+    border-radius: 2px;
 }
 
 .purchase__item-info {
@@ -77,6 +78,17 @@
     background-color: #636769;
     color: #fff;
 }
+
+/*エラーメッセージ*/
+.purchase__error {
+    margin-top: 5px;
+    height: 20px;
+    color: #ff0000;
+    font-size: 15px;
+    text-align: left;
+    margin-left: 100px;
+}
+
 
 /*配送先*/
 .purchase__address {
@@ -162,3 +174,5 @@
 .purchase__button:hover {
     background-color: #e04c4c;
 }
+
+

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/mypage/mypage-profile.css') }}">
+<link rel="stylesheet" href="{{ asset('css/mypage/profile.css') }}">
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
         <h2>プロフィール設定</h2>
     </div>
     {{--enctype="multipart/form-data"画像送信に必須--}}
-    <form action="" method="post" enctype="multipart/form-data" class="profile-edit__form">
+    <form action="{{ route('mypage.update') }}" method="post" enctype="multipart/form-data" class="profile-edit__form">
         @csrf
         @method('PUT')  {{--PUT 更新メソッド（上書き）--}}
 
@@ -23,12 +23,14 @@
 
         <div class="profile__group">
             <label for="name"  class="profile__group-label">ユーザー名</label>
-            <input type="text" name="name" id="name" value="{{ old('name') }}">
-        </div>
-        <div class="profile__error">
+            <div class="profile__group-input">
+                <input type="text" name="name" id="name" value="{{ old('name') }}">
+            </div>
+            <div class="profile__error">
             @error('name')
             {{ $message }}
             @enderror
+            </div>
         </div>
 
         <div class="profile__group">

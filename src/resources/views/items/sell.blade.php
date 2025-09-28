@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/items/items-sell.css') }}">
+<link rel="stylesheet" href="{{ asset('css/items/sell.css') }}">
 @endsection
 
 @section('content')
@@ -51,10 +51,9 @@
                 <label for="condition" class="field-title">商品の状態</label>
                 <select name="condition" id="condition" class="condition">
                     <option value="" disabled selected>選択してください</option>
-                    <option value="良好">良好</option>
-                    <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
-                    <option value="やや傷や汚れあり">やや傷や汚れあり</option>
-                    <option value="状態が悪い">状態が悪い</option>
+                    @foreach($conditions as $condition)
+                    <option value="{{ $condition->id }}">{{ $condition->name }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
