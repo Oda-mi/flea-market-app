@@ -72,7 +72,28 @@
 .detail-category,
 .detail-condition {
     display: flex;
-    gap:20px;
+    gap:30px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-list span {
+    border-radius: 20px;
+    background-color: #D9D9D9;
+    color: #000;
+    padding: 5px 10px;
+    font-size: 13px;
+    display: inline-block;
+}
+
+.condition-list {
+    font-size: 14px;
 }
 
 

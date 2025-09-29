@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Condition;
 use App\Models\Item;
+use App\Models\Category;
 
 
 class ItemController extends Controller
@@ -19,7 +20,8 @@ class ItemController extends Controller
     //商品詳細
     public function show($item_id)
     {
-        $item = Item::with('condition')->findOrFail($item_id);
+        $item = Item::with(['condition' , 'categories'])->findOrFail($item_id);
+
         return view('items.show', compact('item'));
     }
 
@@ -27,7 +29,8 @@ class ItemController extends Controller
     public function sell()
     {
         $conditions = Condition::all();
+        $categories = Category::all();
 
-        return view('items.sell',compact('conditions'));
+        return view('items.sell',compact('conditions','categories'));
     }
 }

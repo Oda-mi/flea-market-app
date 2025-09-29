@@ -29,20 +29,9 @@
             <div class="section-category">
                 <label for="categories" class="field-title">カテゴリー</label>
                 <div class="categories">
-                    <button type="button" data-id="ファッション">ファッション</button>
-                    <button type="button" data-id="家電">家電</button>
-                    <button type="button" data-id="インテリア">インテリア</button>
-                    <button type="button" data-id="レディース">レディース</button>
-                    <button type="button" data-id="メンズ">メンズ</button>
-                    <button type="button" data-id="コスメ">コスメ</button>
-                    <button type="button" data-id="本">本</button>
-                    <button type="button" data-id="ゲーム">ゲーム</button>
-                    <button type="button" data-id="スポーツ">スポーツ</button>
-                    <button type="button" data-id="キッチン">キッチン</button>
-                    <button type="button" data-id="ハンドメイド">ハンドメイド</button>
-                    <button type="button" data-id="アクセサリー">アクセサリー</button>
-                    <button type="button" data-id="おもちゃ">おもちゃ</button>
-                    <button type="button" data-id="ベビー・キッズ">ベビー・キッズ</button>
+                    @foreach ($categories as $category)
+                        <button type="button" data-id="{{ $category->name }}">{{ $category->name }}</button>
+                    @endforeach
                 </div>
                 <input type="hidden" name="categories" id="categories">
             </div>

@@ -26,12 +26,16 @@
             <h3>商品の情報</h3>
             <div class="detail-category">
                 <div>カテゴリー</div>
-                <div>{{ $item->category }}</div>
+                <div class="category-list">
+                    @foreach ($item->categories as $category)
+                        <span>{{ $category->name }}</span>
+                    @endforeach
+                </div>
             </div>
 
             <div class="detail-condition">
                 <div>商品の状態</div>
-                <div>{{ $item->condition->name }}</div>
+                <div class="condition-list">{{ $item->condition->name }}</div>
             </div>
         </div>
 
