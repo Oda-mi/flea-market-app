@@ -3,22 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\ProfileRequest;
 
 class MypageController extends Controller
 {
     public function index()
     {
-        return view('mypage.index');
+        $user = auth()->user();
+
+        return view('mypage.index',compact('user'));
     }
 
     public function profile()
     {
-        return view('mypage.profile');
+        $user = auth()->user();
+
+        return view('mypage.profile',compact('user'));
     }
 
-    public function update(ProfileUpdateRequest $request)
+    public function update(ProfileRequest $request)
     {
+        $user = auth()->user();
+
+        $user->update($request->only(['name','postal_code','address','building']));
+
+
         return redirect()->route('mypage.index');
     }
 }

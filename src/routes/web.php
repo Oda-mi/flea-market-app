@@ -34,6 +34,8 @@ Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('
 //住所変更画面
 Route::get('/purchase/address/{item_id}',[PurchaseController::class,'address'])->name('purchase.address');
 
+Route::put('/purchase/address/{item_id}',[PurchaseController::class,'updateAddress'])->name('purchase.updateAddress');
+
 //出品
 Route::get('/sell', [ItemController::class, 'sell'])->name('items.sell');
 

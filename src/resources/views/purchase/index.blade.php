@@ -40,8 +40,9 @@
                 <a href="{{ route('purchase.address' ,['item_id' => $item->id]) }}" class="btn-change-address">変更する</a>
             </div>
             <div class="purchase__address-body">
-            <p>〒123-4567</p>
-            <p>ここに住所が表示される</p>
+            <p>〒{{ $user->postal_code }}</p>
+            <p>{{ $user->address }}</p>
+            <p>{{ $user->building }}</p>
             </div>
         </div>
     </div>

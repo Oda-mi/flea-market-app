@@ -13,7 +13,7 @@
                 <img src="{{ asset('images/user.jpg') }}" alt="プロフィール画面" class="image">
             </div>
             <div class="profile__info">
-                <p class="profile__name">ユーザー名</p>
+                <p class="profile__name">{{ $user->name }}</p>
             </div>
             <div class="profile__edit">
                 <a href="/mypage/profile" class="profile__edit-btn">プロフィールを編集</a>

@@ -24,7 +24,7 @@
         <div class="profile__group">
             <label for="name"  class="profile__group-label">ユーザー名</label>
             <div class="profile__group-input">
-                <input type="text" name="name" id="name" value="{{ old('name') }}">
+                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}">
             </div>
             <div class="profile__error">
             @error('name')
@@ -36,7 +36,7 @@
         <div class="profile__group">
             <label for="postal_code" class="profile__group-label">郵便番号</label>
             <div class="profile__group-input">
-                <input type="text" name="postal_code" id="postal_code" value="{{ old('postal_code') }}">
+                <input type="text" name="postal_code" id="postal_code" value="{{ old('postal_code', $user->postal_code) }}">
             </div>
             <div class="profile__error">
                 @error('postal_code')
@@ -48,7 +48,7 @@
         <div class="profile__group">
             <label for="address" class="profile__group-label">住所</label>
             <div class="profile__group-input">
-                <input type="text" name="address" id="address" value="{{ old('address') }}">
+                <input type="text" name="address" id="address" value="{{ old('address', $user->address) }}">
             </div>
             <div class="profile__error">
                 @error('address')
@@ -60,7 +60,7 @@
         <div class="profile__group">
             <label for="building" class="profile__group-label">建物名</label>
             <div class="profile__group-input">
-                <input type="text" name="building" id="building" value="{{ old('building') }}">
+                <input type="text" name="building" id="building" value="{{ old('building', $user->building) }}">
             </div>
             <div class="profile__error">
                 @error('building')
