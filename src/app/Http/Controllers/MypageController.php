@@ -25,8 +25,12 @@ class MypageController extends Controller
     {
         $user = auth()->user();
 
-        $user->update($request->only(['name','postal_code','address','building']));
+        if ($request->hasFile('profile_image')) {
+        $imagePath = $request->file('profile_image')->store('profile_images','public');
 
+        $user->profile_image = $imagePath;
+        }
+        $user->update($request->only(['name','postal_code','address','building']));
 
         return redirect()->route('mypage.index');
     }

@@ -10,13 +10,12 @@
     <div class="profile-edit__heading">
         <h2>プロフィール設定</h2>
     </div>
-    {{--enctype="multipart/form-data"画像送信に必須--}}
-    <form action="{{ route('mypage.update') }}" method="post" enctype="multipart/form-data" class="profile-edit__form">
+        <form action="{{ route('mypage.update') }}" method="post" enctype="multipart/form-data" class="profile-edit__form">
         @csrf
-        @method('PUT')  {{--PUT 更新メソッド（上書き）--}}
+        @method('PUT')
 
         <div class="profile-edit__image">
-            <img src="{{ $user->profile_image ?? 'default.png' }}" alt="プロフィール画像" class="image">
+            <img src="{{ $user->profile_image ? asset('storage/'.$user->profile_image) : asset('images/default.png') }}" id="profilePreview" alt="プロフィール画像" class="image">
             <input type="file" name="profile_image" id="profile_image" class="image-input">
             <label for="profile_image" class="image-btn">画像を選択する</label>
         </div>
@@ -73,6 +72,28 @@
             <button class="profile__button-submit" type="submit">更新する</button>
         </div>
     </form>
+
+
+
+{{--プロフィール画像選択した瞬間に画面上のプレビュー画像を変える処理--}}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('profile_image');
+    const preview = document.getElementById('profilePreview');
+
+    input.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                preview.src = ev.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    });
+</script>
+
 </div>
 
 @endsection
