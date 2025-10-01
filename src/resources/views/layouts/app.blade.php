@@ -15,9 +15,9 @@
             <img src="{{ asset('images/logo.svg') }}" alt="CoachTechLogo">
         </a>
         <div class="header__search">
-            <form action="" method="GET" class="search-form">
+            <form action="{{ route('items.index') }}" method="GET" class="search-form">
                 @csrf
-                <input type="text" name="keyword" class="search-input" placeholder="なにをお探しですか？">
+                <input type="text" name="keyword" value="{{ request('keyword') }}"class="search-input" placeholder="なにをお探しですか？">
             </form>
         </div>
         <div class="header__button">

@@ -10,11 +10,12 @@ use App\Models\Category;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::all();
+        $keyword = $request->input('keyword');
+        $items = Item::keywordSearch($keyword)->get();
 
-        return view('items.index',compact('items'));
+        return view('items.index', compact('items','keyword'));
     }
 
     //商品詳細
@@ -33,4 +34,5 @@ class ItemController extends Controller
 
         return view('items.sell',compact('conditions','categories'));
     }
+
 }

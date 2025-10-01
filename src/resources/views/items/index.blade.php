@@ -15,14 +15,16 @@
 
 <div class="product">  {{--商品--}}
     <div class="product__list">
-        @foreach ($items as $item)
+        @forelse ($items as $item)
         <div class="product__item">
             <a href="{{ route('items.show' , $item->id) }}" class="show-link">
                 <img src="{{ asset('images/' . $item->img_url) }}" alt="{{ $item->name }}">
                 <p class="product__name">{{ $item->name }}</p>
             </a>
         </div>
-        @endforeach
+        @empty
+        <p>商品が見つかりませんでした</p>
+        @endforelse
     </div>
 </div>
 

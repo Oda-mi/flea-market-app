@@ -27,4 +27,12 @@ class Item extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+        return $query;
+    }
 }
