@@ -81,12 +81,12 @@
     const input = document.getElementById('profile_image');
     const preview = document.getElementById('profilePreview');
 
-    input.addEventListener('change', function(e) {
-        const file = e.target.files[0];
+    input.addEventListener('change', function(event) {
+        const file = event.target.files[0];
         if(file) {
             const reader = new FileReader();
-            reader.onload = function(ev) {
-                preview.src = ev.target.result;
+            reader.onload = function(loadEvent) {
+                preview.src = loadEvent.target.result;
             }
             reader.readAsDataURL(file);
         }

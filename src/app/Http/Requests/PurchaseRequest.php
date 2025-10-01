@@ -24,10 +24,9 @@ class PurchaseRequest extends FormRequest
     public function rules()
     {
         return [
-            'payment_method' => 'required|in:credit,convenience,bank',
-            //in:許可する値を限定する
-
-            //配送先の入力必須バリデーション設定未
+            'payment_method' => 'required|in:convenience,credit',
+            'postal_code' => 'required',
+            'address' => 'required',
         ];
     }
 
@@ -36,6 +35,8 @@ class PurchaseRequest extends FormRequest
         return [
         'payment_method.required' => '支払い方法を選択してください',
         'payment_method.in' => '正しい支払い方法を選択してください',
+        'postal_code.required' => '配送先の郵便番号を登録してください',
+        'address.required' => '配送先の住所を登録してください',
         ];
     }
 }
