@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="sell__content">  {{--sell売る--}}
+<div class="sell__content">
     <div class="sell__heading">
         <h2>商品出品</h2>
     </div>
@@ -18,6 +18,7 @@
         <div class="section">
             <label for="product_image" class="field-title">商品画像</label>
             <div class="image-upload">
+                <img src="" id="productPreview" class="image">
                 <input type="file" name="image" id="product_image" class="product-image">
                 <label for="product_image" class="image-btn">画像を選択する</label>
             </div>
@@ -30,10 +31,12 @@
                 <label for="categories" class="field-title">カテゴリー</label>
                 <div class="categories">
                     @foreach ($categories as $category)
-                        <button type="button" data-id="{{ $category->name }}">{{ $category->name }}</button>
+                    <label class="category-option">
+                        <input type="checkbox" name="categories[]" value="{{ $category->id }}">
+                        <span>{{ $category->name }}</span>
+                    </label>
                     @endforeach
                 </div>
-                <input type="hidden" name="categories" id="categories">
             </div>
 
             <div class="section-condition">
@@ -72,8 +75,26 @@
             <button class="btn-submit" type="submit">出品する</button>
         </div>
     </form>
+
+    {{--商品画像選択した瞬間に画面上のプレビュー画像を変える処理--}}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('product_image');
+    const preview = document.getElementById('productPreview');
+
+    input.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = function(loadEvent) {
+                preview.src = loadEvent.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    });
+</script>
 </div>
 @endsection
 
-
-<!-- カテゴリーボタン選択時色変わる処理未設定 -->
