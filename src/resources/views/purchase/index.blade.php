@@ -13,7 +13,7 @@
             <img src="{{ asset('images/' . $item->img_url) }}" alt="{{ $item->name }}">
             <div class="purchase__item-info">
                 <p class="purchase__item-name">{{ $item->name }}</p>
-                <p class="purchase__item-price">&yen;{{ $item->price }}</p>
+                <p class="purchase__item-price">&yen;<span>{{ number_format($item->price) }}</span></p>
             </div>
         </div>
 
@@ -62,7 +62,7 @@
     <div class="purchase__right">
         <div class="purchase__summary">
             <p>商品代金</p>
-            <p class="purchase__summary-price">&yen;{{ $item->price }}</p>
+            <p class="purchase__summary-price">&yen;<span>{{ number_format($item->price) }}</span></p>
         </div>
         <div class="purchase__summary">
             <p>支払方法</p>

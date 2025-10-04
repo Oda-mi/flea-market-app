@@ -7,7 +7,6 @@
 
 /*h2見出し部分*/
 .profile-edit__heading {
-    margin-bottom: 10px;
     text-align: center;
     font-weight: bold;
     font-size: 20px;
@@ -28,6 +27,7 @@
     align-items: center;
     gap: 30px;
     margin-bottom: 20px;
+    margin-top: 0;
 }
 
 .image {
@@ -57,7 +57,7 @@
 
 
 .profile__group {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 /*ラベル*/
 .profile__group-label {
@@ -71,7 +71,7 @@
 /*input部分*/
 .profile__group input {
     width: 100%;
-    height: 30px;
+    height: 35px;
     border-radius: 3px;
     border-width: 1px;
     font-size: 18px;
@@ -90,7 +90,7 @@
     font-size: 18px;
     font-weight: bold;
     width: 100%;
-    height: 32px;
+    height: 35px;
     border: none;
     border-radius: 3px;
     background: #FF5555;

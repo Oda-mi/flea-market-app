@@ -13,7 +13,7 @@
     <div class="item__info">
         <h1 class="item__name">{{ $item->name }}</h1>
         <p class="item__brand">{{ $item->brand }}</p>
-        <p class="item__price">&yen;{{ $item->price }}（税込）</p>
+        <p class="item__price">&yen;<span>{{ number_format($item->price) }}</span>（税込）</p>
         <div class="item__actions">
             <button class="btn-favorite">☆</button>
             <button class="btn-comment">💭</button>
