@@ -61,7 +61,7 @@
 }
 
 .purchase__payment h3 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     margin-left: 30px;
 }
@@ -112,9 +112,9 @@
 }
 
 .purchase__address-header h3{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    margin-left: 30px;
+    margin-left: 40px;
 }
 
 .btn-change-address {

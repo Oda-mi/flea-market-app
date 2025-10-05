@@ -1,7 +1,7 @@
 /*ページ全体*/
 .profile-page {
     margin: 0 auto;
-    max-width: 1230px;
+    max-width: 1540px;
     box-sizing: border-box;
 }
 
@@ -64,12 +64,10 @@
 /*ナビ部分*/
 .nav {
     display: flex;
-    width: 100vw;  /* 画面幅max */
-    height: 30px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    width: 100%;
+    max-width: 1540px;
+    margin: 50px auto 50px auto; /* 上下50px, 左右中央寄せ */
     border-bottom: 3px solid #ccc;
-    margin-left: calc(-50vw + 50%); /* 中央寄せ親からはみ出す調整 */
 }
 
 .nav__tabs {
@@ -101,9 +99,10 @@
 .product__list {
     display: grid;
     grid-template-columns: repeat(4,1fr); /*4列*/
-    gap: 50px;
+    row-gap: 30px;
+    column-gap: 70px;
     margin-bottom: 50px;
-    padding: 0 50px;
+    padding: 0 100px;
     box-sizing: border-box;
 }
 
@@ -111,10 +110,11 @@
     width: 100%;
     aspect-ratio: 1/1; /*縦横比1対1 height:100pxと同じ役割*/
     object-fit: cover; /*画像を枠いっぱいに切り抜く*/
+    border-radius: 3px;
 }
 
 .product__name {
-    margin-top: 10px;
+    margin-top: 0;
     font-size: 16px;
     width: 100%;
     text-align: left;

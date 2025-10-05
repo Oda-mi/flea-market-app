@@ -10,8 +10,8 @@
 
 .nav__tabs {
     display: flex;
-    gap: 50px;
-    margin-left: 200px;
+    gap: 60px;
+    margin-left: 250px;
     margin-bottom: 20px;
 }
 
@@ -39,9 +39,10 @@
 .product__list {
     display: grid;
     grid-template-columns: repeat(4,1fr); /*4列*/
-    gap: 30px;
+    row-gap: 30px;
+    column-gap: 70px;
     margin-bottom: 50px;
-    padding: 0 150px;
+    padding: 0 100px;
     box-sizing: border-box; /* padding込みで幅調整 */
 }
 
@@ -49,11 +50,11 @@
     width: 100%;
     aspect-ratio: 1/1;  /*縦横比1対1 height:100pxと同じ役割*/
     object-fit: cover;  /* 画像が切れずに中央寄せで収まる */
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
 .product__name {
-    margin-top: 5px;
+    margin-top: 0;
     font-size: 16px;
     width: 100%;
     text-align: left;
