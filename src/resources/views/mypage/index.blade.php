@@ -23,37 +23,19 @@
 
     <div class="nav">
         <div class="nav__tabs">
-        <a href="" class="nav__tab nav__tab--active">出品した商品</a>
-        <a href="" class="nav__tab">購入した商品</a>
+        <a href="{{ route('mypage.index',['page' => 'sell']) }}" class="nav__tab {{ $tab === 'sell' ? 'nav__tab--active' : '' }}">出品した商品</a>
+        <a href="{{ route('mypage.index', ['page' => 'buy']) }}" class="nav__tab {{ $tab === 'buy' ? 'nav__tab--active' : '' }}">購入した商品</a>
         </div>
     </div>
 
-    <div class="product">  {{--商品--}}
+    <div class="product">
         <div class="product__list">
+            @foreach ($itemsToShow as $item)
             <div class="product__item">
-                <img src="{{ asset('images/clock.jpg') }}" alt="商品１">
-                <p class="product__name">腕時計</p>
+                <img src="{{ asset('images/' . $item->img_url) }}" alt="{{ $item->name }}">
+                <p class="product__name">{{ $item->name }}</p>
             </div>
-            <div class="product__item">
-                <img src="{{ asset('images/onion.jpg') }}" alt="商品２">
-                <p class="product__name">たまねぎ</p>
-            </div>
-            <div class="product__item">
-                <img src="{{ asset('images/mic.jpg') }}" alt="商品３">
-                <p class="product__name">マイク</p>
-            </div>
-            <div class="product__item">
-                <img src="{{ asset('images/HDD.jpg') }}" alt="商品４">
-                <p class="product__name">HDD</p>
-            </div>
-            <div class="product__item">
-                <img src="{{ asset('images/bag.jpg') }}" alt="商品５">
-                <p class="product__name">バッグ</p>
-            </div>
-            <div class="product__item">
-                <img src="{{ asset('images/shoes.jpg') }}" alt="商品６">
-                <p class="product__name">靴</p>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>

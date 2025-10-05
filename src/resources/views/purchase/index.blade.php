@@ -35,6 +35,7 @@
 
         <input type="hidden" name="postal_code" value="{{ $user->postal_code }}">
         <input type="hidden" name="address" value="{{ $user->address }}">
+        <input type="hidden" name="building" value="{{ $user->building }}">
         <div class="purchase__address">
             <div class="purchase__address-header">
                 <h3>配送先</h3>

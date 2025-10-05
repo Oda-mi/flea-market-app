@@ -21,6 +21,9 @@
                 <img src="{{ asset('images/' . $item->img_url) }}" alt="{{ $item->name }}">
                 <p class="product__name">{{ $item->name }}</p>
             </a>
+            @if ($item->is_sold)
+            <p class="product__sold">sold</p>
+            @endif
         </div>
         @empty
         <p>商品が見つかりませんでした</p>

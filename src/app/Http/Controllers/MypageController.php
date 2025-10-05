@@ -7,12 +7,25 @@ use App\Http\Requests\ProfileRequest;
 
 class MypageController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
+        $tab = $request->query('page', 'sell');
 
-        return view('mypage.index',compact('user'));
+        $purchasedItems = collect();
+        $sellItems = collect();
+
+        if ($tab === 'buy') {
+            $purchasedItems = $user->purchases()->with('item')->get()->pluck('item');
+        }
+        else {
+            $sellItems = $user->items()->get();
+        }
+        $itemsToShow = $tab === 'sell' ? $sellItems : $purchasedItems;
+
+        return view('mypage.index',compact('user','tab','purchasedItems','sellItems','itemsToShow'));
     }
+
 
     public function profile()
     {
@@ -20,6 +33,7 @@ class MypageController extends Controller
 
         return view('mypage.profile',compact('user'));
     }
+
 
     public function update(ProfileRequest $request)
     {
