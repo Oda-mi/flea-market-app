@@ -16,7 +16,14 @@ class Item extends Model
         'description',
         'img_url',
         'condition_id',
+        'is_sold',
+        'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function condition()
     {
@@ -26,6 +33,11 @@ class Item extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class);
     }
 
     public function scopeKeywordSearch($query, $keyword)

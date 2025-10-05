@@ -27,6 +27,17 @@ class User extends Authenticatable
         'building',
     ];
 
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
