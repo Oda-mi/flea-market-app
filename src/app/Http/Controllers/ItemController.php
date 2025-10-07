@@ -13,9 +13,16 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
-        $items = Item::keywordSearch($keyword)->get();
+        $tab = $request->query('page','recs');
 
-        return view('items.index', compact('items','keyword'));
+        if ($tab === 'myList'){
+            $user = auth()->user();
+            //favoritesテーブル作成したら実装する
+            //$items = $user->favorites()->with('item')->get()->pluck('item');
+        } else {
+            $items = Item::keywordSearch($keyword)->get();
+        }
+        return view('items.index', compact('items','keyword','tab'));
     }
 
     //商品詳細

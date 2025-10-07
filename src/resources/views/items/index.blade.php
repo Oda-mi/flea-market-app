@@ -8,8 +8,8 @@
 
 <div class="nav">
     <div class="nav__tabs">
-    <a href="" class="nav__tab nav__tab--active">おすすめ</a>
-    <a href="" class="nav__tab">マイリスト</a>
+    <a href="{{ route('items.index' , ['page'=>'recs']) }}" class="nav__tab {{ $tab === 'recs' ? 'nav__tab--active':'' }}">おすすめ</a>
+    <a href="{{ route('items.index' , ['page'=>'myList']) }}" class="nav__tab {{ $tab === 'myList' ? 'nav__tab--active':'' }}">マイリスト</a>
     </div>
 </div>
 
