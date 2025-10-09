@@ -10,7 +10,7 @@
     <div class="profile">
         <div class="profile__header">
             <div class="profile__image">
-                <img src="{{ $user->profile_image ? asset('storage/'.$user->profile_image) : asset('images/default.png') }}" alt="プロフィール画面" class="image">
+                <img src="{{ $user->profile_image ? asset('storage/'.$user->profile_image) : asset('/images/default.png') }}" alt="プロフィール画面" class="image">
             </div>
             <div class="profile__info">
                 <p class="profile__name">{{ $user->name }}</p>
@@ -32,7 +32,7 @@
         <div class="product__list">
             @foreach ($itemsToShow as $item)
             <div class="product__item">
-                <img src="{{ asset('images/' . $item->img_url) }}" alt="{{ $item->name }}">
+                <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
                 <p class="product__name">{{ $item->name }}</p>
             </div>
             @endforeach

@@ -18,7 +18,7 @@
         @forelse ($items as $item)
         <div class="product__item">
             <a href="{{ route('items.show' , $item->id) }}" class="show-link">
-                <img src="{{ asset('images/' . $item->img_url) }}" alt="{{ $item->name }}">
+                <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
                 <p class="product__name">{{ $item->name }}</p>
             </a>
             @if ($item->is_sold)
