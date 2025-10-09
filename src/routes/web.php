@@ -39,6 +39,8 @@ Route::put('/purchase/address/{item_id}',[PurchaseController::class,'updateAddre
 //出品
 Route::get('/sell', [ItemController::class, 'sell'])->name('items.sell');
 
+Route::post('sell',[ItemController::class, 'store'])->name('items.store');
+
 });
 
 

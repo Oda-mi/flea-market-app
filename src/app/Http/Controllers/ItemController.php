@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Condition;
 use App\Models\Item;
 use App\Models\Category;
+use App\Http\Requests\ExhibitionRequest;
 
 
 class ItemController extends Controller
@@ -33,7 +34,7 @@ class ItemController extends Controller
         return view('items.show', compact('item'));
     }
 
-    //出品
+    //出品画面表示
     public function sell()
     {
         $conditions = Condition::all();
@@ -41,5 +42,38 @@ class ItemController extends Controller
 
         return view('items.sell',compact('conditions','categories'));
     }
+
+    //出品処理
+    public function store(ExhibitionRequest $request)
+    {
+        $user = auth()->user();
+        $validated = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $imageName = time().'_'.$request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/images',$imageName);
+            $validated['img_url'] = $imageName;
+        }
+
+        $validated['user_id'] = auth()->id();
+        $validated['is_sold'] = 0;
+
+        $item = Item::create([
+            'name' => $validated['name'],
+            'brand' => $validated['brand'] ?? null,
+            'description' => $validated['description'],
+            'price' => $validated['price'],
+            'condition_id' => $validated['condition_id'],
+            'img_url' => $validated['img_url'],
+            'user_id' => $validated['user_id'],
+            'is_sold' => $validated['is_sold'],
+        ]);
+
+        if (isset($validated['categories'])) {
+            $item->categories()->attach($validated['categories']);
+        }
+        return redirect()->route('items.index');
+    }
+
 
 }

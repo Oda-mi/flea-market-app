@@ -12,7 +12,7 @@
     </div>
 
     {{--enctype="multipart/form-data"画像送信に必須--}}
-    <form action="" method="post" enctype="multipart/form-data" class="sell__form">
+    <form action="{{ route('items.store') }}" method="post" enctype="multipart/form-data" class="sell__form">
         @csrf
 
         <div class="section">
@@ -21,6 +21,11 @@
                 <img src="" id="productPreview" class="image">
                 <input type="file" name="image" id="product_image" class="product-image">
                 <label for="product_image" class="image-btn">画像を選択する</label>
+            </div>
+            <div class="sell__error">
+                @error('image')
+                {{ $message }}
+                @enderror
             </div>
         </div>
 
@@ -37,16 +42,28 @@
                     </label>
                     @endforeach
                 </div>
+                <div class="sell__error">
+                @error('categories')
+                {{ $message }}
+                @enderror
+            </div>
             </div>
 
             <div class="section-condition">
                 <label for="condition" class="field-title">商品の状態</label>
-                <select name="condition" id="condition" class="condition">
-                    <option value="" disabled selected>選択してください</option>
+                <select name="condition_id" id="condition" class="condition">
+                    <option value="" disabled {{ old('condition_id') ? '' : 'selected' }}>選択してください</option>
                     @foreach($conditions as $condition)
-                    <option value="{{ $condition->id }}">{{ $condition->name }}</option>
+                    <option value="{{ $condition->id }}" {{ old('condition_id') == $condition->id ? 'selected' : '' }}>
+                        {{ $condition->name }}
+                    </option>
                     @endforeach
                 </select>
+                <div class="sell__error">
+                @error('condition_id')
+                {{ $message }}
+                @enderror
+            </div>
             </div>
         </div>
 
@@ -54,21 +71,36 @@
             <label class="section-title">商品名と説明</label>
             <div class="form-group">
                 <label for="name" class="field-title">商品名</label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" value="{{ old('name') }}">
+            </div>
+            <div class="sell__error">
+                @error('name')
+                {{ $message }}
+                @enderror
             </div>
             <div class="form-group">
                 <label for="brand" class="field-title">ブランド名</label>
-                <input type="text" name="brand" id="brand">
+                <input type="text" name="brand" id="brand" value="{{ old('brand') }}">
             </div>
             <div class="form-group">
                 <label for="description" class="field-title">商品の説明</label>
-                <textarea name="description" id="description"></textarea>
+                <textarea name="description" id="description">{{ old('description') }}</textarea>
+            </div>
+            <div class="sell__error">
+                @error('description')
+                {{ $message }}
+                @enderror
             </div>
             <div class="form-group">
                 <label for="price" class="field-title">販売価格</label>
                 <div class="price-input">  {{--￥マークを表示させるためのラッパー--}}
-                    <input type="number" name="price" id="price" class="no-spin">
+                    <input type="number" name="price" id="price" class="no-spin" value="{{ old('price') }}">
                 </div>
+            </div>
+            <div class="sell__error">
+                @error('price')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="section-button">
