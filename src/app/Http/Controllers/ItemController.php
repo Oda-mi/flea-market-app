@@ -21,7 +21,16 @@ class ItemController extends Controller
             //favoritesテーブル作成したら実装する
             //$items = $user->favorites()->with('item')->get()->pluck('item');
         } else {
-            $items = Item::keywordSearch($keyword)->get();
+            if(auth()->check()) {
+                $items = Item::where(function($query){
+                    $query->where('user_id','!=',auth()->id())
+                          ->orWhereNull('user_id');
+                })
+                ->keywordSearch($keyword)
+                ->get();
+            } else {
+                $items = item::keywordSearch($keyword)->get();
+            }
         }
         return view('items.index', compact('items','keyword','tab'));
     }
