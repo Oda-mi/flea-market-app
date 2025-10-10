@@ -11,21 +11,28 @@
         <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
     </div>
     <div class="item__info">
-        <h1 class="item__name">{{ $item->name }}</h1>
+        <div class="item__title-sold">
+            <h1 class="item__name">{{ $item->name }}</h1>
+            @if ($item->purchase)
+            <p class="item__sold">sold</p>
+            @endif
+        </div>
         <p class="item__brand">{{ $item->brand }}</p>
         <p class="item__price">&yen;<span>{{ number_format($item->price) }}</span>（税込）</p>
         <div class="item__actions">
             <button class="btn-favorite">☆</button>
             <button class="btn-comment">💭</button>
         </div>
-        <a href="{{ route('purchase.index', $item->id) }}" class="btn-purchase">購入手続きへ</a>
+        <a href="{{ $item->purchase ? 'javascript:void(0);' : route('purchase.index', $item->id) }}" class="btn-purchase">購入手続きへ</a>
+
+
 
         <div class="item__details">
             <h3>商品の説明</h3>
-            <p>{{ $item->description }}</p>
+            <p>{!! nl2br(e($item->description)) !!}</p>
             <h3>商品の情報</h3>
             <div class="detail-category">
-                <div>カテゴリー</div>
+                <div class="category-label">カテゴリー</div>
                 <div class="category-list">
                     @foreach ($item->categories as $category)
                         <span>{{ $category->name }}</span>
@@ -34,7 +41,7 @@
             </div>
 
             <div class="detail-condition">
-                <div>商品の状態</div>
+                <div class="condition-label">商品の状態</div>
                 <div class="condition-list">{{ $item->condition->name }}</div>
             </div>
         </div>
