@@ -30,12 +30,18 @@
 
     <div class="product">
         <div class="product__list">
-            @foreach ($itemsToShow as $item)
+            @forelse ($itemsToShow as $item)
             <div class="product__item">
                 <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
                 <p class="product__name">{{ $item->name }}</p>
             </div>
-            @endforeach
+            @empty
+                @if ($tab === 'sell')
+                <p>出品した商品はありません</p>
+                @else ($tab === 'buy')
+                <p>購入した商品はありません</p>
+                @endif
+            @endforelse
         </div>
     </div>
 </div>
