@@ -40,6 +40,11 @@ class Item extends Model
         return $this->hasOne(Purchase::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function scopeKeywordSearch($query, $keyword)
     {
         if (!empty($keyword)) {
