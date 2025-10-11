@@ -14,7 +14,7 @@
         <div class="item__title-sold">
             <h1 class="item__name">{{ $item->name }}</h1>
             @if ($item->purchase)
-            <p class="item__sold">sold</p>
+            <p class="item__sold">Sold</p>
             @endif
         </div>
         <p class="item__brand">{{ $item->brand }}</p>
@@ -28,36 +28,56 @@
 
 
         <div class="item__details">
-            <h3>商品の説明</h3>
-            <p>{!! nl2br(e($item->description)) !!}</p>
-            <h3>商品の情報</h3>
-            <div class="detail-category">
-                <div class="category-label">カテゴリー</div>
-                <div class="category-list">
-                    @foreach ($item->categories as $category)
-                        <span>{{ $category->name }}</span>
-                    @endforeach
-                </div>
+            <div class="detail-description">
+                <h3>商品の説明</h3>
+                <p>{!! nl2br(e($item->description)) !!}</p>
             </div>
-
-            <div class="detail-condition">
-                <div class="condition-label">商品の状態</div>
-                <div class="condition-list">{{ $item->condition->name }}</div>
+            <div class="detail-info">
+                <h3>商品の情報</h3>
+                <div class="detail-category">
+                    <div class="category-label">カテゴリー</div>
+                    <div class="category-list">
+                        @foreach ($item->categories as $category)
+                        <span>{{ $category->name }}</span>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="detail-condition">
+                    <div class="condition-label">商品の状態</div>
+                    <div class="condition-list">{{ $item->condition->name }}</div>
+                </div>
             </div>
         </div>
 
         <div class="item__comments">
-            <h3>コメント</h3>
+            <h3>コメント（{{ $item->comments->count() }}）</h3>
+            @foreach ($item->comments as $comment)
             <div class="comment">
-                <img src="" alt="プロフィール画像" class="comment-profile">
-                <strong>ユーザー名</strong>
+                <div class="comment__user">
+                    <img src="{{ $comment->user->profile_img ? asset('storage/' . $comment->user->profile_image) : asset('images/default.png') }}" alt="プロフィール画像" class="comment-profile">
+                    <strong>{{ $comment->user->name }}</strong>
+                </div>
+                <p class="comment-text">{!! nl2br(e($comment->comment)) !!}</p>
             </div>
-            <p class="comment-text">コメント内容がここに入る</p>
+            @endforeach
 
             <div class="comment-input">
+                @auth
                 <h3>商品へのコメント</h3>
-                <textarea name="" id="" placeholder="コメントを入力"></textarea>
-                <button class="btn-submit-comment" type="submit">コメントを送信する</button>
+                <form action="{{ route('comment.store', $item->id) }}" method="post">
+                    @csrf
+                    <textarea name="comment" id="" placeholder="コメントを入力"></textarea>
+                    <div class="comment__error">
+                    @error('comment')
+                    {{ $message }}
+                    @enderror
+                    <button class="btn-submit-comment" type="submit"
+                    @if ($item->purchase)
+                    disabled
+                    @endif>
+                    コメントを送信する</button>
+                </form>
+                @endauth
             </div>
         </div>
     </div>

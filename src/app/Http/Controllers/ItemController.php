@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Condition;
 use App\Models\Item;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Http\Requests\ExhibitionRequest;
+use App\Http\Requests\CommentRequest;
+
 
 
 class ItemController extends Controller
@@ -38,9 +41,28 @@ class ItemController extends Controller
     //商品詳細
     public function show($item_id)
     {
-        $item = Item::with(['condition' , 'categories'])->findOrFail($item_id);
+        $item = Item::with([
+            'condition',
+            'categories',
+            'comments.user'
+            ])->findOrFail($item_id);
 
         return view('items.show', compact('item'));
+    }
+
+    //コメント投稿処理
+    public function storeComment(CommentRequest $request, $item_id)
+    {
+        $user = auth()->user();
+        $validated = $request->validated();
+
+        Comment::create([
+            'comment' => $validated['comment'],
+            'user_id' => $user->id,
+            'item_id' => $item_id,
+        ]);
+
+        return redirect()->route('items.show', $item_id);
     }
 
     //出品画面表示

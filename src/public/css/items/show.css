@@ -105,16 +105,22 @@
     box-sizing: border-box;
 }
 
-.item__details h3 {
+.detail-description,
+.detail-info {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.detail-description h3,
+.detail-info h3 {
     margin-top: 20px;
     font-size: 20px;
     font-weight: bold;
 }
 
-.item__details p {
+.detail-description p {
     word-wrap: break-word;
 }
-
 
 .detail-category,
 .detail-condition {
@@ -164,6 +170,10 @@
 }
 
 .comment {
+    margin-bottom: 10px;
+}
+
+.comment__user {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -185,6 +195,11 @@
 }
 
 /* コメント入力欄 */
+.comment-input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .comment-input h3 {
     margin-top: 30px;
     font-size: 20px;
@@ -217,4 +232,13 @@
     color: #fff;
     border-style: none;
     box-sizing: border-box;
+}
+
+/*エラーメッセージ*/
+.comment__error {
+    margin-top: 5px;
+    height: 20px;
+    color: #ff0000;
+    font-size: 15px;
+    text-align: left;
 }
