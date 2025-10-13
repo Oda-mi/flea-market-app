@@ -20,9 +20,12 @@ class ItemController extends Controller
         $tab = $request->query('page','recs');
 
         if ($tab === 'myList'){
-            $user = auth()->user();
-            //favoritesテーブル作成したら実装する
-            $items = $user->favorites()->with('item')->get()->pluck('item');
+            if (!auth()->check()) {
+                $items = collect();
+            } else {
+                $user = auth()->user();
+                $items = $user->favorites()->get();
+            }
         } else {
             if(auth()->check()) {
                 $items = Item::where(function($query){
