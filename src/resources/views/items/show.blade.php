@@ -19,59 +19,77 @@
         </div>
         <p class="item__brand">{{ $item->brand }}</p>
         <p class="item__price">&yen;<span>{{ number_format($item->price) }}</span>（税込）</p>
-        <div class="item__actions">
-            <button class="btn-favorite">☆</button>
-            <button class="btn-comment">💭</button>
+
+        <div class="item-actions">
+            <div class="item-actions__favorite">
+                <form action="{{ route('items.toggleFavorite', $item->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="item-actions__favorite-btn">
+                        @if (auth()->check() && auth()->user()->favorites->contains($item->id))
+                        <img src="{{ asset('images/star-icon-active.png') }}" alt="お気に入り" class="item-actions__favorite-icon">
+                        @else
+                        <img src="{{ asset('images/star-icon.png') }}" alt="お気に入り" class="item-actions__favorite-icon">
+                        @endif
+                    </button>
+                </form>
+                <span class="item-actions__favorite-count">{{ $item->favorites->count() }}</span>
+            </div>
+            <div class="item-actions__comment">
+                <img src="{{ asset('images/comment-icon.png') }}" alt="コメント" class="item-actions__favorite-comment">
+                <span class="item-actions__comment-count">{{ $item->comments->count() }}</span>
+            </div>
         </div>
-        <a href="{{ $item->purchase ? 'javascript:void(0);' : route('purchase.index', $item->id) }}" class="btn-purchase">購入手続きへ</a>
+
+        <div class="item-purchase">
+            <a href="{{ $item->purchase ? 'javascript:void(0);' : route('purchase.index', $item->id) }}" class="item-purchase__btn">購入手続きへ</a>
+        </div>
 
 
-
-        <div class="item__details">
-            <div class="detail-description">
+        <div class="item-details">
+            <div class="item-details__description">
                 <h3>商品の説明</h3>
                 <p>{!! nl2br(e($item->description)) !!}</p>
             </div>
-            <div class="detail-info">
+            <div class="item-detail__info">
                 <h3>商品の情報</h3>
-                <div class="detail-category">
-                    <div class="category-label">カテゴリー</div>
-                    <div class="category-list">
+                <div class="item-details__category">
+                    <div class="item-details__category-label">カテゴリー</div>
+                    <div class="item-details__category-list">
                         @foreach ($item->categories as $category)
                         <span>{{ $category->name }}</span>
                         @endforeach
                     </div>
                 </div>
-                <div class="detail-condition">
-                    <div class="condition-label">商品の状態</div>
-                    <div class="condition-list">{{ $item->condition->name }}</div>
+                <div class="item-details__condition">
+                    <div class="item-details__condition-label">商品の状態</div>
+                    <div class="item-details__condition-list">{{ $item->condition->name }}</div>
                 </div>
             </div>
         </div>
 
-        <div class="item__comments">
+        <div class="item-comments">
             <h3>コメント（{{ $item->comments->count() }}）</h3>
             @foreach ($item->comments as $comment)
-            <div class="comment">
-                <div class="comment__user">
-                    <img src="{{ $comment->user->profile_img ? asset('storage/' . $comment->user->profile_image) : asset('images/default.png') }}" alt="プロフィール画像" class="comment-profile">
+            <div class="item-comments__comment">
+                <div class="item-comments__user">
+                    <img src="{{ $comment->user->profile_img ? asset('storage/' . $comment->user->profile_image) : asset('images/default.png') }}" alt="プロフィール画像" class="item-comments__user-img">
                     <strong>{{ $comment->user->name }}</strong>
                 </div>
-                <p class="comment-text">{!! nl2br(e($comment->comment)) !!}</p>
+                <p class="item-comments__text">{!! nl2br(e($comment->comment)) !!}</p>
             </div>
             @endforeach
 
-            <div class="comment-input">
+            <div class="item-comments__form">
                 @auth
                 <h3>商品へのコメント</h3>
                 <form action="{{ route('comment.store', $item->id) }}" method="post">
                     @csrf
                     <textarea name="comment" id="" placeholder="コメントを入力"></textarea>
-                    <div class="comment__error">
+                    <div class="item-comments__error">
                     @error('comment')
                     {{ $message }}
                     @enderror
-                    <button class="btn-submit-comment" type="submit"
+                    <button class="item-comments__submit-btn" type="submit"
                     @if ($item->purchase)
                     disabled
                     @endif>

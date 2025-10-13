@@ -22,7 +22,7 @@ class ItemController extends Controller
         if ($tab === 'myList'){
             $user = auth()->user();
             //favoritesテーブル作成したら実装する
-            //$items = $user->favorites()->with('item')->get()->pluck('item');
+            $items = $user->favorites()->with('item')->get()->pluck('item');
         } else {
             if(auth()->check()) {
                 $items = Item::where(function($query){
@@ -106,5 +106,17 @@ class ItemController extends Controller
         return redirect()->route('items.index');
     }
 
+    //いいね機能
+    public function toggleFavorite(Item $item)
+    {
+        $user = auth()->user();
+
+        if ($user->favorites()->where('item_id',$item->id)->exists()) {
+            $user->favorites()->detach($item->id);
+        } else {
+            $user->favorites()->attach($item->id);
+        }
+        return back();
+    }
 
 }

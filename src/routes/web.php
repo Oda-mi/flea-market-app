@@ -41,8 +41,11 @@ Route::get('/sell', [ItemController::class, 'sell'])->name('items.sell');
 
 Route::post('sell',[ItemController::class, 'store'])->name('items.store');
 
-//コメント送信
+//商品詳細画面コメント送信
 Route::post('item/{item_id}/comment',[ItemController::class,'storeComment'])->name('comment.store');
+
+//商品詳細画面いいね機能
+Route::post('/items/{item}/favorite', [ItemController::class, 'toggleFavorite'])->name('items.toggleFavorite');
 
 });
 
