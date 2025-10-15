@@ -7,6 +7,7 @@ use App\Http\Requests\ProfileRequest;
 
 class MypageController extends Controller
 {
+
     public function index(Request $request)
     {
         $user = auth()->user();
@@ -44,7 +45,13 @@ class MypageController extends Controller
 
         $user->profile_image = $imagePath;
         }
-        $user->update($request->only(['name','postal_code','address','building']));
+        $validated = $request->validated();
+        $user->update([
+            'name' => $validated['name'],
+            'postal_code' => $validated['postal_code'],
+            'address' => $validated['address'],
+            'building' => $validated['building'],
+        ]);
 
         return redirect()->route('mypage.index');
     }

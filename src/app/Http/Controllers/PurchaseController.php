@@ -11,6 +11,7 @@ use App\Models\Purchase;
 
 class PurchaseController extends Controller
 {
+
     public function index($item_id)
     {
         $item = Item::findOrFail($item_id);
@@ -28,13 +29,15 @@ class PurchaseController extends Controller
         if ($item->is_sold) {
             return redirect()->route('items.index');
         }
+
+        $validated = $request->validated();
         Purchase::create([
             'user_id' => $user->id,
             'item_id' => $item->id,
-            'payment_method' => $request->payment_method,
-            'postal_code' => $request->postal_code,
-            'address' => $request->address,
-            'building' => $request->building,
+            'payment_method' => $validated['payment_method'],
+            'postal_code' => $validated['postal_code'],
+            'address' => $validated['address'],
+            'building' => $validated['building'],
         ]);
         //sold表示させる
         $item->update(['is_sold' => true]);
@@ -56,7 +59,12 @@ class PurchaseController extends Controller
     {
         $user = auth()->user();
 
-        $user->update($request->only(['postal_code','address','building']));
+        $validated = $request->validated();
+        $user->update([
+            'postal_code' => $validated['postal_code'],
+            'address' => $validated['address'],
+            'building' => $validated['building'],
+        ]);
 
         return redirect()->route('purchase.index', compact('item_id'));
     }

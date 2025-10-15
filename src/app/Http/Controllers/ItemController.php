@@ -14,6 +14,7 @@ use App\Http\Requests\CommentRequest;
 
 class ItemController extends Controller
 {
+    //トップページ商品一覧画面
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
