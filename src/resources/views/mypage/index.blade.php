@@ -6,20 +6,19 @@
 
 @section('content')
 
-<div class="profile-page">
-    <div class="profile">
-        <div class="profile__header">
-            <div class="profile__image">
-                <img src="{{ $user->profile_image ? asset('storage/'.$user->profile_image) : asset('/images/default.png') }}" alt="プロフィール画面" class="image">
-            </div>
-            <div class="profile__info">
-                <p class="profile__name">{{ $user->name }}</p>
-            </div>
-            <div class="profile__edit">
-                <a href="/mypage/profile" class="profile__edit-btn">プロフィールを編集</a>
-            </div>
+<div class="profile">
+    <div class="profile__header">
+        <div class="profile__image">
+            <img src="{{ $user->profile_image ? asset('storage/'.$user->profile_image) : asset('/images/default.png') }}" alt="プロフィール画面" class="image">
+        </div>
+        <div class="profile__info">
+            <p class="profile__name">{{ $user->name }}</p>
+        </div>
+        <div class="profile__edit">
+            <a href="/mypage/profile" class="profile__edit-btn">プロフィールを編集</a>
         </div>
     </div>
+
 
     <div class="nav">
         <div class="nav__tabs">
@@ -37,9 +36,9 @@
             </div>
             @empty
                 @if ($tab === 'sell')
-                <p>出品した商品はありません</p>
+                <p class="product__empty-message">出品した商品はありません</p>
                 @else ($tab === 'buy')
-                <p>購入した商品はありません</p>
+                <p class="product__empty-message">購入した商品はありません</p>
                 @endif
             @endforelse
         </div>

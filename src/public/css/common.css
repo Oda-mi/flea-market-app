@@ -1,10 +1,8 @@
-/*全体のデフォルト余白をリセット*/
 body {
     margin: 0;
     padding: 0;
 }
 
-/*ヘッダー部分*/
 .header {
     background: #000;
     width: 100%;
@@ -20,14 +18,8 @@ body {
     box-sizing: border-box;
 }
 
-/*ロゴ部分*/
 .header__logo {
-    flex-shrink: 0; /*縮み率*/
-}
-
-.header__item {
-    flex-grow: 0;        /* 残りスペース全部使う */
-    min-width: 100px; /*ここ調整するとレイアウト崩れしない*/
+    flex-shrink: 0;
 }
 
 .header__search {
@@ -37,7 +29,7 @@ body {
     margin: 0 auto;
 }
 
-.search-input {
+.search-form__input {
     width: 100%;
     padding: 10px 20px;
     border: none;
@@ -46,20 +38,19 @@ body {
     box-sizing: border-box;
 }
 
-.search-input::placeholder {
-    color: #000;   /* グレーにする例 */
+.search-form__input::placeholder {
+    color: #000;
     font-size: 16px;
 }
 
-.header__button {
+.header__buttons {
     display: flex;
     gap: 30px;
-    flex-shrink: 1;  /* 縮み率ボタンは縮まない *//*ここ調整するとレイアウト崩れしない*/
+    flex-shrink: 1; /*ここ調整するとレイアウト崩れしない*/
 }
 
-
-.button-login {
-    font-size: 20px;
+.button {
+    font-size:20px;
     border: none;
     background: #000;
     color: #fff;
@@ -67,22 +58,7 @@ body {
     text-decoration: none;
 }
 
-.button-logout {
-    font-size: 20px;
-    border: none;
-    background: #000;
-    color: #fff;
-    cursor: pointer;
-}
-
-.button-mypage,
-.button-sell {
-    font-size: 20px;
-    text-decoration: none;
-    color: #fff;
-}
-
-.button-sell {
+.button--sell {
     padding: 5px 10px;
     background: #fff;
     color: #000;

@@ -1,4 +1,3 @@
-/*ページ全体*/
 .purchase {
     display: flex;
     gap: 50px;
@@ -8,15 +7,15 @@
     box-sizing: border-box;
 }
 
-/* 左カラム */
+
 .purchase__left {
-    flex: 2;  /*flex(左右)を2:1 の割合で分け合う*/
+    flex: 2;
 }
 
-/*商品情報*/
+
 .purchase__item {
     display: flex;
-    align-items: flex-start;  /*上揃え*/
+    align-items: flex-start;
     gap: 20px;
     border-bottom: 1px solid #000;
     padding: 15px;
@@ -31,8 +30,8 @@
 
 .purchase__item-info {
     display: flex;
-    flex-direction: column;  /*テキストを縦に積む*/
-    justify-content: flex-start;  /*上揃え*/
+    flex-direction: column;
+    justify-content: flex-start;
     margin-left: 30px;
     margin-top: 0;
 }
@@ -54,7 +53,7 @@
     margin-left: 10px;
 }
 
-/*支払い方法*/
+
 .purchase__payment {
     border-bottom: 1px solid #000;
     padding: 20px;
@@ -73,11 +72,7 @@
     padding-left: 10px;
     width: 300px;
     height: 30px;
-    appearance: none;    /* ブラウザデフォルトの矢印を消す */
-
-    /* プルダウン▼マーク */
-    /* url("data:image/svg+xml;utf8,<svg fill='色' height='高さ' viewBox='0 0 24 24' width='幅' xmlns='http://www.w3.org/2000/svg'><path d='パスデータ'/></svg>")
- */
+    appearance: none;
     background: url("data:image/svg+xml;utf8,<svg fill='black' height='30' viewBox='0 0 24 24' width='30' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")
         no-repeat right 5px center/30px auto;
     background-color: #fff;
@@ -88,18 +83,7 @@
     color: #fff;
 }
 
-/*エラーメッセージ*/
-.purchase__error {
-    margin-top: 5px;
-    height: 20px;
-    color: #ff0000;
-    font-size: 15px;
-    text-align: left;
-    margin-left: 100px;
-}
 
-
-/*配送先*/
 .purchase__address {
     border-bottom: 1px solid #000;
     padding: 10px;
@@ -111,7 +95,7 @@
     align-items: center;
 }
 
-.purchase__address-header h3{
+.purchase__address-header h3 {
     font-size: 18px;
     font-weight: bold;
     margin-left: 40px;
@@ -140,42 +124,73 @@
 }
 
 
+.purchase__payment-error,
+.purchase__address-error {
+    margin-top: 5px;
+    height: 20px;
+    color: #ff0000;
+    font-size: 15px;
+    text-align: left;
+    margin-left: 100px;
+}
 
 
-/*右側カラム*/
+
 .purchase__right {
     flex: 1;
     padding-left: 20px;
+}
+
+
+.purchase__summary-wrapper {
+    border: 1px solid #000;
 }
 
 .purchase__summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #000;
+    border-bottom: 1px solid #000;
     padding: 20px;
+    height: 60px;
     font-size: 17px;
-    margin-bottom: -1px;
 }
 
-.purchase__summary p {
-    margin-left: 10px;
+.purchase__summary:last-child {
+    border-bottom: none;
 }
-.purchase__summary-price ,
-.purchase__summary-method {
+
+.purchase__summary-label,
+.purchase__summary-value {
+    text-align: center;
+    flex: 1;
+}
+
+.purchase__summary-label {
+    font-size: 18px;
+    margin-right: 30px;
+}
+
+.purchase__summary-value {
+    font-size: 28px;
+}
+
+.purchase__summary-symbol {
     font-size: 20px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
-.purchase__summary-price span{
-    font-size: 30px;
-    margin-left: 10px;
+.purchase__summary-value--method {
+    font-size: 20px;
 }
 
 
-.purchase__button {
+.purchase__button-wrapper {
     margin-top: 50px;
     text-align: center;
+}
+
+.purchase__button {
     width: 100%;
     height: 50px;
     padding: 5px;

@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="address__content">
+<div class="address">
     <div class="address__heading">
         <h2>住所の変更</h2>
     </div>

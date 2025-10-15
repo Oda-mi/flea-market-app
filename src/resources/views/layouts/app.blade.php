@@ -17,23 +17,23 @@
         <div class="header__search">
             <form action="{{ route('items.index') }}" method="GET" class="search-form">
                 @csrf
-                <input type="text" name="keyword" value="{{ request('keyword') }}"class="search-input" placeholder="なにをお探しですか？">
+                <input type="text" name="keyword" value="{{ request('keyword') }}"class="search-form__input" placeholder="なにをお探しですか？">
             </form>
         </div>
-        <div class="header__button">
+        <div class="header__buttons">
             @guest
-            <a href="{{ route('login') }}" class="button-login">ログイン</a>
-            <a href="{{ route('mypage.index') }}" class="button-mypage">マイページ</a>
-            <a href="{{ route('items.sell') }}" class="button-sell">出品</a>
+            <a href="{{ route('login') }}" class="button button--login">ログイン</a>
+            <a href="{{ route('mypage.index') }}" class="button button--mypage">マイページ</a>
+            <a href="{{ route('items.sell') }}" class="button button--sell">出品</a>
             @endguest
 
             @auth
             <form action="{{ route('logout') }}" method="post">
                 @csrf
-                <button type="submit" class="button-logout">ログアウト</button>
+                <button type="submit" class="button button--logout">ログアウト</button>
             </form>
-            <a href="{{ route('mypage.index') }}" class="button-mypage">マイページ</a>
-            <a href="{{ route('items.sell') }}" class="button-sell">出品</a>
+            <a href="{{ route('mypage.index') }}" class="button button--mypage">マイページ</a>
+            <a href="{{ route('items.sell') }}" class="button button--sell">出品</a>
             @endauth
         </div>
     </div>

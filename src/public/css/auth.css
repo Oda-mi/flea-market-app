@@ -1,16 +1,19 @@
-/*全体のデフォルト余白をリセット*/
 body {
     margin: 0;
     padding: 0;
 }
 
-/*ヘッダー*/
 .header {
     background: #000;
+    width: 100%;
 }
 
 .header__inner {
-    padding: 20px 15px;
-    max-width: 1230px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 1540px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    box-sizing: border-box;
 }
-
