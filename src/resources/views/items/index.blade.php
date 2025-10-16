@@ -24,7 +24,7 @@
                 @foreach ($items as $item)
                 <div class="product__item">
                     <a href="{{ route('items.show' , $item->id) }}" class="product__link">
-                        <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
+                        <img src="{{ asset('storage/images/' . basename($item->img_url)) }}" alt="{{ $item->name }}">
                         <p class="product__name">{{ $item->name }}</p>
                     </a>
                     @if ($item->is_sold)
@@ -37,7 +37,7 @@
             @forelse ($items as $item)
             <div class="product__item">
                 <a href="{{ route('items.show' , $item->id) }}" class="product__link">
-                    <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
+                    <img src="{{ asset('storage/images/' . basename($item->img_url)) }}" alt="{{ $item->name }}">
                     <p class="product__name">{{ $item->name }}</p>
                 </a>
                 @if ($item->is_sold)

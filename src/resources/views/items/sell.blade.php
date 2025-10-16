@@ -35,7 +35,8 @@
                 <div class="sell__category-options">
                     @foreach ($categories as $category)
                     <label class="sell__category-checkbox">
-                        <input type="checkbox" name="categories[]" value="{{ $category->id }}">
+                        <input type="checkbox" name="categories[]" value="{{ $category->id }}"
+                        {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
                         <span>{{ $category->name }}</span>
                     </label>
                     @endforeach

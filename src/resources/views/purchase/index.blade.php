@@ -12,7 +12,7 @@
         {{--左側カラム--}}
         <div class="purchase__left">
             <div class="purchase__item">
-                <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
+                <img src="{{ asset('storage/images/' . basename($item->img_url)) }}" alt="{{ $item->name }}">
                 <div class="purchase__item-info">
                     <p class="purchase__item-name">{{ $item->name }}</p>
                     <p class="purchase__item-price">&yen;<span>{{ number_format($item->price) }}</span></p>

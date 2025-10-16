@@ -8,7 +8,7 @@
 
 <div class="item">
     <div class="item__image">
-        <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
+        <img src="{{ asset('storage/images/' . basename($item->img_url)) }}" alt="{{ $item->name }}">
     </div>
     <div class="item__info">
         <div class="item__title-sold">
@@ -72,7 +72,7 @@
             @foreach ($item->comments as $comment)
             <div class="item-comments__comment">
                 <div class="item-comments__user">
-                    <img src="{{ $comment->user->profile_img ? asset('storage/' . $comment->user->profile_image) : asset('images/default.png') }}" alt="プロフィール画像" class="item-comments__user-img">
+                    <img src="{{ $comment->user->profile_image ? asset('storage/' . $comment->user->profile_image) : asset('images/default.png') }}" alt="プロフィール画像" class="item-comments__user-img">
                     <strong>{{ $comment->user->name }}</strong>
                 </div>
                 <p class="item-comments__text">{!! nl2br(e($comment->comment)) !!}</p>
