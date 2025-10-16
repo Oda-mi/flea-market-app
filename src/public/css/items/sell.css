@@ -194,16 +194,17 @@
     position: absolute;
     left: 10px;
     top: 50%;
-    transform: translateY(-70%);
+    transform: translateY(-75%);
     font-size: 20px;
     color: #000;
     font-weight: bold;
 }
 
-.sell__price-input input {
+.sell__field--info .sell__subfield .sell__price-input input {
     width: 100%;
-    padding-left: 25px;
-    font-size: 16px;
+    padding-left: 30px;
+    font-size: 18px;
+    box-sizing: border-box;
 }
 
 .no-spin::-webkit-outer-spin-button,
