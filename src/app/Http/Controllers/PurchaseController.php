@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
 
@@ -23,24 +24,28 @@ class PurchaseController extends Controller
 
     public function store(PurchaseRequest $request, $item_id)
     {
-        $item = Item::findOrFail($item_id);
         $user = auth()->user();
-        //在庫確認
-        if ($item->is_sold) {
-            return redirect()->route('items.index');
-        }
-
         $validated = $request->validated();
-        Purchase::create([
+
+        DB::transaction(function () use ($user, $item_id, $validated) {
+
+            $updated = Item::where('id', $item_id)
+                            ->where('is_sold', false)
+                            ->update(['is_sold' => true]);
+
+            if (!$updated) {
+                throw new \Exception();
+            }
+
+            Purchase::create([
             'user_id' => $user->id,
-            'item_id' => $item->id,
+            'item_id' => $item_id,
             'payment_method' => $validated['payment_method'],
             'postal_code' => $validated['postal_code'],
             'address' => $validated['address'],
-            'building' => $validated['building'],
+            'building' => $validated['building'] ?? null,
         ]);
-        //sold表示させる
-        $item->update(['is_sold' => true]);
+        });
 
         return redirect()->route('items.index');
     }
@@ -63,7 +68,7 @@ class PurchaseController extends Controller
         $user->update([
             'postal_code' => $validated['postal_code'],
             'address' => $validated['address'],
-            'building' => $validated['building'],
+            'building' => $validated['building'] ?? null,
         ]);
 
         return redirect()->route('purchase.index', compact('item_id'));
