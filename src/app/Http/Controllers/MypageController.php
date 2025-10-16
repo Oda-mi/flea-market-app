@@ -50,7 +50,7 @@ class MypageController extends Controller
             'name' => $validated['name'],
             'postal_code' => $validated['postal_code'],
             'address' => $validated['address'],
-            'building' => $validated['building'],
+            'building' => $validated['building'] ?? null,
         ]);
 
         return redirect()->route('mypage.index');
