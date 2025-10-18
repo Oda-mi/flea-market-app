@@ -16,7 +16,7 @@
 <div class="product">
     <div class="product__list">
         @if ($tab === 'myList' && !auth()->check())
-        <p class="product__message">マイリストを表示するにはログインしてください</p>
+
         @elseif ($tab === 'myList' && auth()->check())
             @if ($items->isEmpty())
             <p class="product__message">お気に入りに追加した商品はありません</p>
