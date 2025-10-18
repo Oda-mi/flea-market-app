@@ -12,7 +12,7 @@
 <header class="header">
     <div class="header__inner">
         <a href="/" class="header__logo">
-            <img src="{{ asset('storage/images/logo.svg') }}" alt="CoachTechLogo">
+            <img src="{{ asset('images/logo.svg') }}" alt="CoachTechLogo">
         </a>
         <div class="header__search">
             <form action="{{ route('items.index') }}" method="GET" class="search-form">

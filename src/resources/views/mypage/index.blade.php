@@ -31,7 +31,7 @@
         <div class="product__list">
             @forelse ($itemsToShow as $item)
             <div class="product__item">
-                <img src="{{ asset('storage/images/' . basename($item->img_url)) }}" alt="{{ $item->name }}">
+                <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
                 <p class="product__name">{{ $item->name }}</p>
             </div>
             @empty
