@@ -25,7 +25,7 @@
                 <form action="{{ route('items.toggleFavorite', $item->id) }}" method="POST">
                     @csrf
                     <button type="submit" class="item-actions__favorite-btn">
-                        @if (auth()->check() && auth()->user()->favorites->contains($item->id))
+                        @if (auth()->check() && auth()->user()->favoriteItems->contains($item->id))
                         <img src="{{ asset('images/star-icon-active.png') }}" alt="お気に入り" class="item-actions__favorite-icon">
                         @else
                         <img src="{{ asset('images/star-icon.png') }}" alt="お気に入り" class="item-actions__favorite-icon">

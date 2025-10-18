@@ -116,10 +116,10 @@ class ItemController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->favorites()->where('item_id',$item->id)->exists()) {
-            $user->favorites()->detach($item->id);
+        if ($user->favoriteItems()->where('item_id',$item->id)->exists()) {
+            $user->favoriteItems()->detach($item->id);
         } else {
-            $user->favorites()->attach($item->id);
+            $user->favoriteItems()->attach($item->id);
         }
         return back();
     }
