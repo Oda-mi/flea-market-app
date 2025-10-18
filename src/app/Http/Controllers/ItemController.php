@@ -86,7 +86,7 @@ class ItemController extends Controller
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
-            $validated['img_url'] = $imagePath;
+            $validated['img_url'] = basename($imagePath);
         }
 
         $validated['user_id'] = auth()->id();
