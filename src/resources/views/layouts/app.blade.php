@@ -18,6 +18,7 @@
             <form action="{{ route('items.index') }}" method="GET" class="search-form">
                 @csrf
                 <input type="text" name="keyword" value="{{ request('keyword') }}"class="search-form__input" placeholder="なにをお探しですか？">
+                <input type="hidden" name="page" value="{{ $tab ?? request('page', 'recs') }}">
             </form>
         </div>
         <div class="header__buttons">

@@ -25,7 +25,9 @@ class ItemController extends Controller
                 $items = collect();
             } else {
                 $user = auth()->user();
-                $items = $user->favorites()->get();
+                $items = $user->favoriteItems()
+                              ->keywordSearch($keyword)
+                              ->get();
             }
         } else {
             if(auth()->check()) {
