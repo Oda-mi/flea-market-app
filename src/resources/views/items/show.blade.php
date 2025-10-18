@@ -80,7 +80,6 @@
             @endforeach
 
             <div class="item-comments__form">
-                @auth
                 <h3>商品へのコメント</h3>
                 <form action="{{ route('comment.store', $item->id) }}" method="post">
                     @csrf
@@ -90,12 +89,11 @@
                     {{ $message }}
                     @enderror
                     <button class="item-comments__submit-btn" type="submit"
-                    @if ($item->purchase)
+                    @if (!auth()->check() || $item->purchase)
                     disabled
                     @endif>
                     コメントを送信する</button>
                 </form>
-                @endauth
             </div>
         </div>
     </div>
