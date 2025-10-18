@@ -1,10 +1,5 @@
 /vendor/
 /node_modules/
-/storage/*
-!/storage/app/public/images/
-!/storage/app/public/images/*
-/storage/framework/
-/storage/logs/
-/storage/app/public/
-/env
+/storage/
+/.env
 docker/mysql/data/
