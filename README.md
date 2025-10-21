@@ -64,7 +64,7 @@ php artisan db:seed
 
 ### MailHog のセットアップ
 1. MailHog をダウンロード・インストール
-   - [公式サイト](https://github.com/mailhog/MailHog) から入手
+   - [GitHubのリリースページ](https://github.com/mailhog/MailHog/releases/v1.0.0) から使用しているOSに適したバージョンをダウンロードしてください
 2. Docker を使う場合は `docker-compose.yml` に定義済み
 3. `.env` ファイルでメール設定
 ```env
