@@ -48,9 +48,33 @@ php artisan db:seed
 
 
 ## URL (開発環境)
-- トップページ商品一覧: http://localhost/
-- ユーザー登録: http://localhost/register
-- ログイン: http://localhost/login
+- トップページ商品一覧: http://localhost:8000/
+- ユーザー登録: http://localhost:8000/register
+- ログイン: http://localhost:8000/login
 - phpMyAdmin: http://localhost:8080
 
+## 開発用 Laravel サーバー自動起動について
+- Docker コンテナ起動時に php コンテナで自動的に Laravel 開発サーバー（php artisan serve）が立ち上がります
+- 手動で `php artisan serve` を実行する必要はありません
+- ブラウザで以下の URL にアクセスしてください
+  - http://localhost:8000
 
+## メール認証機能について
+開発環境で MailHog を使用してメール認証を確認します
+
+### MailHog のセットアップ
+1. MailHog をダウンロード・インストール
+   - [公式サイト](https://github.com/mailhog/MailHog) から入手
+2. Docker を使う場合は `docker-compose.yml` に定義済み
+3. `.env` ファイルでメール設定
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=test@email.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+4. MailHog を起動後、http://localhost:8025 で送信メールを確認可能
