@@ -6,7 +6,7 @@
 
 @section('content')
 
-<form action="{{ route('purchase.store' , $item->id) }}" method="post">
+<form action="{{ route('stripe.checkout' , $item->id) }}" method="post">
     @csrf
     <div class="purchase">
         {{--左側カラム--}}
