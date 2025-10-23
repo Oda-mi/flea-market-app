@@ -89,10 +89,10 @@ STRIPE_WEBHOOK_SECRET=whsec_************************
 
 4. Stripe CLI のインストール
 Stripe CLI は、テスト環境で Webhook の受信を確認するために使用します
-以下の公式ドキュメントから環境に合わせてインストールしてください
-[Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)
-インストール後、ログインと Webhook 転送を設定します
-以下のコマンドを実行してください
+ - 以下の公式ドキュメントから環境に合わせてインストールしてください
+ - [Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)
+ - インストール後、ログインと Webhook 転送を設定します
+ - 以下のコマンドを実行してください
 ```bash
 # Stripe にログイン
 stripe login
