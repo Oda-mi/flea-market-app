@@ -37,27 +37,12 @@ php artisan migrate
 php artisan db:seed
 ```
 
-## 使用技術(実行環境)
-- Laravel 8.83.8
-- PHP 8.4.10
-- MySQL 8.0
-- Docker
-
-## ER図
-![ER図](FurimaApp_ER.png)
-
-
-## URL (開発環境)
-- トップページ商品一覧: http://localhost:8000/
-- ユーザー登録: http://localhost:8000/register
-- ログイン: http://localhost:8000/login
-- phpMyAdmin: http://localhost:8080
-
 ## 開発用 Laravel サーバー自動起動について
 - Docker コンテナ起動時に php コンテナで自動的に Laravel 開発サーバー（php artisan serve）が立ち上がります
 - 手動で `php artisan serve` を実行する必要はありません
 - ブラウザで以下の URL にアクセスしてください
   - http://localhost:8000
+
 
 ## メール認証機能について
 開発環境で MailHog を使用してメール認証を確認します
@@ -78,3 +63,66 @@ MAIL_FROM_ADDRESS=test@email.com
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 4. MailHog を起動後、http://localhost:8025 で送信メールを確認可能
+
+
+## Stripe決済機能について
+開発環境で Stripe のテストモードを使用して決済処理を確認します
+
+### Stripe テスト用セットアップ
+
+1. **Stripe PHP ライブラリのインストール**
+以下のコマンドを実行して Stripe PHP をインストールしてください。
+```bash
+composer require stripe/stripe-php:^13.0
+```
+
+2. Stripe アカウントの準備
+[Stripe公式サイト](https://dashboard.stripe.com/test/apikeys)にログインし、テスト用の API キーを取得します
+
+3. .env ファイルに Stripe の環境変数を追加
+.env ファイルに以下を追記してください
+```text
+STRIPE_SECRET=sk_test_************************
+STRIPE_KEY=pk_test_************************
+STRIPE_WEBHOOK_SECRET=whsec_************************
+```
+
+4. Stripe CLI のインストール
+Stripe CLI は、テスト環境で Webhook の受信を確認するために使用します
+以下の公式ドキュメントから環境に合わせてインストールしてください
+[Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)
+インストール後、ログインと Webhook 転送を設定します
+以下のコマンドを実行してください
+```bash
+# Stripe にログイン
+stripe login
+
+# Webhook をローカルに転送（ターミナルを開いたままにしておく）
+stripe listen --forward-to http://localhost:8000/api/stripe/webhook
+```
+実行後に表示される whsec_******** を .env の STRIPE_WEBHOOK_SECRET に設定してください
+
+### テスト用カード情報
+- カード番号: 4242 4242 4242 4242
+- 有効期限: 任意（例 12/34）
+- CVC: 任意（例 123）
+
+
+## 使用技術(実行環境)
+- Laravel 8.83.8
+- PHP 8.4.10
+- MySQL 8.0
+
+
+## ER図
+![ER図](FurimaApp_ER.png)
+
+
+## URL (開発環境)
+- トップページ商品一覧: http://localhost:8000/
+- ユーザー登録: http://localhost:8000/register
+- ログイン: http://localhost:8000/login
+- phpMyAdmin: http://localhost:8080
+
+
+
