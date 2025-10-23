@@ -22,35 +22,6 @@ class PurchaseController extends Controller
     }
 
 
-    public function store(PurchaseRequest $request, $item_id)
-    {
-        $user = auth()->user();
-        $validated = $request->validated();
-
-        DB::transaction(function () use ($user, $item_id, $validated) {
-
-            $updated = Item::where('id', $item_id)
-                            ->where('is_sold', false)
-                            ->update(['is_sold' => true]);
-
-            if (!$updated) {
-                throw new \Exception();
-            }
-
-            Purchase::create([
-            'user_id' => $user->id,
-            'item_id' => $item_id,
-            'payment_method' => $validated['payment_method'],
-            'postal_code' => $validated['postal_code'],
-            'address' => $validated['address'],
-            'building' => $validated['building'] ?? null,
-        ]);
-        });
-
-        return redirect()->route('items.index');
-    }
-
-
     public function address($item_id)
     {
         $item = Item::findOrFail($item_id);
