@@ -37,6 +37,15 @@ php artisan migrate
 php artisan db:seed
 ```
 
+## ダミーユーザー情報（シーディング用）
+
+- 名前: テスト太郎
+- メール: test@email.com
+- パスワード: 12345678
+
+※シーダー実行で作成されます
+
+
 ## 開発用 Laravel サーバー自動起動について
 - Docker コンテナ起動時に php コンテナで自動的に Laravel 開発サーバー（php artisan serve）が立ち上がります
 - 手動で `php artisan serve` を実行する必要はありません
