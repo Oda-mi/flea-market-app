@@ -17,8 +17,17 @@ class ItemController extends Controller
     //トップページ商品一覧画面
     public function index(Request $request)
     {
-        $keyword = $request->input('keyword');
-        $tab = $request->query('page','recs');
+        $tab = $request->query('page', 'recs');
+
+        if ($request->has('keyword')) {
+            $keyword = $request->input('keyword');
+            session(['search_keyword' => $keyword]);
+        } else if ($tab === 'recs') {
+            $keyword = null;
+            session()->forget('search_keyword');
+        } else {
+            $keyword = session('search_keyword');
+        }
 
         if ($tab === 'myList'){
             if (!auth()->check()) {
@@ -26,19 +35,19 @@ class ItemController extends Controller
             } else {
                 $user = auth()->user();
                 $items = $user->favoriteItems()
-                              ->keywordSearch($keyword)
-                              ->get();
+                                ->keywordSearch($keyword)
+                                ->get();
             }
         } else {
             if(auth()->check()) {
                 $items = Item::where(function($query){
                     $query->where('user_id','!=',auth()->id())
-                          ->orWhereNull('user_id');
+                            ->orWhereNull('user_id');
                 })
                 ->keywordSearch($keyword)
                 ->get();
             } else {
-                $items = item::keywordSearch($keyword)->get();
+                $items = Item::keywordSearch($keyword)->get();
             }
         }
         return view('items.index', compact('items','keyword','tab'));
