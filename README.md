@@ -89,7 +89,7 @@ composer require stripe/stripe-php:^13.0
 [Stripe公式サイト](https://dashboard.stripe.com/test/apikeys)にログインし、テスト用の API キーを取得します
 
 3. .env ファイルに Stripe の環境変数を追加
-.env ファイルに以下を追記してください
+- .env ファイルに以下を追記してください
 ```text
 STRIPE_SECRET=sk_test_************************
 STRIPE_KEY=pk_test_************************
@@ -101,7 +101,7 @@ Stripe CLI は、テスト環境で Webhook の受信を確認するために使
    -  [Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)から環境に合わせてインストールしてください
    - インストール後、ログインと Webhook 転送を設定します
    - 以下のコマンドを実行してください
-Stripe にログイン
+- Stripe にログイン
 ```bash
 stripe login
 ```
