@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="profile-edit">  {{--プロフィール編集--}}
+<div class="profile-edit">
     <div class="profile-edit__heading">
         <h2>プロフィール設定</h2>
     </div>
@@ -78,19 +78,19 @@
 {{--プロフィール画像選択した瞬間に画面上のプレビュー画像を変える処理--}}
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-    const input = document.getElementById('profile_image');
-    const preview = document.getElementById('profilePreview');
+        const input = document.getElementById('profile_image');
+        const preview = document.getElementById('profilePreview');
 
-    input.addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if(file) {
-            const reader = new FileReader();
-            reader.onload = function(loadEvent) {
-                preview.src = loadEvent.target.result;
+        input.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(loadEvent) {
+                    preview.src = loadEvent.target.result;
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
-        }
-    });
+        });
     });
 </script>
 

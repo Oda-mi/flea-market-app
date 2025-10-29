@@ -114,20 +114,20 @@
     {{--商品画像選択した瞬間に画面上のプレビュー画像を変える処理--}}
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-    const input = document.getElementById('product_image');
-    const preview = document.getElementById('productPreview');
+        const input = document.getElementById('product_image');
+        const preview = document.getElementById('productPreview');
 
-    input.addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if(file) {
-            const reader = new FileReader();
-            reader.onload = function(loadEvent) {
-                preview.src = loadEvent.target.result;
-                preview.style.display = 'block';
+        input.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(loadEvent) {
+                    preview.src = loadEvent.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
-        }
-    });
+        });
     });
     </script>
     </div>

@@ -9,66 +9,53 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
-// トップページ
+
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
-// 商品詳細
+
 Route::get('/item/{item_id}',[ItemController::class, 'show'])->name('items.show');
 
 
-
-//ログイン必須 ミドルウェア設定
 Route::middleware('auth')->group(function () {
 
-    //メール認証誘導画面
     Route::get('/email/verify', function () {
         return view ('auth.verify-email');
     })->name('verification.notice');
 
-    //メール認証メール送信
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();
         return back();
     })->middleware(['auth','throttle:6,1'])->name('verification.send');
 
-    //メール認証リンククリック後の処理
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
         return redirect()->route('mypage.profile');
     })->middleware(['auth', 'signed'])->name('verification.verify');
 
 
-    //マイページ
     Route::get('/mypage',[MypageController::class,'index'])->name('mypage.index');
     Route::get('/mypage/profile',[MypageController::class,'profile'])->name('mypage.profile');
     Route::put('/mypage/profile',[MypageController::class,'update'])->name('mypage.update');
 
-    //商品購入画面
+
     Route::get('/purchase/{item_id}',[PurchaseController::class, 'index'])->name('purchase.index');
 
-    //Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
 
-    //住所変更画面
     Route::get('/purchase/address/{item_id}',[PurchaseController::class,'address'])->name('purchase.address');
     Route::put('/purchase/address/{item_id}',[PurchaseController::class,'updateAddress'])->name('purchase.updateAddress');
 
-    //出品
+
     Route::get('/sell', [ItemController::class, 'sell'])->name('items.sell');
     Route::post('sell',[ItemController::class, 'store'])->name('items.store');
 
-    //商品詳細画面コメント送信
+
     Route::post('item/{item_id}/comment',[ItemController::class,'storeComment'])->name('comment.store');
 
-    //商品詳細画面いいね機能
+
     Route::post('/items/{item}/favorite', [ItemController::class, 'toggleFavorite'])->name('items.toggleFavorite');
 
 
-    // 購入画面からCheckout開始
     Route::post('/stripe/checkout/{item_id}', [StripeController::class, 'checkout'])->name('stripe.checkout');
-
-    // 決済成功後
     Route::get('/stripe/success', [StripeController::class, 'success'])->name('stripe.success');
-
-    // 決済キャンセル後
     Route::get('/stripe/cancel/{item_id}', [StripeController::class, 'cancel'])->name('stripe.cancel');
 
 });
