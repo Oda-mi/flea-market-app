@@ -101,11 +101,12 @@ Stripe CLI は、テスト環境で Webhook の受信を確認するために使
    -  [Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)から環境に合わせてインストールしてください
    - インストール後、ログインと Webhook 転送を設定します
    - 以下のコマンドを実行してください
+Stripe にログイン
 ```bash
-# Stripe にログイン
 stripe login
-
-# Webhook をローカルに転送（ターミナルを開いたままにしておく）
+```
+Webhook をローカルに転送（ターミナルを開いたままにしておく）
+```bash
 stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 ```
 実行後に表示される whsec_******** を .env の STRIPE_WEBHOOK_SECRET に設定してください
