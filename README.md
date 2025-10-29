@@ -116,6 +116,64 @@ stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 - CVC: 任意（例 123）
 
 
+## テスト機能について
+
+本アプリでは Laravel の標準テスト機能（PHPUnit）を使用しています
+テスト実行時には、Factory および Seeder により必要なダミーデータが自動的に生成されます
+
+### 1. テスト環境設定
+
+1. `.env.testing` ファイルを作成してください
+```bash
+cp .env .env.testing
+```
+
+2. `.env.testing` のDB設定を変更
+```text
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=demo_test
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+
+3. .env.testing のアプリケーションキーを生成
+```bash
+php artisan key:generate --env=testing
+```
+4. キャッシュクリア
+```bash
+php artisan config:clear
+```
+
+
+### テスト実行手順
+1. PHPコンテナに入る
+```bash
+docker-compose exec php bash
+```
+2. マイグレーションとシーディングを実行
+```bash
+php artisan migrate --env=testing
+```
+3. キャッシュクリア
+```bash
+php artisan optimize:clear
+```
+4. テストを実行
+```bash
+php artisan test tests/Feature/FleaMarketAppTest.php
+```
+
+### テスト用ダミーデータについて
+- ユーザー情報、商品情報、カテゴリー情報などはFactory と Seeder によって自動生成されます
+- テスト実行のたびにデータベースが初期化され、再生成されます
+
+---
+
+
+
 ## 使用技術(実行環境)
 - Laravel 8.83.8
 - PHP 8.4.10
