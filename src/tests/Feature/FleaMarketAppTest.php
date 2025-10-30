@@ -28,7 +28,6 @@ class FleaMarketAppTest extends TestCase
     // ========================================
     // １.会員登録機能テスト
     // ========================================
-
     /** @test */
     public function 名前が入力されていない場合、バリデーションメッセージが表示される()
     {
@@ -210,12 +209,13 @@ class FleaMarketAppTest extends TestCase
     public function 購入済み商品は「Sold」と表示される()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $user = User::factory()->create();
 
         $item = Item::factory()->create([
             'user_id' => $user->id,
-            'condition_id' => Condition::first()->id,
+            'condition_id' => $condition->id,
             'is_sold' => true,
         ]);
 
@@ -228,25 +228,28 @@ class FleaMarketAppTest extends TestCase
     public function 自分が出品した商品は表示されない()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $user = User::factory()->create();
         $otherUser = User::factory()->create();
 
         $myItem = Item::factory()->create([
+            'name' => 'my-item',
             'user_id' => $user->id,
-            'condition_id' => Condition::first()->id,
+            'condition_id' => $condition->id,
         ]);
         $otherItem = Item::factory()->create([
+            'name' => 'other-item',
             'user_id' => $otherUser->id,
-            'condition_id' => Condition::first()->id,
+            'condition_id' => $condition->id,
         ]);
 
         $this->actingAs($user);
 
         $response = $this->get(route('items.index'));
 
-        $response->assertSee($otherItem->name);
-        $response->assertDontSee($myItem->name);
+        $response->assertSeeText('other-item');
+        $response->assertDontSeeText('my-item');
     }
 
     // ========================================
@@ -256,32 +259,44 @@ class FleaMarketAppTest extends TestCase
     public function いいねした商品だけが表示される()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $likedItem = Item::factory()->create();
-        $notLikedItem = Item::factory()->create();
+        $seller = User::factory()->create();
+
+        $likedItem = Item::factory()->create([
+            'name' => 'liked-item',
+            'user_id' => $seller->id,
+            'condition_id' => $condition->id,
+        ]);
+        $notLikedItem = Item::factory()->create([
+            'name' => 'not-liked-item',
+            'user_id' => $seller->id,
+            'condition_id' => $condition->id,
+        ]);
 
         $user->favoriteItems()->attach($likedItem->id);
 
         $response = $this->get(route('items.index', ['page' => 'myList']));
 
-        $response->assertSee($likedItem->name);
-        $response->assertDontSee($notLikedItem->name);
+        $response->assertSee('liked-item');
+        $response->assertDontSee('not-liked-item');
     }
 
     /** @test */
     public function マイリストで購入済み商品は「Sold」と表示される()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $item = Item::factory()->create([
             'user_id' => $user->id,
-            'condition_id' => Condition::first()->id,
+            'condition_id' => $condition->id,
             'is_sold' => true,
         ]);
 
@@ -353,6 +368,7 @@ class FleaMarketAppTest extends TestCase
     public function 商品詳細ページに必要な情報が表示される()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
         $this->seed(CategoryTableSeeder::class);
 
         $user = User::factory()->create();
@@ -361,10 +377,10 @@ class FleaMarketAppTest extends TestCase
         $item = Item::factory()->create([
             'name' => 'テスト商品',
             'brand' => 'テストブランド',
-            'price' => 100,
+            'price' => 1000,
             'description' => 'テスト商品の説明',
             'img_url' => 'dummy-item.png',
-            'condition_id' => Condition::first()->id,
+            'condition_id' => $condition->id,
             'user_id' => $user->id,
             'is_sold' => true,
         ]);
@@ -378,11 +394,11 @@ class FleaMarketAppTest extends TestCase
 
         $response = $this->get(route('items.show', ['item_id' => $item->id]));
 
-        $response->assertSee('テスト商品');
-        $response->assertSee('テストブランド');
-        $response->assertSee('100');
-        $response->assertSee('テスト商品の説明');
-        $response->assertSee('dummy-item.png');
+        $response->assertSee($item->name);
+        $response->assertSee($item->brand);
+        $response->assertSee(number_format($item->price));
+        $response->assertSee($item->description);
+        $response->assertSee($item->img_url);
         $response->assertSee((string)$item->categories()->first()->name);
 
         $item->categories->each(function ($category) use ($response) {
@@ -391,14 +407,15 @@ class FleaMarketAppTest extends TestCase
 
         $response->assertSee('<span class="item-actions__favorite-count">1</span>', false);
         $response->assertSee('<span class="item-actions__comment-count">1</span>', false);
-        $response->assertSee('テスト太郎');
-        $response->assertSee('テストコメント');
+        $response->assertSee($commentUser->name);
+        $response->assertSee($item->comments->first()->comment);
     }
 
     /** @test */
     public function 複数選択されたカテゴリが表示されているか()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
         $this->seed(CategoryTableSeeder::class);
 
         $user = User::factory()->create();
@@ -406,7 +423,7 @@ class FleaMarketAppTest extends TestCase
 
         $item = Item::factory()->create([
             'user_id' => $user->id,
-            'condition_id' => Condition::first()->id,
+            'condition_id' => $condition->id,
         ]);
 
         $response = $this->get(route('items.show', ['item_id' => $item->id]));
@@ -423,15 +440,14 @@ class FleaMarketAppTest extends TestCase
     public function いいねアイコンを押下することによって、いいねした商品として登録することができる()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $condition = Condition::first();
-
         $item = Item::factory()->create([
-            'condition_id' => $condition->id,
             'user_id' => $user->id,
+            'condition_id' => $condition->id,
         ]);
 
         $likedItem = Item::factory()->create();
@@ -454,15 +470,14 @@ class FleaMarketAppTest extends TestCase
     public function 追加済みのアイコンは色が変化する()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $condition = Condition::first();
-
         $item = Item::factory()->create([
-            'condition_id' => $condition->id,
             'user_id' => $user->id,
+            'condition_id' => $condition->id,
         ]);
 
         $user->favoriteItems()->attach($item->id);
@@ -476,15 +491,14 @@ class FleaMarketAppTest extends TestCase
     public function 再度いいねアイコンを押下することによって、いいねを解除することができる()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $condition = Condition::first();
-
         $item = Item::factory()->create([
-            'condition_id' => $condition->id,
             'user_id' => $user->id,
+            'condition_id' => $condition->id,
         ]);
 
         $user->favoriteItems()->attach($item->id);
@@ -504,21 +518,20 @@ class FleaMarketAppTest extends TestCase
     }
 
     // ========================================
-    // ８.コメント送信機能テスト
+    // ９.コメント送信機能テスト
     // ========================================
     /** @test */
     public function ログイン済みのユーザーはコメントを送信できる()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $condition = Condition::first();
-
         $item = Item::factory()->create([
             'user_id' => $user->id,
-            'condition_id' => Condition::first()->id,
+            'condition_id' => $condition->id,
         ]);
 
         $commentData = ['comment' => 'テストコメント'];
@@ -538,11 +551,10 @@ class FleaMarketAppTest extends TestCase
     public function ログイン前のユーザーはコメントを送信できない()
     {
         $this->seed(ConditionTableSeeder::class);
-
         $condition = Condition::first();
 
         $item = Item::factory()->create([
-            'condition_id' => Condition::first()->id,
+            'condition_id' => $condition->id,
         ]);
 
         $commentData = ['comment' => 'テストコメント'];
@@ -561,15 +573,14 @@ class FleaMarketAppTest extends TestCase
     public function コメントが入力されていない場合、バリデーションメッセージが表示される()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $condition = Condition::first();
-
         $item = Item::factory()->create([
-            'condition_id' => $condition->id,
             'user_id' => $user->id,
+            'condition_id' => $condition->id,
         ]);
 
         $commentData = ['comment' => ''];
@@ -584,15 +595,14 @@ class FleaMarketAppTest extends TestCase
     public function コメントが255字以上の場合、バリデーションメッセージが表示される()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $condition = Condition::first();
-
         $item = Item::factory()->create([
-            'condition_id' => $condition->id,
             'user_id' => $user->id,
+            'condition_id' => $condition->id,
         ]);
 
         $comment = str_repeat('テストコメント', 256);
@@ -611,12 +621,12 @@ class FleaMarketAppTest extends TestCase
     public function 「購入する」ボタンを押下すると購入が完了する()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $buyer = User::factory()->create();
         $this->actingAs($buyer);
 
         $seller = User::factory()->create();
-        $condition = Condition::first();
 
         $item = Item::factory()->create([
             'user_id' => $seller->id,
@@ -643,12 +653,12 @@ class FleaMarketAppTest extends TestCase
     public function 購入した商品は商品一覧画面にて「sold」と表示される()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $buyer = User::factory()->create();
         $this->actingAs($buyer);
 
         $seller = User::factory()->create();
-        $condition = Condition::first();
 
         $item = Item::factory()->create([
             'user_id' => $seller->id,
@@ -673,12 +683,12 @@ class FleaMarketAppTest extends TestCase
     public function 「プロフィールの購入した商品一覧」に追加されている()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $buyer = User::factory()->create();
         $this->actingAs($buyer);
 
         $seller = User::factory()->create();
-        $condition = Condition::first();
 
         $item = Item::factory()->create([
             'user_id' => $seller->id,
@@ -694,7 +704,7 @@ class FleaMarketAppTest extends TestCase
 
         $response = $this->get(route('mypage.index', ['page' => 'buy']));
 
-        $response->assertSee('テスト商品');
+        $response->assertSee($item->name);
     }
 
 
@@ -706,12 +716,12 @@ class FleaMarketAppTest extends TestCase
     public function 送付先住所変更画面にて登録した住所が商品購入画面に反映されている()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $buyer = User::factory()->create();
         $this->actingAs($buyer);
 
         $seller = User::factory()->create();
-        $condition = Condition::first();
 
         $item = Item::factory()->create([
             'user_id' => $seller->id,
@@ -729,21 +739,21 @@ class FleaMarketAppTest extends TestCase
         $response = $this->get(route('purchase.index', ['item_id' => $item->id]));
         $response->assertStatus(200);
 
-        $response->assertSee($buyer->postal_code);
-        $response->assertSee($buyer->address);
-        $response->assertSee($buyer->building);
+        $response->assertSee($updatedAddress['postal_code']);
+        $response->assertSee($updatedAddress['address']);
+        $response->assertSee($updatedAddress['building']);
     }
 
     /** @test */
     public function 購入した商品に送付先住所が紐づいて登録される()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
 
         $buyer = User::factory()->create();
         $this->actingAs($buyer);
 
         $seller = User::factory()->create();
-        $condition = Condition::first();
 
         $item = Item::factory()->create([
             'user_id' => $seller->id,
@@ -810,16 +820,16 @@ class FleaMarketAppTest extends TestCase
         ]);
 
         $responseSell = $this->get(route('mypage.index', ['page' => 'sell']));
-        $responseSell->assertSee('テスト太郎');
-        $responseSell->assertSee('dummy-profile.png');
-        $responseSell->assertSee('出品商品A');
-        $responseSell->assertDontSee('購入商品B');
+        $responseSell->assertSee($user->name);
+        $responseSell->assertSee($user->profile_image);
+        $responseSell->assertSee($sellItem->name);
+        $responseSell->assertDontSee($buyItem->name);
 
         $responseBuy = $this->get(route('mypage.index', ['page' => 'buy']));
-        $responseBuy->assertSee('テスト太郎');
-        $responseBuy->assertSee('dummy-profile.png');
-        $responseBuy->assertSee('購入商品B');
-        $responseBuy->assertDontSee('出品商品A');
+        $responseBuy->assertSee($user->name);
+        $responseBuy->assertSee($user->profile_image);
+        $responseBuy->assertSee($buyItem->name);
+        $responseBuy->assertDontSee($sellItem->name);
     }
 
     // ========================================
@@ -828,8 +838,6 @@ class FleaMarketAppTest extends TestCase
     /** @test */
     public function 変更項目が初期値として過去設定されていること()
     {
-        $this->seed(ConditionTableSeeder::class);
-
         $user = User::factory()->create([
             'name' => 'テスト太郎',
             'profile_image' => 'dummy-profile.png',
@@ -842,11 +850,11 @@ class FleaMarketAppTest extends TestCase
 
         $response = $this->get(route('mypage.profile'));
 
-        $response->assertSee('テスト太郎');
-        $response->assertSee('dummy-profile.png');
-        $response->assertSee('123-4567');
-        $response->assertSee('テスト県テスト町1-2-3');
-        $response->assertSee('テストビル101');
+        $response->assertSee($user['name']);
+        $response->assertSee($user['profile_image']);
+        $response->assertSee($user['postal_code']);
+        $response->assertSee($user['address']);
+        $response->assertSee($user['building']);
     }
 
     // ========================================
@@ -856,13 +864,12 @@ class FleaMarketAppTest extends TestCase
     public function 商品出品画面で必要な情報が保存できること()
     {
         $this->seed(ConditionTableSeeder::class);
+        $condition = Condition::first();
         $this->seed(CategoryTableSeeder::class);
+        $categories = Category::take(2)->pluck('id')->toArray();
 
         $user = User::factory()->create();
         $this->actingAs($user);
-
-        $condition = Condition::first();
-        $categories = Category::take(2)->pluck('id')->toArray();
 
         $itemData = [
             'name' => 'テスト商品',
@@ -894,7 +901,7 @@ class FleaMarketAppTest extends TestCase
             $this->assertDatabaseHas('category_item', [
                 'item_id' => $item->id,
                 'category_id' => $categoryId,
-        ]);
+            ]);
         };
     }
 
