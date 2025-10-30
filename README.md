@@ -45,7 +45,6 @@ php artisan db:seed
 
 ※シーダー実行で作成されます
 
----
 
 
 ## 開発用 Laravel サーバー自動起動について
@@ -113,7 +112,6 @@ stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 ```
 実行後に表示される whsec_******** を .env の STRIPE_WEBHOOK_SECRET に設定してください
 
----
 
 ### テスト用カード情報
 - カード番号: 4242 4242 4242 4242
@@ -129,7 +127,6 @@ stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 
 テスト実行時には、Factory および Seeder により必要なダミーデータが自動的に生成されます
 
----
 
 ### 1. テスト環境設定
 
@@ -182,7 +179,6 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 - ユーザー情報、商品情報、カテゴリー情報などはFactory と Seeder によって自動生成されます
 - テスト実行のたびにデータベースが初期化され、再生成されます
 
----
 
 
 
