@@ -24,7 +24,7 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
-5. アプリケーションキーの作成
+5. アプリケーションキーを生成
 ``` bash
 php artisan key:generate
 ```
@@ -44,6 +44,8 @@ php artisan db:seed
 - パスワード: 12345678
 
 ※シーダー実行で作成されます
+
+---
 
 
 ## 開発用 Laravel サーバー自動起動について
@@ -111,6 +113,8 @@ stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 ```
 実行後に表示される whsec_******** を .env の STRIPE_WEBHOOK_SECRET に設定してください
 
+---
+
 ### テスト用カード情報
 - カード番号: 4242 4242 4242 4242
 - 有効期限: 任意（例 12/34）
@@ -119,8 +123,13 @@ stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 
 ## テスト機能について
 
-本アプリでは Laravel の標準テスト機能（PHPUnit）を使用しています
+本アプリでは Laravel の標準テスト機能（PHPUnit）を使用しています　　
+※テストケース「支払い方法選択機能」は JavaScript により実装されており、PHPUnit ではテスト実行不可のためテストコードは未作成としています　　
+
+
 テスト実行時には、Factory および Seeder により必要なダミーデータが自動的に生成されます
+
+---
 
 ### 1. テスト環境設定
 
@@ -158,7 +167,7 @@ docker-compose exec php bash
 ```bash
 php artisan migrate --env=testing
 ```
-3. キャッシュクリア
+3. キャッシュをクリア
 ```bash
 php artisan optimize:clear
 ```
@@ -166,6 +175,8 @@ php artisan optimize:clear
 ```bash
 php artisan test tests/Feature/FleaMarketAppTest.php
 ```
+
+
 
 ### テスト用ダミーデータについて
 - ユーザー情報、商品情報、カテゴリー情報などはFactory と Seeder によって自動生成されます
