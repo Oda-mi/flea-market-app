@@ -21,6 +21,11 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\URL;
 
 
+/*
+ * テストケース ID11「支払い方法選択機能」
+ * JavaScript により実装されており、PHPUnit ではテスト実行ができないため、テストコードは未作成です
+ */
+
 class FleaMarketAppTest extends TestCase
 {
     use RefreshDatabase;
@@ -85,7 +90,7 @@ class FleaMarketAppTest extends TestCase
     }
 
     /** @test */
-    public function パスワードが確認パスワードと一致しない場合、バリデーションメッセージが表示される()
+    public function パスワードが確認用パスワードと一致しない場合、バリデーションメッセージが表示される()
     {
         $response = $this->post('/register', [
             'name' => 'テスト太郎',
@@ -114,6 +119,13 @@ class FleaMarketAppTest extends TestCase
             'email' => 'test@email.com',
         ]);
     }
+
+    /*
+     * 注意：
+     * メール認証機能を実装したため、実際には
+     * 会員登録後はメール認証誘導画面に遷移します
+     * （元のテストケース要件とは挙動が異なります）
+     */
 
     // ========================================
     // ２.ログイン機能テスト
@@ -308,7 +320,7 @@ class FleaMarketAppTest extends TestCase
     }
 
     /** @test */
-    public function 未認証の場合はマイリストに何も表示されない()
+    public function 未認証の場合は何も表示されない()
     {
         $this->seed(ConditionTableSeeder::class);
 
@@ -325,7 +337,7 @@ class FleaMarketAppTest extends TestCase
     // ６.商品検索機能テスト
     // ========================================
     /** @test */
-    public function 商品名で部分一致検索ができる()
+    public function 「商品名」で部分一致検索ができる()
     {
         $this->seed(ConditionTableSeeder::class);
 
@@ -365,7 +377,7 @@ class FleaMarketAppTest extends TestCase
     // ７.商品詳細情報取得テスト
     // ========================================
     /** @test */
-    public function 商品詳細ページに必要な情報が表示される()
+    public function 商品詳細画面に必要な情報が表示される()
     {
         $this->seed(ConditionTableSeeder::class);
         $condition = Condition::first();
@@ -650,7 +662,7 @@ class FleaMarketAppTest extends TestCase
     }
 
     /** @test */
-    public function 購入した商品は商品一覧画面にて「sold」と表示される()
+    public function 購入した商品は商品一覧画面にて「Sold」と表示される()
     {
         $this->seed(ConditionTableSeeder::class);
         $condition = Condition::first();
@@ -707,6 +719,10 @@ class FleaMarketAppTest extends TestCase
         $response->assertSee($item->name);
     }
 
+
+    // ========================================
+    // 11.支払い方法選択機能はテスト未作成
+    // ========================================
 
 
     // ========================================
@@ -861,7 +877,7 @@ class FleaMarketAppTest extends TestCase
     // 15.出品商品情報登録テスト
     // ========================================
     /** @test */
-    public function 商品出品画面で必要な情報が保存できること()
+    public function 商品出品画面にて必要な情報が保存できること()
     {
         $this->seed(ConditionTableSeeder::class);
         $condition = Condition::first();
