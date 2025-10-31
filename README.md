@@ -184,12 +184,9 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 ```
 
 
-
 ### 3. テスト用ダミーデータについて
 - ユーザー情報、商品情報、カテゴリー情報などはFactory と Seeder によって自動生成されます
 - テスト実行のたびにデータベースが初期化・再生成されます
-
-
 
 
 ## 使用技術（実行環境）
