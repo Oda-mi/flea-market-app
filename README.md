@@ -133,13 +133,9 @@ stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 
 ## テスト機能について
 
-本アプリでは Laravel 標準の PHPUnit を使用してテストを実行します　　
-
-
-※テストケース「支払い方法選択機能」は JavaScript により実装されており、PHPUnit ではテスト実行ができないためテストコードは未作成としています　　
-
-
-テスト実行時には Factory および Seeder により必要なダミーデータが自動的に生成されます
+- 本アプリでは Laravel 標準の PHPUnit を使用してテストを実行します
+- テストケース「支払い方法選択機能」は JavaScript により実装されており、PHPUnit ではテスト実行ができないためテストコードは未作成としています
+- テスト実行時には Factory および Seeder により必要なダミーデータが自動的に生成されます
 
 
 ### 1. テスト環境設定
