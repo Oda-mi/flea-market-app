@@ -14,7 +14,7 @@ use App\Http\Requests\CommentRequest;
 
 class ItemController extends Controller
 {
-    //トップページ商品一覧画面
+
     public function index(Request $request)
     {
         $tab = $request->query('page', 'recs');
@@ -53,7 +53,7 @@ class ItemController extends Controller
         return view('items.index', compact('items','keyword','tab'));
     }
 
-    //商品詳細
+
     public function show($item_id)
     {
         $item = Item::with([
@@ -65,7 +65,7 @@ class ItemController extends Controller
         return view('items.show', compact('item'));
     }
 
-    //コメント投稿処理
+
     public function storeComment(CommentRequest $request, $item_id)
     {
         $user = auth()->user();
@@ -80,7 +80,7 @@ class ItemController extends Controller
         return redirect()->route('items.show', $item_id);
     }
 
-    //出品画面表示
+
     public function sell()
     {
         $conditions = Condition::all();
@@ -89,7 +89,7 @@ class ItemController extends Controller
         return view('items.sell',compact('conditions','categories'));
     }
 
-    //出品処理
+
     public function store(ExhibitionRequest $request)
     {
         $user = auth()->user();
@@ -120,7 +120,7 @@ class ItemController extends Controller
         return redirect()->route('items.index');
     }
 
-    //いいね機能
+
     public function toggleFavorite(Item $item)
     {
         $user = auth()->user();
