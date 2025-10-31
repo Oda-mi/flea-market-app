@@ -101,9 +101,8 @@ Stripe のテストモードを使用して開発環境で決済機能を確認�
 composer require stripe/stripe-php:^13.0
 ```
 
-2. Stripe アカウントを作成し、テスト用 API キーを取得　
-
-[Stripe公式サイト](https://dashboard.stripe.com/test/apikeys)にログインし、テストキーを確認します
+2. Stripe アカウントを作成し、テスト用 API キーを取得
+- [Stripe公式サイト](https://dashboard.stripe.com/test/apikeys)にログインし、テストキーを確認します
 
 3. .env に以下の環境変数を追加
 ```text
@@ -112,9 +111,9 @@ STRIPE_KEY=pk_test_************************
 STRIPE_WEBHOOK_SECRET=whsec_************************
 ```
 
-4. Stripe CLI をインストール　　
-Stripe CLI は、テスト環境で Webhook を受信・確認するために使用します
-   -  [Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)を参考に、環境に合わせてインストールしてください
+4. Stripe CLI をインストール
+- Stripe CLI は、テスト環境で Webhook を受信・確認するために使用します
+-  [Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)を参考に、環境に合わせてインストールしてください
 5. Stripe にログイン
 ```bash
 stripe login
