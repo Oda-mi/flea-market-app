@@ -7,3 +7,4 @@ docker/mysql/data/
 /stripe.deb
 /src/stripe.deb
 /MailHog_windows_amd64.exe
+/src/.env.testing
