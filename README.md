@@ -101,7 +101,7 @@ Stripe のテストモードを使用して開発環境で決済機能を確認�
 composer require stripe/stripe-php:^13.0
 ```
 
-2. Stripe アカウントを作成し、テスト用 API キーを取得
+2. Stripe アカウントを作成し、テスト用 API キーを取得　
 [Stripe公式サイト](https://dashboard.stripe.com/test/apikeys)にログインし、テストキーを確認します
 
 3. .env に以下の環境変数を追加
