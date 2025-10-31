@@ -140,12 +140,12 @@ stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 
 ### 1. テスト環境設定
 
-1. `.env.testing` ファイルを作成
+1. .env.testing ファイルを作成
 ```bash
 cp .env .env.testing
 ```
 
-2. `.env.testing` に以下の環境変数を設定
+2. .env.testing に以下の環境変数を設定
 ```text
 DB_CONNECTION=mysql
 DB_HOST=mysql
