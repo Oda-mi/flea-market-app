@@ -55,7 +55,6 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
 
-        // 登録後のリダイレクト先
         $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
         public function toResponse($request)
         {
@@ -63,7 +62,7 @@ class FortifyServiceProvider extends ServiceProvider
         }
         });
 
-        //ログイン処理
+
         Fortify::authenticateUsing(function ($request) {
             $user = User::where('email',$request->email)->first();
 
@@ -78,7 +77,7 @@ class FortifyServiceProvider extends ServiceProvider
             ]);
         });
 
-         // ログイン後のリダイレクト先
+
         $this->app->instance(LoginResponse::class, new class implements LoginResponse {
         public function toResponse($request)
         {
