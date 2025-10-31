@@ -46,7 +46,7 @@ body {
 .header__buttons {
     display: flex;
     gap: 30px;
-    flex-shrink: 1; /*ここ調整するとレイアウト崩れしない*/
+    flex-shrink: 1;
 }
 
 .button {

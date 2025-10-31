@@ -2,7 +2,7 @@
     display: flex;
     gap: 50px;
     max-width: 1540px;
-    margin: 40px 60px; /*横のmargin調節するとレイアウト崩れ直る*/
+    margin: 40px 60px;
     padding: 20px;
     box-sizing: border-box;
 }
