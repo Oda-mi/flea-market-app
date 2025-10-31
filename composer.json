@@ -3,5 +3,8 @@
         "allow-plugins": {
             "kylekatarnls/update-helper": true
         }
+    },
+    "require-dev": {
+        "laravel/dusk": "^8.3"
     }
 }
