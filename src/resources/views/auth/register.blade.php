@@ -6,7 +6,6 @@
 
 @section('content')
 
-
 <div class="auth">
     <div class="auth__content">
         <h2 class="auth__heading">会員登録</h2>
@@ -56,4 +55,5 @@
         </form>
     </div>
 </div>
+
 @endsection

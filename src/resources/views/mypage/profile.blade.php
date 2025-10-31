@@ -72,11 +72,14 @@
             <button class="profile-edit__button-submit" type="submit">更新する</button>
         </div>
     </form>
+</div>
+
+@endsection
 
 
+@push('scripts')
 
-{{--プロフィール画像選択した瞬間に画面上のプレビュー画像を変える処理--}}
-    <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         const input = document.getElementById('profile_image');
         const preview = document.getElementById('profilePreview');
@@ -94,6 +97,4 @@
     });
 </script>
 
-</div>
-
-@endsection
+@endpush

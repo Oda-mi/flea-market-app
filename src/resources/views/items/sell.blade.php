@@ -110,9 +110,14 @@
             <button class="sell__button-submit" type="submit">出品する</button>
         </div>
     </form>
+    </div>
+</div>
 
-    {{--商品画像選択した瞬間に画面上のプレビュー画像を変える処理--}}
-    <script>
+@endsection
+
+@push('scripts')
+
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         const input = document.getElementById('product_image');
         const preview = document.getElementById('productPreview');
@@ -129,8 +134,7 @@
             }
         });
     });
-    </script>
-    </div>
-</div>
-@endsection
+</script>
+
+@endpush
 
