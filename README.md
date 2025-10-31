@@ -137,6 +137,7 @@ stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 
 
 ※テストケース「支払い方法選択機能」は JavaScript により実装されており、　　
+
 PHPUnit ではテスト実行ができないためテストコードは未作成としています　　
 
 
