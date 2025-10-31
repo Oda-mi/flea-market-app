@@ -9,7 +9,7 @@
 <form action="{{ route('stripe.checkout' , $item->id) }}" method="post">
     @csrf
     <div class="purchase">
-        {{--左側カラム--}}
+
         <div class="purchase__left">
             <div class="purchase__item">
                 <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
@@ -32,7 +32,6 @@
                     @enderror
                 </div>
             </div>
-
 
             <div class="purchase__address">
                 <div class="purchase__address-inputs">
@@ -62,7 +61,7 @@
             </div>
         </div>
 
-        {{--右側カラム--}}
+
         <div class="purchase__right">
             <div class="purchase__summary-wrapper">
                 <div class="purchase__summary">
@@ -84,7 +83,11 @@
     </div>
 </form>
 
-{{--プルダウンで選択した支払い方法を反映させる--}}
+@endsection
+
+
+@push('scripts')
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const paymentSelect = document.getElementById('payment_method');
@@ -97,5 +100,5 @@
     });
 </script>
 
-@endsection
+@endpush
 

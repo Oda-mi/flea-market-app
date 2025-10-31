@@ -6,7 +6,6 @@
 
 @section('content')
 
-
 <div class="auth">
     <div class="auth__content">
         <h2 class="auth__heading">ログイン</h2>
