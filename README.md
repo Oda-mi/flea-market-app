@@ -111,8 +111,8 @@ STRIPE_KEY=pk_test_************************
 STRIPE_WEBHOOK_SECRET=whsec_************************
 ```
 
-4. Stripe CLI をインストール
-- Stripe CLI は、テスト環境で Webhook を受信・確認するために使用します
+4. Stripe CLI をインストール  
+  Stripe CLI は、テスト環境で Webhook を受信・確認するために使用します
 -  [Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)を参考に、環境に合わせてインストールしてください
 5. Stripe にログイン
 ```bash
@@ -134,6 +134,8 @@ stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 ## テスト機能について
 
 本アプリでは Laravel 標準の PHPUnit を使用してテストを実行します　　
+
+
 ※テストケース「支払い方法選択機能」は JavaScript により実装されており、PHPUnit ではテスト実行ができないためテストコードは未作成としています　　
 
 
