@@ -9,7 +9,7 @@ use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use App\Models\Item;
 use App\Models\Purchase;
-use Illuminate\Support\Facades\Log;
+
 
 class StripeController extends Controller
 {
