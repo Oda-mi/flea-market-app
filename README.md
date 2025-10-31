@@ -102,7 +102,7 @@ composer require stripe/stripe-php:^13.0
 ```
 
 2. Stripe アカウントを作成し、テスト用 API キーを取得
-- [Stripe公式サイト](https://dashboard.stripe.com/test/apikeys)にログインし、テストキーを確認します
+   - [Stripe公式サイト](https://dashboard.stripe.com/test/apikeys)にログインし、テストキーを確認します
 
 3. .env に以下の環境変数を追加
 ```text
@@ -113,7 +113,7 @@ STRIPE_WEBHOOK_SECRET=whsec_************************
 
 4. Stripe CLI をインストール  
   Stripe CLI は、テスト環境で Webhook を受信・確認するために使用します
-  -  [Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)を参考に、環境に合わせてインストールしてください
+   -  [Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)を参考に、環境に合わせてインストールしてください
 5. Stripe にログイン
 ```bash
 stripe login
@@ -136,8 +136,7 @@ stripe listen --forward-to http://localhost:8000/api/stripe/webhook
 本アプリでは Laravel 標準の PHPUnit を使用してテストを実行します　　
 
 
-※テストケース「支払い方法選択機能」は JavaScript により実装されており、  
-  PHPUnit ではテスト実行ができないためテストコードは未作成としています　　
+※テストケース「支払い方法選択機能」は JavaScript により実装されており、PHPUnit ではテスト実行ができないためテストコードは未作成としています　　
 
 
 テスト実行時には Factory および Seeder により必要なダミーデータが自動的に生成されます
