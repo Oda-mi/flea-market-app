@@ -37,9 +37,31 @@
     gap: 50px;
 }
 
+.profile__name-area {
+    display: flex;
+    flex-direction: column;
+}
+
 .profile__name {
     font-size: 25px;
     font-weight: bold;
+}
+
+.profile__rating {
+    display: flex;
+}
+
+.star {
+    font-size: 40px;
+    margin-right: 5px;
+}
+
+.star--active {
+    color: rgba(255, 240, 72, 1);
+}
+
+.star--inactive {
+    color: rgba(217, 217, 217, 1);
 }
 
 .profile__edit {
