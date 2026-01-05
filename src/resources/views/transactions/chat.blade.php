@@ -97,4 +97,38 @@
 </div>
 
 
+{{-- 取引完了・評価モーダルウィンドウ--}}
+<div class="modal modal--hidden" id="ratingModal">
+    <div class="modal__content">
+        <p class="modal__title">
+            取引が完了しました。
+        </p>
+
+        <div class="modal__divider"></div>
+
+        <p class="modal__text">
+            今回の取引相手はどうでしたか？
+        </p>
+
+        <div class="modal__rating">
+            <span class="star star--inactive">★</span>
+            <span class="star star--inactive">★</span>
+            <span class="star star--inactive">★</span>
+            <span class="star star--inactive">★</span>
+            <span class="star star--inactive">★</span>
+        </div>
+
+        <div class="modal__divider"></div>
+
+        <div class="modal__button">
+            <button class="modal__button-submit">
+                送信する
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
 @endsection
