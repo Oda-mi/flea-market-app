@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -58,6 +59,25 @@ Route::middleware('auth')->group(function () {
     Route::get('/stripe/success', [StripeController::class, 'success'])->name('stripe.success');
     Route::get('/stripe/cancel/{item_id}', [StripeController::class, 'cancel'])->name('stripe.cancel');
 
-});
 
+
+    Route::get('/transactions/{id}',
+        [TransactionController::class, 'show'])
+        ->name('transactions.show');
+
+    Route::post('/transactions/{id}/messages',
+        [TransactionController::class, 'storeMessage'])
+        ->name('transactions.storeMessages');
+
+    Route::delete('/transactions/messages/{messageId}',
+        [TransactionController::class, 'destroyMessage'])
+        ->name('transactions.destroyMessages');
+
+    Route::patch('/transactions/messages/{messageId}',
+        [TransactionController::class, 'updateMessage'])
+        ->name('transactions.updateMessages');
+
+
+
+});
 
