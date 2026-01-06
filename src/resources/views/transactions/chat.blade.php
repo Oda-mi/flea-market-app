@@ -8,29 +8,35 @@
 
 <div class="transaction">
     <div class="transaction__container">
+
         <aside class="transaction__aside">
             <h1 class="transaction__aside-title">その他の取引</h1>
             <ul class="transaction__list">
-                <li class="transaction__list-item">
-                    <a href="">商品名</a>
-                </li>
-                <li class="transaction__list-item">
-                    <a href="">商品名</a>
-                </li>
-                <li class="transaction__list-item">
-                    <a href="">商品名</a>
-                </li>
+                @foreach($otherTransactions as $otherTransaction)
+                    <li class="transaction__list-item {{ $transaction->id === $otherTransaction->id ? 'active' : '' }}">
+                        <a href="{{ route('transactions.show', ['id' => $otherTransaction->id]) }}">
+                            {{ $otherTransaction->item->name }}</a>
+                    </li>
+                @endforeach
             </ul>
         </aside>
 
         <div class="transaction__main">
             <div class="transaction__user">
                 <div class="transaction__user-image">
-                    <img src="{{ asset('images/onion.jpg') }}" alt="プロフィール画面" class="transaction__user-image-img">
+                    <img src="{{ $transaction->buyer_id === auth()->id()
+                                ? ($transaction->seller->profile_image ? asset('storage/'.$transaction->seller->profile_image) : asset('/images/default.png'))
+                                : ($transaction->buyer->profile_image ? asset('storage/'.$transaction->buyer->profile_image) : asset('/images/default.png'))
+                            }}"
+                            alt="プロフィール画面"
+                            class="transaction__user-image-img">
                 </div>
                 <div class="transaction__user-name">
                     <p class="transaction__user-name-text">
-                        ユーザー名さんとの取引画面
+                        {{ $transaction->buyer_id === auth()->id()
+                            ? $transaction->seller->name
+                            : $transaction->buyer->name }}
+                            さんとの取引画面
                     </p>
                 </div>
                 <div class="transaction__complete-button">
@@ -42,11 +48,11 @@
 
             <div class="transaction__item-info">
                 <div class="transaction__item-img">
-                    <img src="{{ asset('images/bag.jpg') }}" alt="商品名">
+                    <img src="{{ asset('storage/images/' . $transaction->item->img_url) }}" alt="{{ $transaction->item->name }}">
                 </div>
                 <div class="transaction__item-detail">
-                    <p class="transaction__item-name">商品名</p>
-                    <p class="transaction__item-price">&yen;<span>5000</span></p>
+                    <p class="transaction__item-name">{{ $transaction->item->name }}</p>
+                    <p class="transaction__item-price">&yen;<span>{{ number_format($transaction->item->price) }}</span></p>
                 </div>
             </div>
 
@@ -54,43 +60,41 @@
 
             <div class="transaction__chat-area">
 
-                <div class="transaction__chat-message transaction__chat-message--other">
-                    <div class="chat-user-info">
-                        <img src="{{ asset('images/HDD.jpg') }}" alt="プロフィール画面" class="chat-user-icon">
-                        <p class="chat-user-name">相手ユーザー</p>
+                @foreach($transaction->messages as $message)
+                    <div class="transaction__chat-message {{ $message->user_id === auth()->id() ? 'transaction__chat-message--me' : 'transaction__chat-message--other' }}">
+                        <div class="chat-user-info">
+                            <img src="{{ $message->user->profile_image ? asset('storage/'.$message->user->profile_image) : asset('/images/default.png') }}" alt="プロフィール画面" class="chat-user-icon">
+                            <p class="chat-user-name">{{ $message->user->name }}</p>
                     </div>
                     <div class="chat-bubble">
-                        <p>こんにちは</p>
+                        <p>{{ $message->message }}</p>
                     </div>
-                </div>
-
-                <div class="transaction__chat-message transaction__chat-message--me">
-                    <div class="chat-user-info">
-                        <p class="chat-user-name">自分ユーザー</p>
-                        <img src="{{ asset('images/coffee.jpg') }}" alt="プロフィール画面" class="chat-user-icon">
-                    </div>
-                    <div class="chat-bubble">
-                        <p>よろしくお願いします！</p>
-                    </div>
-                    <div class="chat-actions">
+                                        <div class="chat-actions">
                         <button class="edit-button">編集</button>
                         <button class="delete-button">削除</button>
                     </div>
                 </div>
-
+                @endforeach
             </div>
 
-            <div class="chat-input-area">
-                <textarea
-                    name=""
-                    id=""
-                    class="chat-textarea"
-                    placeholder="取引メッセージを記入してください"></textarea>
-                <button class="image-button">画像を追加</button>
-                <button class="send-button">
-                    <img src="{{ asset('images/send-icon.png') }}" alt="送信ボタン" class="send-icon-img">
-                </button>
-            </div>
+            <form action="{{ route('transactions.storeMessage', $transaction->id) }}" method="post">
+                @csrf
+                <div class="form_error">
+                    @error('message')
+                        {{ $message }}
+                    @enderror
+                </div>
+                <div class="chat-input-area">
+                    <textarea
+                        name="message"
+                        class="chat-textarea"
+                        placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
+                    <button type="button" class="image-button">画像を追加</button>
+                    <button type="submit" class="send-button">
+                        <img src="{{ asset('images/send-icon.png') }}" alt="送信ボタン" class="send-icon-img">
+                    </button>
+                </div>
+            </form>
 
         </div>
     </div>
@@ -127,8 +131,5 @@
         </div>
     </div>
 </div>
-
-
-
 
 @endsection
