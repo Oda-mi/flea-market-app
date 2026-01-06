@@ -39,11 +39,26 @@
 
     <div class="product">
         <div class="product__list">
-            @forelse ($itemsToShow as $item)
-            <div class="product__item">
-                <img src="{{ asset('storage/images/' . $item->img_url) }}" alt="{{ $item->name }}">
-                <p class="product__name">{{ $item->name }}</p>
-            </div>
+            @forelse ($tab === 'trading' ? $transactions : $itemsToShow as $itemOrTransaction)
+                @if($tab === 'trading')
+                    {{-- 取引中タブの場合 --}}
+                    <a href="{{ route('transactions.show', ['id' => $itemOrTransaction->id]) }}">
+                        <div class="product__item">
+                            <img src="{{ asset('storage/images/' . $itemOrTransaction->item->img_url) }}" alt="{{ $itemOrTransaction->item->name }}">
+                            <p class="product__name">{{ $itemOrTransaction->item->name }}</p>
+                            {{-- 新着メッセージ件数 --}}
+                            @if($itemOrTransaction->messages->count())
+                                <span class="product__badge">{{ $itemOrTransaction->messages->count() }}</span>
+                            @endif
+                        </div>
+                    </a>
+                @else
+                    {{-- 出品 or 購入タブの場合 --}}
+                    <div class="product__item">
+                        <img src="{{ asset('storage/images/' . $itemOrTransaction->img_url) }}" alt="{{ $itemOrTransaction->name }}">
+                        <p class="product__name">{{ $itemOrTransaction->name }}</p>
+                    </div>
+                @endif
             @empty
                 @if ($tab === 'sell')
                     <p class="product__empty-message">出品した商品はありません</p>
