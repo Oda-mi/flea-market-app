@@ -42,7 +42,7 @@
             @forelse ($tab === 'trading' ? $transactions : $itemsToShow as $itemOrTransaction)
                 @if($tab === 'trading')
                     {{-- 取引中タブの場合 --}}
-                    <a href="{{ route('transactions.show', ['id' => $itemOrTransaction->id]) }}">
+                    <a href="{{ route('transactions.show', ['id' => $itemOrTransaction->id]) }}" class="product__list-link">
                         <div class="product__item">
                             <img src="{{ asset('storage/images/' . $itemOrTransaction->item->img_url) }}" alt="{{ $itemOrTransaction->item->name }}">
                             <p class="product__name">{{ $itemOrTransaction->item->name }}</p>
