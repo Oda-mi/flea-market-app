@@ -48,6 +48,23 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Item::class, 'favorites');
     }
 
+    public function buyingTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'buyer_id');
+    }
+
+    public function sellingTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'seller_id');
+    }
+
+    public function transactionMessages()
+    {
+        return $this->hasMany(TransactionMessage::class);
+    }
+
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

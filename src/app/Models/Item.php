@@ -50,6 +50,11 @@ class Item extends Model
         return $this->belongsToMany(User::class, 'favorites');
     }
 
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
+
     public function scopeKeywordSearch($query, $keyword)
     {
         if (!empty($keyword)) {
@@ -57,4 +62,5 @@ class Item extends Model
         }
         return $query;
     }
+
 }
