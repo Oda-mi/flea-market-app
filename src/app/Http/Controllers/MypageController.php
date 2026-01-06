@@ -15,16 +15,30 @@ class MypageController extends Controller
 
         $purchasedItems = collect();
         $sellItems = collect();
+        $transactions = collect();
 
         if ($tab === 'buy') {
             $purchasedItems = $user->purchases()->with('item')->get()->pluck('item');
+        }
+        elseif ($tab === 'trading') {
+             // 購入者・販売者の取引を両方取得
+            $transactions = $user->buyingTransactions()
+                                ->with(['item', 'messages'])
+                                ->get()
+                                ->merge(
+                                    $user->sellingTransactions()->with(['item', 'messages'])->get()
+                                )
+                                // 新着順にソート（最新メッセージが上）
+                                ->sortByDesc(function($transaction){
+                                    return $transaction->latest_message_at ?? $transaction->created_at;
+                                });
         }
         else {
             $sellItems = $user->items()->get();
         }
         $itemsToShow = $tab === 'sell' ? $sellItems : $purchasedItems;
 
-        return view('mypage.index',compact('user','tab','purchasedItems','sellItems','itemsToShow'));
+        return view('mypage.index',compact('user','tab','purchasedItems','sellItems','itemsToShow','transactions'));
     }
 
 
