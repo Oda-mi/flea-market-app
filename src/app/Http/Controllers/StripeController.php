@@ -9,6 +9,8 @@ use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use App\Models\Item;
 use App\Models\Purchase;
+use App\Models\Transaction;
+
 
 
 class StripeController extends Controller
@@ -98,6 +100,14 @@ class StripeController extends Controller
                     'postal_code' => $session->metadata->postal_code,
                     'address' => $session->metadata->address,
                     'building' => $session->metadata->building,
+                ]);
+
+                Transaction::create([
+                    'item_id'   => $item->id,
+                    'buyer_id'  => $user_id,
+                    'seller_id' => $item->user_id,
+                    'status'    => 'in_progress',
+                    'latest_message_at' => now(),
                 ]);
             });
         }
