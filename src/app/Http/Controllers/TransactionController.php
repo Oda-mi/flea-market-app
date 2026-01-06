@@ -66,4 +66,43 @@ class TransactionController extends Controller
 
         return redirect()->route('transactions.show', $transaction->id);
     }
+
+
+    public function destroyMessage(Request $request, $messageId)
+    {
+        $message = TransactionMessage::findOrFail($messageId);
+
+        if ($message->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $message->delete();
+
+        return redirect()->back();
+    }
+
+
+    public function updateMessage(TransactionMessageRequest $request, $messageId)
+    {
+        $message = TransactionMessage::findOrFail($messageId);
+
+        if ($message->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $validated = $request->validated();
+
+        DB::transaction(function () use ($message, $validated) {
+
+            $message->update([
+                'message' => $validated['message'],
+            ]);
+
+            $message->transaction->update([
+                'latest_message_at' => now(),
+            ]);
+        });
+
+        return redirect()->back();
+    }
 }
