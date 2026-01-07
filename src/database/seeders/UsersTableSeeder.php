@@ -17,13 +17,33 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'テスト太郎',
-            'email' => 'test@email.com',
-            'password' => Hash::make('12345678'),
+            'name' => 'ユーザーA',
+            'email' => 'usera@example.com',
+            'password' => Hash::make('password123'),
             'profile_image' => null,
-            'postal_code' => '123-4567',
-            'address' => 'テスト県テスト市テスト町',
-            'building' => 'テストビル101',
+            'postal_code' => '111-1111',
+            'address' => 'A県A市A町',
+            'building' => 'Aマンション101',
+            ]);
+
+        User::create([
+            'name' => 'ユーザーB',
+            'email' => 'userb@example.com',
+            'password' => Hash::make('password123'),
+            'profile_image' => null,
+            'postal_code' => '222-2222',
+            'address' => 'B県B市B町',
+            'building' => 'Bマンション201',
+            ]);
+
+        User::create([
+            'name' => 'ユーザーC',
+            'email' => 'userc@example.com',
+            'password' => Hash::make('password123'),
+            'profile_image' => null,
+            'postal_code' => '333-3333',
+            'address' => 'C県C市C町',
+            'building' => 'Cマンション301',
             ]);
     }
 }

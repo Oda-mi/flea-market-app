@@ -22,6 +22,7 @@ class ItemTableSeeder extends Seeder
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
                 'img_url' => 'clock.jpg',
                 'condition_id' => 1,
+                'user_id' => 1,
             ],
             [
                 'name' => 'HDD',
@@ -30,6 +31,7 @@ class ItemTableSeeder extends Seeder
                 'description' => '高速で信頼性の高いハードディスク',
                 'img_url' => 'HDD.jpg',
                 'condition_id' => 2,
+                'user_id' => 1,
             ],
             [
                 'name' => '玉ねぎ３束',
@@ -38,6 +40,7 @@ class ItemTableSeeder extends Seeder
                 'description' => '新鮮な玉ねぎ３束のセット',
                 'img_url' => 'onion.jpg',
                 'condition_id' => 3,
+                'user_id' => 1,
             ],
             [
                 'name' => '革靴',
@@ -46,6 +49,7 @@ class ItemTableSeeder extends Seeder
                 'description' => 'クラッシックなデザインの革靴',
                 'img_url' => 'shoes.jpg',
                 'condition_id' => 4,
+                'user_id' => 1,
             ],
             [
                 'name' => 'ノートPC',
@@ -54,6 +58,7 @@ class ItemTableSeeder extends Seeder
                 'description' => '高性能なノートパソコン',
                 'img_url' => 'PC.jpg',
                 'condition_id' => 1,
+                'user_id' => 1,
             ],
             [
                 'name' => 'マイク',
@@ -62,6 +67,7 @@ class ItemTableSeeder extends Seeder
                 'description' => '高音質のレコーディング用マイク',
                 'img_url' => 'mic.jpg',
                 'condition_id' => 2,
+                'user_id' => 2,
             ],
             [
                 'name' => 'ショルダーバッグ',
@@ -70,6 +76,7 @@ class ItemTableSeeder extends Seeder
                 'description' => 'おしゃれなショルダーバッグ',
                 'img_url' => 'bag.jpg',
                 'condition_id' => 3,
+                'user_id' => 2,
             ],
             [
                 'name' => 'タンブラー',
@@ -78,6 +85,7 @@ class ItemTableSeeder extends Seeder
                 'description' => '使いやすいタンブラー',
                 'img_url' => 'tumbler.jpg',
                 'condition_id' => 4,
+                'user_id' => 2,
             ],
             [
                 'name' => 'コーヒーミル',
@@ -86,6 +94,7 @@ class ItemTableSeeder extends Seeder
                 'description' => '手動のコーヒーミル',
                 'img_url' => 'coffee.jpg',
                 'condition_id' => 1,
+                'user_id' => 2,
             ],
             [
                 'name' => 'メイクセット',
@@ -94,6 +103,7 @@ class ItemTableSeeder extends Seeder
                 'description' => '便利なメイクアップセット',
                 'img_url' => 'make.jpg',
                 'condition_id' => 2,
+                'user_id' => 2,
             ],
         ];
 
