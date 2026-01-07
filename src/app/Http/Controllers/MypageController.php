@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
+use App\Models\TransactionMessage;
+
 
 class MypageController extends Controller
 {
@@ -17,6 +19,16 @@ class MypageController extends Controller
         $sellItems = collect();
         $transactions = collect();
 
+        // ナビ用全取引の未読合計を取得
+        $totalUnreadCount = TransactionMessage::whereHas('transaction', function($transactionQuery) use ($user) {
+            $transactionQuery->where('buyer_id', $user->id)
+                            ->orWhere('seller_id', $user->id);
+        })
+        ->where('user_id', '<>', $user->id)
+        ->where('is_read', false)
+        ->count();
+
+        // タブごとの処理
         if ($tab === 'buy') {
             $purchasedItems = $user->purchases()->with('item')->get()->pluck('item');
         }
@@ -32,13 +44,30 @@ class MypageController extends Controller
                                 ->sortByDesc(function($transaction){
                                     return $transaction->latest_message_at ?? $transaction->created_at;
                                 });
+
+            // 商品ごとの未読件数を計算
+            foreach ($transactions as $transaction) {
+                $transaction->unread_count = $transaction->messages
+                                            ->where('user_id', '<>', $user->id)
+                                            ->where('is_read', false)
+                                            ->count();
+            }
         }
         else {
             $sellItems = $user->items()->get();
         }
         $itemsToShow = $tab === 'sell' ? $sellItems : $purchasedItems;
 
-        return view('mypage.index',compact('user','tab','purchasedItems','sellItems','itemsToShow','transactions'));
+        return view('mypage.index',
+                    compact(
+                        'user',
+                        'tab',
+                        'purchasedItems',
+                        'sellItems',
+                        'itemsToShow',
+                        'transactions',
+                        'totalUnreadCount',
+                    ));
     }
 
 
