@@ -57,9 +57,14 @@ class TransactionController extends Controller
 
         DB::transaction(function () use ($validated, $user, $transaction, $request) {
 
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('transaction_images', 'public');
+            }
 
             TransactionMessage::create([
                 'message'        => $validated['message'],
+                'image_path'     => $imagePath,
                 'user_id'        => $user->id,
                 'transaction_id' => $transaction->id,
             ]);
