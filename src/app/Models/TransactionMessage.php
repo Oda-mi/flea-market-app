@@ -13,6 +13,8 @@ class TransactionMessage extends Model
         'transaction_id',
         'user_id',
         'message',
+        'image_path',
+        'is_read',
     ];
 
 
