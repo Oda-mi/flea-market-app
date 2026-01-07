@@ -6,6 +6,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\EvaluationController;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -76,6 +77,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/transactions/messages/{messageId}',
         [TransactionController::class, 'updateMessage'])
         ->name('transactions.updateMessages');
+
+    Route::post('/transactions/{transaction_id}/evaluations',
+        [EvaluationController::class, 'store'])
+        ->name('evaluations.store');
+
 
 
 
