@@ -23,6 +23,11 @@ class TransactionController extends Controller
 
         $user = auth()->user();
 
+        $transaction->messages()
+                    ->where('user_id', '<>', $user->id)
+                    ->where('is_read', false)
+                    ->update(['is_read' => true]);
+
         $otherTransactions = $user->buyingTransactions()
                                 ->with('item')
                                 ->get()
