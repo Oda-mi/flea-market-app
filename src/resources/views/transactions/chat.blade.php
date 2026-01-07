@@ -39,12 +39,19 @@
                             さんとの取引画面
                     </p>
                 </div>
-                <div class="transaction__complete-button">
-                    <button class="complete-button">取引を完了する</button>
-                </div>
+                @if (auth()->id() === $transaction->buyer_id)
+                    <div class="transaction__complete-button">
+                        <button class="complete-button"
+                                data-open-modal="ratingModal">
+                                取引を完了する
+                        </button>
+                    </div>
+                @endif
             </div>
 
         <div class="transaction__divider"></div>
+
+        <div class="scroll-area">
 
             <div class="transaction__item-info">
                 <div class="transaction__item-img">
@@ -126,6 +133,7 @@
                     </div>
                 @endforeach
             </div>
+        </div>
 
             <form action="{{ route('transactions.storeMessages', $transaction->id) }}"
                     method="post"
@@ -162,43 +170,51 @@
 
 
 {{-- 取引完了・評価モーダルウィンドウ--}}
-<div class="modal modal--hidden" id="ratingModal">
-    <div class="modal__content">
-        <p class="modal__title">
-            取引が完了しました。
-        </p>
 
-        <div class="modal__divider"></div>
+<form action="{{ route('evaluations.store', $transaction->id) }}" method="post">
+    @csrf
 
-        <p class="modal__text">
-            今回の取引相手はどうでしたか？
-        </p>
+    <div class="modal modal--hidden" id="ratingModal">
+        <div class="modal__content">
+            <p class="modal__title">
+                取引が完了しました。
+            </p>
 
-        <div class="modal__rating">
-            <span class="star star--inactive">★</span>
-            <span class="star star--inactive">★</span>
-            <span class="star star--inactive">★</span>
-            <span class="star star--inactive">★</span>
-            <span class="star star--inactive">★</span>
-        </div>
+            <div class="modal__divider"></div>
 
-        <div class="modal__divider"></div>
+            <p class="modal__text">
+                今回の取引相手はどうでしたか？
+            </p>
 
-        <div class="modal__button">
-            <button class="modal__button-submit">
-                送信する
-            </button>
+            <div class="modal__rating">
+                <span class="star star--inactive" data-value="1">★</span>
+                <span class="star star--inactive" data-value="2">★</span>
+                <span class="star star--inactive" data-value="3">★</span>
+                <span class="star star--inactive" data-value="4">★</span>
+                <span class="star star--inactive" data-value="5">★</span>
+            </div>
+
+            <input type="hidden" name="rating" id="ratingInput">
+
+            <div class="modal__divider"></div>
+
+            <div class="modal__button">
+                <button class="modal__button-submit">
+                    送信する
+                </button>
+            </div>
         </div>
     </div>
-</div>
+</form>
 
 @endsection
 
 @push('scripts')
 
-{{-- 入力情報保持機能 と チャット編集切り替え--}}
+{{-- 入力情報保持機能 と チャット編集切り替え と モーダルウィンドウ--}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
         //入力情報保持機能
         const textarea = document.getElementById('chat-message');
         const storageKey = 'draft_message_user_{{ auth()->id() }}_transaction_{{ $transaction->id }}';
@@ -279,6 +295,51 @@
                 cancelButton.classList.add('hidden');
             });
         });
+
+
+        // モーダルウィンドウ
+        document.querySelectorAll('[data-open-modal]').forEach(button => {
+            button.addEventListener('click', () => {
+                const modalId = button.dataset.openModal;
+                const modal = document.getElementById(modalId);
+
+                modal.classList.remove('modal--hidden');
+
+                modal.addEventListener('click', (clickEvent) => {
+                    if (clickEvent.target === modal) {
+                        modal.classList.add('modal--hidden');
+                    }
+                });
+            });
+        });
+
+        // 評価星クリック時
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('ratingInput');
+
+        stars.forEach(clickedStar => {
+            clickedStar.addEventListener('click', () => {
+                const selectedValue = Number(clickedStar.dataset.value);
+
+                // いったん全部リセット
+                stars.forEach(starElement => {
+                    starElement.classList.remove('star--active');
+                    starElement.classList.add('star--inactive');
+                });
+
+                // クリックされた数まで光らせる
+                stars.forEach(starElement => {
+                    if (Number(starElement.dataset.value) <= selectedValue) {
+                        starElement.classList.remove('star--inactive');
+                        starElement.classList.add('star--active');
+                    }
+                });
+
+                // hidden input に保存
+                ratingInput.value = selectedValue;
+            });
+        });
+
     });
 </script>
 
