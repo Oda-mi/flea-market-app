@@ -33,7 +33,12 @@
         <div class="nav__tabs">
             <a href="{{ route('mypage.index',['page' => 'sell']) }}" class="nav__tab {{ $tab === 'sell' ? 'nav__tab--active' : '' }}">出品した商品</a>
             <a href="{{ route('mypage.index', ['page' => 'buy']) }}" class="nav__tab {{ $tab === 'buy' ? 'nav__tab--active' : '' }}">購入した商品</a>
-            <a href="{{ route('mypage.index', ['page' => 'trading']) }}" class="nav__tab {{ $tab === 'trading' ? 'nav__tab--active' : '' }}">取引中の商品</a>
+            <a href="{{ route('mypage.index', ['page' => 'trading']) }}" class="nav__tab {{ $tab === 'trading' ? 'nav__tab--active' : '' }}">
+                取引中の商品
+                @if($totalUnreadCount > 0)
+                    <span class="nav__unread-count">{{ $totalUnreadCount }}</span>
+                @endif
+            </a>
         </div>
     </div>
 
@@ -44,12 +49,13 @@
                     {{-- 取引中タブの場合 --}}
                     <a href="{{ route('transactions.show', ['id' => $itemOrTransaction->id]) }}" class="product__list-link">
                         <div class="product__item">
-                            <img src="{{ asset('storage/images/' . $itemOrTransaction->item->img_url) }}" alt="{{ $itemOrTransaction->item->name }}">
+                            <div class="product__image-wrapper">
+                                <img src="{{ asset('storage/images/' . $itemOrTransaction->item->img_url) }}" alt="{{ $itemOrTransaction->item->name }}">
+                                @if($itemOrTransaction->unread_count > 0)
+                                    <span class="product__unread-count">{{ $itemOrTransaction->unread_count }}</span>
+                                @endif
+                            </div>
                             <p class="product__name">{{ $itemOrTransaction->item->name }}</p>
-                            {{-- 新着メッセージ件数 --}}
-                            @if($itemOrTransaction->messages->count())
-                                <span class="product__badge">{{ $itemOrTransaction->messages->count() }}</span>
-                            @endif
                         </div>
                     </a>
                 @else

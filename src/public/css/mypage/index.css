@@ -99,6 +99,8 @@
 }
 
 .nav__tab {
+    display: inline-flex;
+    align-items: center;
     font-size: 20px;
     text-decoration: none;
     font-weight: bold;
@@ -107,6 +109,20 @@
 
 .nav__tab--active {
     color: red;
+}
+
+.nav__unread-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    background-color: rgba(255, 0, 0, 1);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 30%;
+    width: 26px;
+    height: 26px;
 }
 
 
@@ -130,11 +146,32 @@
     text-decoration: none;
 }
 
+.product__image-wrapper {
+    position: relative;
+}
+
 .product__item img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 3px;
+}
+
+.product__unread-count {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 0, 0, 1);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
 }
 
 .product__name {
