@@ -37,4 +37,9 @@ class Transaction extends Model
         return $this->hasMany(TransactionMessage::class);
     }
 
+    public function evaluations()
+    {
+        return $this->hasMany(Evaluation::class);
+    }
+
 }
