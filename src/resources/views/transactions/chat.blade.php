@@ -63,17 +63,23 @@
                     <div class="transaction__chat-message {{ $message->user_id === auth()->id()
                                 ? 'transaction__chat-message--me'
                                 : 'transaction__chat-message--other' }}">
-                        <div class="chat-user-info">
+                        <div class="transaction__chat-user-info">
                             <img src="{{ $message->user->profile_image
                                     ? asset('storage/'.$message->user->profile_image)
                                     : asset('/images/default.png') }}"
                                     alt="プロフィール画面"
-                                    class="chat-user-icon">
-                            <p class="chat-user-name">{{ $message->user->name }}</p>
+                                    class="transaction__chat-user-icon">
+                            <p class="transaction__chat-user-name">{{ $message->user->name }}</p>
                         </div>
 
-                        <div class="chat-bubble">
-                            <p class="chat-message-text">
+                        @if($message->image_path)
+                            <div class="transaction__chat-bubble-image">
+                                <img src="{{ asset('storage/' . $message->image_path) }}" alt="送信画像" class="transaction__chat-bubble-image-img">
+                            </div>
+                        @endif
+
+                        <div class="transaction__chat-bubble-text">
+                            <p class="transaction__chat-bubble-text-message">
                                 {!! nl2br(e($message->message)) !!}
                             </p>
 
@@ -121,10 +127,16 @@
                 @endforeach
             </div>
 
-            <form action="{{ route('transactions.storeMessages', $transaction->id) }}" method="post" class="chat-send-form">
+            <form action="{{ route('transactions.storeMessages', $transaction->id) }}"
+                    method="post"
+                    class="chat-send-form"
+                    enctype="multipart/form-data">
                 @csrf
                 <div class="form_error">
                     @error('message')
+                        {{ $message }}
+                    @enderror
+                    @error('image')
                         {{ $message }}
                     @enderror
                 </div>
@@ -134,7 +146,10 @@
                         id = "chat-message"
                         class="chat-textarea"
                         placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
-                    <button type="button" class="image-button">画像を追加</button>
+                    <div class="image-button">
+                        <label for="chat-image-input" class="image-button-label">画像を追加</label>
+                        <input type="file" name="image" id="chat-image-input" class="chat__image-input">
+                    </div>
                     <button type="submit" class="send-button">
                         <img src="{{ asset('images/send-icon.png') }}" alt="送信ボタン" class="send-icon-img">
                     </button>
@@ -213,7 +228,7 @@
                 const chatActions = editButton.closest('.chat-actions');
                 const chatBubble  = chatActions.previousElementSibling;
 
-                const messageText      = chatBubble.querySelector('.chat-message-text');
+                const messageText      = chatBubble.querySelector('.transaction__chat-bubble-text-message');
                 const editForm         = chatBubble.querySelector('.edit-form');
                 const editTextarea     = editForm.querySelector('.edit-textarea');
 
@@ -242,7 +257,7 @@
                 const chatActions = cancelButton.closest('.chat-actions');
                 const chatBubble  = chatActions.previousElementSibling;
 
-                const messageText  = chatBubble.querySelector('.chat-message-text');
+                const messageText  = chatBubble.querySelector('.transaction__chat-bubble-text-message');
                 const editForm     = chatBubble.querySelector('.edit-form');
                 const editTextarea = editForm.querySelector('.edit-textarea');
 
