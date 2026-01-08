@@ -207,6 +207,7 @@
     </div>
 </form>
 
+
 @endsection
 
 @push('scripts')
@@ -215,7 +216,10 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
-        //入力情報保持機能
+        /* =============================
+            メッセージ入力情報保持機能
+        ============================= */
+
         const textarea = document.getElementById('chat-message');
         const storageKey = 'draft_message_user_{{ auth()->id() }}_transaction_{{ $transaction->id }}';
 
@@ -235,8 +239,10 @@
         });
 
 
+        /* =============================
+            チャット編集切り替え
+        ============================= */
 
-        //チャット編集切り替え
         //編集ボタン押下時
         document.querySelectorAll('.edit-button').forEach(editButton => {
             editButton.addEventListener('click', () => {
@@ -297,23 +303,43 @@
         });
 
 
-        // モーダルウィンドウ
+        /* =============================
+            取引評価モーダルウィンドウ
+        ============================= */
+
+        // 共通：モーダル開く
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+
+            modal.classList.remove('modal--hidden');
+        }
+
+        // 共通：背景クリックでモーダル閉じる
+        const ratingModal = document.getElementById('ratingModal');
+        if (ratingModal) {
+            ratingModal.addEventListener('click', (clickEvent) => {
+                if (clickEvent.target === ratingModal) {
+                    ratingModal.classList.add('modal--hidden');
+                }
+            });
+        }
+
+        // 購入者：ボタン押下でモーダル開く
         document.querySelectorAll('[data-open-modal]').forEach(button => {
             button.addEventListener('click', () => {
-                const modalId = button.dataset.openModal;
-                const modal = document.getElementById(modalId);
-
-                modal.classList.remove('modal--hidden');
-
-                modal.addEventListener('click', (clickEvent) => {
-                    if (clickEvent.target === modal) {
-                        modal.classList.add('modal--hidden');
-                    }
-                });
+                openModal(button.dataset.openModal);
             });
         });
 
-        // 評価星クリック時
+        // 出品者：条件満たしたら自動でモーダル開く
+        @if (auth()->id() === $transaction->seller_id
+            && $transaction->status === 'completed'
+            && !$transaction->evaluations()->where('evaluator_id', auth()->id())->exists())
+            openModal('ratingModal');
+        @endif
+
+        // ★評価クリック処理
         const stars = document.querySelectorAll('.star');
         const ratingInput = document.getElementById('ratingInput');
 
@@ -321,7 +347,7 @@
             clickedStar.addEventListener('click', () => {
                 const selectedValue = Number(clickedStar.dataset.value);
 
-                // いったん全部リセット
+                // 一度全部リセット
                 stars.forEach(starElement => {
                     starElement.classList.remove('star--active');
                     starElement.classList.add('star--inactive');
