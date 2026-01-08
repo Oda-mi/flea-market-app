@@ -15,11 +15,9 @@
             <div class="profile__name-area">
                 <p class="profile__name">{{ $user->name }}</p>
                 <div class="profile__rating">
-                    <span class="star star--active">★</span>
-                    <span class="star star--active">★</span>
-                    <span class="star star--active">★</span>
-                    <span class="star star--active">★</span>
-                    <span class="star star--inactive">★</span>
+                    @for ($starNumber = 1; $starNumber <= 5; $starNumber++)
+                        <span class="star {{ $starNumber <= $averageRating ? 'star--active' : 'star--inactive' }}">★</span>
+                    @endfor
                 </div>
             </div>
         </div>
