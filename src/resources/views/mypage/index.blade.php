@@ -14,11 +14,13 @@
         <div class="profile__info">
             <div class="profile__name-area">
                 <p class="profile__name">{{ $user->name }}</p>
-                <div class="profile__rating">
-                    @for ($starNumber = 1; $starNumber <= 5; $starNumber++)
-                        <span class="star {{ $starNumber <= $averageRating ? 'star--active' : 'star--inactive' }}">★</span>
-                    @endfor
-                </div>
+                @if ($averageRating > 0)
+                    <div class="profile__rating">
+                        @for ($starNumber = 1; $starNumber <= 5; $starNumber++)
+                            <span class="star {{ $starNumber <= $averageRating ? 'star--active' : 'star--inactive' }}">★</span>
+                        @endfor
+                    </div>
+                @endif
             </div>
         </div>
         <div class="profile__edit">
