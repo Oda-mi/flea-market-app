@@ -397,7 +397,7 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 
 
 ## ER図
-![ER図](FurimaApp_ER.png)
+![ER図](FurimaApp_ER2.png)
 
 
 ## URL (開発環境)
