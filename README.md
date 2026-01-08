@@ -350,6 +350,7 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 | updated_at | timestamp |  |  |  |  |
 
 ### transactions テーブル
+※ 追加実装（取引管理機能）に伴い新規作成
 | カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
 |---------|----|-------------|------------|----------|-------------|
 | id | bigint | ○ |  | ○ |  |
@@ -364,6 +365,7 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 - seller_id：出品者
 
 ### transaction_messages テーブル
+※ 追加実装（取引チャット機能）に伴い新規作成
 | カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
 |---------|----|-------------|------------|----------|-------------|
 | id | bigint | ○ |  | ○ |  |
@@ -376,6 +378,7 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 | updated_at | timestamp |  |  |  |  |
 
 ### evaluations テーブル
+※ 追加実装（取引評価機能）に伴い新規作成<br>
 **※ transaction_id と evaluator_id の組み合わせに複合ユニーク制約あり**
 | カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
 |---------|----|-------------|------------|----------|-------------|
@@ -386,7 +389,7 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 | rating | tinyint |  |  | ○ |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
-- valuator_id：評価するユーザー
+- evaluator_id：評価するユーザー
 - evaluatee_id：評価されるユーザー
 
 
