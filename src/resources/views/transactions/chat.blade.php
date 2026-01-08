@@ -333,11 +333,15 @@
         });
 
         // 出品者：条件満たしたら自動でモーダル開く
-        @if (auth()->id() === $transaction->seller_id
+        const shouldOpenModal = @json(
+            auth()->id() === $transaction->seller_id
             && $transaction->status === 'completed'
-            && !$transaction->evaluations()->where('evaluator_id', auth()->id())->exists())
+            && !$transaction->evaluations()->where('evaluator_id', auth()->id())->exists()
+        );
+
+        if (shouldOpenModal) {
             openModal('ratingModal');
-        @endif
+        }
 
         // ★評価クリック処理
         const stars = document.querySelectorAll('.star');
