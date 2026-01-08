@@ -58,6 +58,10 @@ class MypageController extends Controller
         }
         $itemsToShow = $tab === 'sell' ? $sellItems : $purchasedItems;
 
+        //取引平均評価計算
+        $averageRating = $user->evaluationsReceived()->avg('rating');
+        $averageRating = $averageRating ? round($averageRating) : null;
+
         return view('mypage.index',
                     compact(
                         'user',
@@ -67,6 +71,7 @@ class MypageController extends Controller
                         'itemsToShow',
                         'transactions',
                         'totalUnreadCount',
+                        'averageRating',
                     ));
     }
 
