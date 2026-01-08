@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Evaluation;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TransactionCompletedMail;
+
 
 
 class EvaluationController extends Controller
@@ -28,6 +31,10 @@ class EvaluationController extends Controller
             $transaction->update([
                 'status' => 'completed',
             ]);
+
+            // 取引完了メール送信
+            Mail::to($transaction->item->user->email) // 出品者のメール
+                ->send(new TransactionCompletedMail($transaction));
 
         } elseif ($user->id === $transaction->seller_id) {
             // 出品者 → 購入者
