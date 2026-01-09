@@ -17,3 +17,18 @@ body {
     padding: 20px 30px;
     box-sizing: border-box;
 }
+
+
+
+/* タブレット幅対応 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+
+    .header__inner {
+        max-width: 850px;
+        padding: 15px 20px;
+    }
+
+    .header__logo img {
+        width: 200px;
+    }
+}
