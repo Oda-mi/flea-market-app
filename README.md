@@ -108,7 +108,25 @@ docker-compose exec php bash
 php artisan serve --host=0.0.0.0 --port=8000
 ```
 - ブラウザで以下の URL にアクセスしてください
-  - http://localhost:8000/attendance
+  - http://localhost:8000/
+
+### 画面表示トラブル対策
+※Docker環境でダミーデータの画像が表示されない場合は、以下を実行してください
+1. PHPコンテナに入る
+```bash
+docker-compose exec php bash
+cd /var/www
+```
+2. symlinkを作成
+```bash
+php artisan storage:link
+```
+3. 権限付与
+```bash
+chmod -R 755 storage
+chmod -R 755 public/storage
+```
+以上を実行後、ブラウザをリロードすると画像が表示されます
 
 
 ## メール認証機能について
@@ -128,7 +146,7 @@ MAIL_PORT=1025
 MAIL_USERNAME=null
 MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS=test@email.com
+MAIL_FROM_ADDRESS=test@example.com
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 4. MailHog を起動後、以下で送信メールを確認可能
@@ -156,13 +174,14 @@ STRIPE_KEY=pk_test_************************
 STRIPE_WEBHOOK_SECRET=whsec_************************
 ```
 
-4. Stripe CLI をインストール  
+4. Stripe CLI をインストール<br>
   Stripe CLI は、テスト環境で Webhook を受信・確認するために使用します
    -  [Stripe CLI インストールガイド（公式）](https://stripe.com/docs/stripe-cli)を参考に、環境に合わせてインストールしてください
 5. Stripe にログイン
 ```bash
 stripe login
 ```
+> ※Webhook を受信する場合、Laravel 開発サーバーとは**別のターミナル**で実行してください
 6. Webhook をローカルに転送（実行中のターミナルは開いたままにしてください）
 ```bash
 stripe listen --forward-to http://localhost:8000/api/stripe/webhook
