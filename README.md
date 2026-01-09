@@ -414,25 +414,41 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 
 ## 追加実装に伴い追加したルート一覧
 
-| 画面名称 | パス | メソッド | コントローラ | アクション | 認証必須 | 説明 |
-|---------|------|---------|-------------|------------|----------|------|
-| 取引チャット画面 | /transactions/{id} | GET | TransactionController | show | ○ | 取引詳細および取引チャット画面を表示 |
-| 取引チャット画面 | /transactions/{id}/messages | POST | TransactionController | storeMessage | ○ | 取引チャットにメッセージを投稿 |
-| 取引チャット画面 | /transactions/messages/{messageId} | PATCH | TransactionController | updateMessage | ○ | 取引メッセージを編集 |
-| 取引チャット画面 | /transactions/messages/{messageId} | DELETE | TransactionController | destroyMessage | ○ | 取引メッセージを削除 |
-| 取引チャット画面 | /transactions/{transaction_id}/evaluations | POST | EvaluationController | store | ○ | 取引評価を登録し、取引を完了状態にする |
+### 取引チャット画面
+※以下のルートはすべて認証必須
+
+- **GET** `/transactions/{id}`<br>
+  - Controller：TransactionController@show<br>
+  - 説明：取引詳細および取引チャット画面を表示
+
+- **POST** `/transactions/{id}/messages`<br>
+  - Controller：TransactionController@storeMessage<br>
+  - 説明：取引チャットにメッセージを投稿
+
+- **PATCH** `/transactions/messages/{messageId}`<br>
+  - Controller：TransactionController@updateMessage<br>
+  - 説明：取引メッセージを編集
+
+- **DELETE** `/transactions/messages/{messageId}`<br>
+  - Controller：TransactionController@destroyMessage<br>
+  - 説明：取引メッセージを削除
+
+- **POST** `/transactions/{transaction_id}/evaluations`<br>
+  - Controller：EvaluationController@store<br>
+  - 説明：取引評価を登録し、取引を完了状態にする
+
 
 ## 追加実装に伴い新規・変更したBladeファイル
 
 ### 新規作成
-- resources/views/transactions/chat.blade.php<br>
+- **resources/views/transactions/chat.blade.php**<br>
   取引チャット画面（取引詳細・メッセージ送受信）
-- resources/views/emails/transaction/completed.blade.php<br>
+- **resources/views/emails/transaction/completed.blade.php**<br>
   【US005】出品ユーザーは取引完了をメールで確認することができる<br>
   を実装するための取引完了通知メール本文
 
 ### 既存ファイルの変更
-- resources/views/mypage/index.blade.php<br>
+- **resources/views/mypage/index.blade.php**<br>
   マイページ画面（取引中の商品一覧追加）
 
 
