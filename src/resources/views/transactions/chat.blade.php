@@ -157,6 +157,8 @@
                 <div class="chat-input-area">
                     @if ($transaction->status === 'completed')
                         <textarea
+                            name="message"
+                            id = "chat-message"
                             class="chat-textarea"
                             placeholder="この取引は完了しています"
                             disabled></textarea>
