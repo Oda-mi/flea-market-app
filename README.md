@@ -12,7 +12,7 @@ git clone git@github.com:Oda-mi/flea-market-app.git
 ```
 2. docker-compose.yml があるディレクトリへ移動
 ```bash
-cd attendance-app
+cd flea-market-app
 ```
 3. Docker Desktop を起動
 
