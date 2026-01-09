@@ -187,3 +187,90 @@
     white-space: nowrap;
     margin-left: 70px;
 }
+
+
+
+/* タブレット幅対応 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+
+    .profile {
+        max-width: 850px;
+    }
+
+    .profile__header {
+        height: 100px;
+        gap: 30px;
+    }
+
+    .profile__image{
+        margin-left: 30px;
+    }
+
+    .image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile__info {
+        gap: 20px;
+    }
+
+    .profile__name {
+        font-size: 25px;
+    }
+
+    .star {
+        font-size: 30px;
+        margin-right: 10px;
+    }
+
+    .profile__edit {
+        margin-left: 100px;
+    }
+
+    .profile__edit-btn {
+        padding: 5px 20px;
+        font-size: 15px;
+    }
+
+
+    .nav {
+        max-width: 850px;
+    }
+
+    .nav__tabs {
+        gap: 80px;
+        margin-left: 150px;
+        margin-bottom: 10px;
+    }
+
+    .nav__tab {
+        font-size: 18px;
+    }
+
+    .nav__unread-count {
+        font-size: 15px;
+        width: 24px;
+        height: 24px;
+    }
+
+
+    .product__list {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    .product__unread-count {
+        top: 5px;
+        left: 5px;
+    }
+
+    .product__name {
+        font-size: 15px;
+    }
+
+    .product__empty-message {
+        font-size: 18px;
+        margin-left: 70px;
+    }
+
+}

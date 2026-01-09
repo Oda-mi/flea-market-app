@@ -64,3 +64,45 @@ body {
     color: #000;
     border-radius: 3px;
 }
+
+
+/* タブレット幅対応 */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+
+    .header__inner {
+        max-width: 850px;
+    }
+
+    .header__logo img {
+        width: 150px;
+        height: auto;
+    }
+
+    .header__search {
+        max-width: 300px;
+        margin: 0 20px;
+    }
+
+    .search-form__input {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .search-form__input::placeholder {
+        font-size: 14px;
+    }
+
+    .header__buttons {
+        gap: 15px;
+        align-items: center;
+    }
+
+    .button {
+        font-size:13px;
+    }
+
+    .button--sell {
+        padding: 4px 8px;
+    }
+
+}
