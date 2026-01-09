@@ -41,10 +41,16 @@
                 </div>
                 @if (auth()->id() === $transaction->buyer_id)
                     <div class="transaction__complete-button">
-                        <button class="complete-button"
-                                data-open-modal="ratingModal">
-                                取引を完了する
-                        </button>
+                        @if ($transaction->status === 'completed')
+                            <button class="complete-button complete-button--disabled" disabled>
+                                取引完了済
+                            </button>
+                        @else
+                            <button class="complete-button"
+                                    data-open-modal="ratingModal">
+                                    取引を完了する
+                            </button>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -149,18 +155,31 @@
                     @enderror
                 </div>
                 <div class="chat-input-area">
-                    <textarea
-                        name="message"
-                        id = "chat-message"
-                        class="chat-textarea"
-                        placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
-                    <div class="image-button">
-                        <label for="chat-image-input" class="image-button-label">画像を追加</label>
-                        <input type="file" name="image" id="chat-image-input" class="chat__image-input">
-                    </div>
-                    <button type="submit" class="send-button">
-                        <img src="{{ asset('images/send-icon.png') }}" alt="送信ボタン" class="send-icon-img">
-                    </button>
+                    @if ($transaction->status === 'completed')
+                        <textarea
+                            class="chat-textarea"
+                            placeholder="この取引は完了しています"
+                            disabled></textarea>
+                        <div class="image-button image-button--disabled">
+                            <span class="image-button-label image-button-label--disabled">画像を追加</span>
+                        </div>
+                        <button class="send-button send-button--disabled" disabled>
+                            <img src="{{ asset('images/send-icon.png') }}" alt="送信ボタン" class="send-icon-img">
+                        </button>
+                    @else
+                        <textarea
+                            name="message"
+                            id = "chat-message"
+                            class="chat-textarea"
+                            placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
+                        <div class="image-button">
+                            <label for="chat-image-input" class="image-button-label">画像を追加</label>
+                            <input type="file" name="image" id="chat-image-input" class="chat__image-input">
+                        </div>
+                        <button type="submit" class="send-button">
+                            <img src="{{ asset('images/send-icon.png') }}" alt="送信ボタン" class="send-icon-img">
+                        </button>
+                    @endif
                 </div>
             </form>
 

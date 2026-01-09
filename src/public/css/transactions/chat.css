@@ -104,6 +104,13 @@
     box-sizing: border-box;
 }
 
+.complete-button--disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .scroll-area {
     flex: 1;
     overflow-y: auto;
@@ -338,9 +345,18 @@
     opacity: 0.5;
 }
 
+.send-button--disabled {
+    cursor: not-allowed;
+}
+
+.image-button--disabled,
+.image-button-label--disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
 
 
-
+/* モーダルウィンドウ */
 .modal {
     position: fixed;
     inset: 100px 0 0 300px;
