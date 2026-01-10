@@ -61,7 +61,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/stripe/cancel/{item_id}', [StripeController::class, 'cancel'])->name('stripe.cancel');
 
 
-
     Route::get('/transactions/{id}',
         [TransactionController::class, 'show'])
         ->name('transactions.show');
@@ -81,9 +80,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/transactions/{transaction_id}/evaluations',
         [EvaluationController::class, 'store'])
         ->name('evaluations.store');
-
-
-
 
 });
 

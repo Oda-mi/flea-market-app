@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Transaction;
-use App\Models\Evaluation;
-
 use Illuminate\Support\Facades\Mail;
+
 use App\Mail\TransactionCompletedMail;
 
+use App\Models\Transaction;
+use App\Models\Evaluation;
 
 
 class EvaluationController extends Controller
@@ -27,13 +27,12 @@ class EvaluationController extends Controller
             // 購入者 → 出品者
             $evaluateeId = $transaction->seller_id;
 
-            // 取引完了に更新
             $transaction->update([
                 'status' => 'completed',
             ]);
 
             // 取引完了メール送信
-            Mail::to($transaction->item->user->email) // 出品者のメール
+            Mail::to($transaction->item->user->email)
                 ->send(new TransactionCompletedMail($transaction));
 
         } elseif ($user->id === $transaction->seller_id) {

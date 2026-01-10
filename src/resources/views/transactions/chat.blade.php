@@ -24,12 +24,21 @@
         <div class="transaction__main">
             <div class="transaction__user">
                 <div class="transaction__user-image">
-                    <img src="{{ $transaction->buyer_id === auth()->id()
-                                ? ($transaction->seller->profile_image ? asset('storage/'.$transaction->seller->profile_image) : asset('/images/default.png'))
-                                : ($transaction->buyer->profile_image ? asset('storage/'.$transaction->buyer->profile_image) : asset('/images/default.png'))
-                            }}"
-                            alt="プロフィール画面"
-                            class="transaction__user-image-img">
+                    <img
+                        src="{{ $transaction->buyer_id === auth()->id()
+                            ? (
+                                $transaction->seller->profile_image
+                                    ? asset('storage/'.$transaction->seller->profile_image)
+                                    : asset('/images/default.png')
+                                )
+                            : (
+                                $transaction->buyer->profile_image
+                                    ? asset('storage/'.$transaction->buyer->profile_image)
+                                    : asset('/images/default.png')
+                                )
+                        }}"
+                        alt="プロフィール画面"
+                        class="transaction__user-image-img">
                 </div>
                 <div class="transaction__user-name">
                     <p class="transaction__user-name-text">
@@ -61,7 +70,9 @@
 
             <div class="transaction__item-info">
                 <div class="transaction__item-img">
-                    <img src="{{ asset('storage/images/' . $transaction->item->img_url) }}" alt="{{ $transaction->item->name }}">
+                    <img
+                        src="{{ asset('storage/images/' . $transaction->item->img_url) }}"
+                        alt="{{ $transaction->item->name }}">
                 </div>
                 <div class="transaction__item-detail">
                     <p class="transaction__item-name">{{ $transaction->item->name }}</p>
@@ -87,7 +98,9 @@
 
                         @if($message->image_path)
                             <div class="transaction__chat-bubble-image">
-                                <img src="{{ asset('storage/' . $message->image_path) }}" alt="送信画像" class="transaction__chat-bubble-image-img">
+                                <img src="{{ asset('storage/' . $message->image_path) }}"
+                                    alt="送信画像"
+                                    class="transaction__chat-bubble-image-img">
                             </div>
                         @endif
 
@@ -111,7 +124,8 @@
                                 {{-- 通常時 --}}
                                 <button class="edit-button">編集</button>
 
-                                <form action="{{ route('transactions.destroyMessages', $message->id) }}" method="post" class="delete-form">
+                                <form action="{{ route('transactions.destroyMessages', $message->id) }}"
+                                    method="post" class="delete-form">
                                     @csrf
                                     @method('delete')
                                     <button
@@ -233,7 +247,6 @@
 
 @push('scripts')
 
-{{-- 入力情報保持機能 と チャット編集切り替え と モーダルウィンドウ--}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 

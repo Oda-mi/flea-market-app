@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\TransactionMessageRequest;
-
-use App\Models\Transaction;
-use App\Models\TransactionMessage;
-
-
 use Illuminate\Support\Facades\DB;
 
-
+use App\Http\Requests\TransactionMessageRequest;
+use App\Models\Transaction;
+use App\Models\TransactionMessage;
 
 
 class TransactionController extends Controller
@@ -34,11 +30,9 @@ class TransactionController extends Controller
                                 ->merge(
                                     $user->sellingTransactions()->with('item')->get()
                                 )
-                                // 今表示中の取引を除外
                                 ->filter(function($otherTransaction) use ($transaction) {
                                     return $otherTransaction->id !== $transaction->id;
                                 })
-                                // 新着順ソート
                                 ->sortByDesc(function($otherTransaction){
                                     return $otherTransaction->latest_message_at ?? $otherTransaction->created_at;
                                 });

@@ -21,26 +21,25 @@ class MypageController extends Controller
 
         // ナビ用全取引の未読合計を取得
         $totalUnreadCount = TransactionMessage::whereHas('transaction', function($transactionQuery) use ($user) {
-            $transactionQuery->where('buyer_id', $user->id)
-                            ->orWhere('seller_id', $user->id);
-        })
-        ->where('user_id', '<>', $user->id)
-        ->where('is_read', false)
-        ->count();
+                                $transactionQuery->where('buyer_id', $user->id)
+                                                ->orWhere('seller_id', $user->id);
+                            })
+                            ->where('user_id', '<>', $user->id)
+                            ->where('is_read', false)
+                            ->count();
 
         // タブごとの処理
         if ($tab === 'buy') {
             $purchasedItems = $user->purchases()->with('item')->get()->pluck('item');
         }
         elseif ($tab === 'trading') {
-             // 購入者・販売者の取引を両方取得
+             // 購入者・出品者の取引を両方取得
             $transactions = $user->buyingTransactions()
                                 ->with(['item', 'messages'])
                                 ->get()
                                 ->merge(
                                     $user->sellingTransactions()->with(['item', 'messages'])->get()
                                 )
-                                // 新着順にソート（最新メッセージが上）
                                 ->sortByDesc(function($transaction){
                                     return $transaction->latest_message_at ?? $transaction->created_at;
                                 });
