@@ -80,18 +80,18 @@ php artisan db:seed
 
 ## ダミーユーザー情報（シーディング用）
 - **ユーザーA**
-  - メール: usera@example.com
-  - パスワード: password123
-  - 出品商品: （案件シート商品ID）CO01～CO05
+  - メール：usera@example.com
+  - パスワード：password123
+  - 出品商品：（案件シート商品ID）CO01～CO05
 - **ユーザーB**
-  - メール: userb@example.com
-  - パスワード: password123
-  - 出品商品: （案件シート商品ID）CO06～CO10
+  - メール：userb@example.com
+  - パスワード：password123
+  - 出品商品：（案件シート商品ID）CO06～CO10
 
 - **ユーザーC**
-  - メール: userc@example.com
-  - パスワード: password123
-  - 出品商品: なし
+  - メール：userc@example.com
+  - パスワード：password123
+  - 出品商品：なし
 
 > ※シーダー実行で自動的に作成されます
 
@@ -382,6 +382,7 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 | updated_at | timestamp |  |  |  |  |
 - buyer_id：購入者
 - seller_id：出品者
+- status : 取引状態（in_progress / completed）
 
 ### transaction_messages テーブル
 ※ 追加実装（取引チャット機能）に伴い新規作成
@@ -417,7 +418,7 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 
 ## 使用技術（実行環境）
 - Laravel : 8.83.8
-- PHP : 8.4.10
+- PHP : 8.1
 - MySQL : 8.0
 
 
@@ -470,6 +471,40 @@ php artisan test tests/Feature/FleaMarketAppTest.php
 - **resources/views/mypage/index.blade.php**<br>
   マイページ画面（取引中の商品一覧追加）
 
+## 追加実装に伴い新規作成したモデル
+
+- **Transaction**<br>
+  取引情報を管理するモデル
+
+- **TransactionMessage**<br>
+  取引チャットのメッセージを管理するモデル
+
+- **Evaluation**<br>
+  取引完了時の評価情報を管理するモデル
+
+
+## 追加実装に伴い新規作成したフォームリクエスト
+
+- **TransactionMessageRequest**<br>
+　取引チャットのメッセージ投稿時のバリデーションを管理
+
+### バリデーション使用（要件対応）
+
+本機能では、要件シートに記載されている以下の要件に対応した<br>
+バリデーションおよびエラーメッセージ表示を実装しています
+
+#### FN007：バリデーション
+- 使用技術：FormRequest
+- 本文：必須入力、最大400文字まで
+- 画像：任意（jpeg / png形式のみアップロード可）
+
+#### FN008：エラーメッセージ表示
+- 本文未入力時<br>
+  - 「本文を入力してください」
+- 本文が401文字以上の場合<br>
+  - 「本文は400文字以内で入力してください」
+- 画像が jpeg / png 以外の場合<br>
+  - 「「.png」または「.jpeg」形式でアップロードしてください」
 
 
 ## 追加実装機能
