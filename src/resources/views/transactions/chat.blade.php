@@ -10,10 +10,10 @@
     <div class="transaction__container">
 
         <aside class="transaction__aside">
-            <h1 class="transaction__aside-title">その他の取引</h1>
+            <h2 class="transaction__aside-title">その他の取引</h2>
             <ul class="transaction__list">
                 @foreach($otherTransactions as $otherTransaction)
-                    <li class="transaction__list-item {{ $transaction->id === $otherTransaction->id ? 'active' : '' }}">
+                    <li class="transaction__list-item">
                         <a href="{{ route('transactions.show', ['id' => $otherTransaction->id]) }}">
                             {{ $otherTransaction->item->name }}</a>
                     </li>
@@ -41,21 +41,21 @@
                         class="transaction__user-image-img">
                 </div>
                 <div class="transaction__user-name">
-                    <p class="transaction__user-name-text">
+                    <h1 class="transaction__user-name-text">
                         {{ $transaction->buyer_id === auth()->id()
                             ? $transaction->seller->name
                             : $transaction->buyer->name }}
                             さんとの取引画面
-                    </p>
+                    </h1>
                 </div>
                 @if (auth()->id() === $transaction->buyer_id)
                     <div class="transaction__complete-button">
                         @if ($transaction->status === 'completed')
-                            <button class="complete-button complete-button--disabled" disabled>
+                            <button class="transaction__complete-btn transaction__complete-btn--disabled" disabled>
                                 取引完了済
                             </button>
                         @else
-                            <button class="complete-button"
+                            <button class="transaction__complete-btn"
                                     data-open-modal="ratingModal">
                                     取引を完了する
                             </button>
@@ -66,7 +66,7 @@
 
         <div class="transaction__divider"></div>
 
-        <div class="scroll-area">
+        <div class="transaction__scroll-area">
 
             <div class="transaction__item-info">
                 <div class="transaction__item-img">
@@ -112,24 +112,24 @@
                             <form action="{{ route('transactions.updateMessages', $message->id) }}"
                                         id="edit-form-{{ $message->id }}"
                                         method="post"
-                                        class="edit-form hidden">
+                                        class="transaction__edit-form transaction__edit-form--hidden">
                                 @csrf
                                 @method('patch')
-                                <textarea name="message" class="edit-textarea">{{ $message->message }}</textarea>
+                                <textarea name="message" class="transaction__edit-textarea">{{ $message->message }}</textarea>
                             </form>
                         </div>
 
-                        @if ($message->user_id === auth()->id())
-                            <div class="chat-actions">
+                        @if ($message->user_id === auth()->id() && $transaction->status !== 'completed')
+                            <div class="transaction__chat-actions">
                                 {{-- 通常時 --}}
-                                <button class="edit-button">編集</button>
+                                <button class="transaction__edit-button">編集</button>
 
                                 <form action="{{ route('transactions.destroyMessages', $message->id) }}"
-                                    method="post" class="delete-form">
+                                    method="post" class="transaction__delete-form">
                                     @csrf
                                     @method('delete')
                                     <button
-                                        class="delete-button"
+                                        class="transaction__delete-button"
                                         onclick="return confirm('このメッセージを削除しますか？')">
                                         削除
                                     </button>
@@ -138,14 +138,14 @@
                                 {{-- 編集時 --}}
                                 <button
                                     type="submit"
-                                    class="save-button hidden"
+                                    class="transaction__save-button transaction__save-button--hidden"
                                     form="edit-form-{{ $message->id }}">
                                     保存
                                 </button>
 
                                 <button
                                     type="button"
-                                    class="cancel-button hidden">
+                                    class="transaction__cancel-button transaction__cancel-button--hidden">
                                     キャンセル
                                 </button>
                             </div>
@@ -157,10 +157,10 @@
 
             <form action="{{ route('transactions.storeMessages', $transaction->id) }}"
                     method="post"
-                    class="chat-send-form"
+                    class="transaction__chat-send-form"
                     enctype="multipart/form-data">
                 @csrf
-                <div class="form_error">
+                <div class="transaction__form-error">
                     @error('message')
                         <span>{{ $message }}</span>
                     @enderror
@@ -168,32 +168,32 @@
                         <span>{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="chat-input-area">
+                <div class="transaction__chat-input-area">
                     @if ($transaction->status === 'completed')
                         <textarea
                             name="message"
                             id = "chat-message"
-                            class="chat-textarea"
+                            class="transaction__chat-textarea"
                             placeholder="この取引は完了しています"
                             disabled></textarea>
-                        <div class="image-button image-button--disabled">
-                            <span class="image-button-label image-button-label--disabled">画像を追加</span>
+                        <div class="transaction__image-button transaction__image-button--disabled">
+                            <span class="transaction__image-button-label transaction__image-button-label--disabled">画像を追加</span>
                         </div>
-                        <button class="send-button send-button--disabled" disabled>
-                            <img src="{{ asset('images/send-icon.png') }}" alt="送信ボタン" class="send-icon-img">
+                        <button class="transaction__send-button transaction__send-button--disabled" disabled>
+                            <img src="{{ asset('images/send-icon.png') }}" alt="送信ボタン" class="transaction__send-icon-img">
                         </button>
                     @else
                         <textarea
                             name="message"
                             id = "chat-message"
-                            class="chat-textarea"
+                            class="transaction__chat-textarea"
                             placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
-                        <div class="image-button">
-                            <label for="chat-image-input" class="image-button-label">画像を追加</label>
-                            <input type="file" name="image" id="chat-image-input" class="chat__image-input">
+                        <div class="transaction__image-button">
+                            <label for="chat-image-input" class="transaction__image-button-label">画像を追加</label>
+                            <input type="file" name="image" id="chat-image-input" class="transaction__chat-image-input">
                         </div>
-                        <button type="submit" class="send-button">
-                            <img src="{{ asset('images/send-icon.png') }}" alt="送信ボタン" class="send-icon-img">
+                        <button type="submit" class="transaction__send-button">
+                            <img src="{{ asset('images/send-icon.png') }}" alt="送信ボタン" class="transaction__send-icon-img">
                         </button>
                     @endif
                 </div>
@@ -202,7 +202,6 @@
         </div>
     </div>
 </div>
-
 
 {{-- 取引完了・評価モーダルウィンドウ--}}
 
@@ -242,7 +241,6 @@
     </div>
 </form>
 
-
 @endsection
 
 @push('scripts')
@@ -266,7 +264,7 @@
         });
 
         // 送信時に localStorage から削除
-        const sendForm = document.querySelector('.chat-send-form');
+        const sendForm = document.querySelector('.transaction__chat-send-form');
 
         sendForm.addEventListener('submit', () => {
             localStorage.removeItem(storageKey);
@@ -278,61 +276,61 @@
         ============================= */
 
         //編集ボタン押下時
-        document.querySelectorAll('.edit-button').forEach(editButton => {
+        document.querySelectorAll('.transaction__edit-button').forEach(editButton => {
             editButton.addEventListener('click', () => {
 
-                const chatActions = editButton.closest('.chat-actions');
+                const chatActions = editButton.closest('.transaction__chat-actions');
                 const chatBubble  = chatActions.previousElementSibling;
 
                 const messageText  = chatBubble.querySelector('.transaction__chat-bubble-text-message');
-                const editForm     = chatBubble.querySelector('.edit-form');
-                const editTextarea = editForm.querySelector('.edit-textarea');
+                const editForm     = chatBubble.querySelector('.transaction__edit-form');
+                const editTextarea = editForm.querySelector('.transaction__edit-textarea');
 
-                const saveButton   = chatActions.querySelector('.save-button');
-                const cancelButton = chatActions.querySelector('.cancel-button');
-                const deleteForm   = chatActions.querySelector('.delete-form');
+                const saveButton   = chatActions.querySelector('.transaction__save-button');
+                const cancelButton = chatActions.querySelector('.transaction__cancel-button');
+                const deleteForm   = chatActions.querySelector('.transaction__delete-form');
 
                 // 表示切り替え
-                messageText.classList.add('hidden');
-                editForm.classList.remove('hidden');
+                messageText.classList.add('transaction__chat-bubble-text-message--hidden');
+                editForm.classList.remove('transaction__edit-form--hidden');
 
-                editButton.classList.add('hidden');
-                deleteForm.classList.add('hidden');
+                editButton.classList.add('transaction__edit-button--hidden');
+                deleteForm.classList.add('transaction__delete-form--hidden');
 
-                saveButton.classList.remove('hidden');
-                cancelButton.classList.remove('hidden');
+                saveButton.classList.remove('transaction__save-button--hidden');
+                cancelButton.classList.remove('transaction__cancel-button--hidden');
 
                 editTextarea.focus();
             });
         });
 
         //キャンセルボタン押下時
-        document.querySelectorAll('.cancel-button').forEach(cancelButton => {
+        document.querySelectorAll('.transaction__cancel-button').forEach(cancelButton => {
             cancelButton.addEventListener('click', () => {
 
-                const chatActions = cancelButton.closest('.chat-actions');
+                const chatActions = cancelButton.closest('.transaction__chat-actions');
                 const chatBubble  = chatActions.previousElementSibling;
 
                 const messageText  = chatBubble.querySelector('.transaction__chat-bubble-text-message');
-                const editForm     = chatBubble.querySelector('.edit-form');
-                const editTextarea = editForm.querySelector('.edit-textarea');
+                const editForm     = chatBubble.querySelector('.transaction__edit-form');
+                const editTextarea = editForm.querySelector('.transaction__edit-textarea');
 
-                const editButton   = chatActions.querySelector('.edit-button');
-                const saveButton   = chatActions.querySelector('.save-button');
-                const deleteForm   = chatActions.querySelector('.delete-form');
+                const editButton   = chatActions.querySelector('.transaction__edit-button');
+                const saveButton   = chatActions.querySelector('.transaction__save-button');
+                const deleteForm   = chatActions.querySelector('.transaction__delete-form');
 
                 // textareaを元の本文に戻す
                 editTextarea.value = messageText.textContent.trim();
 
                 // 表示切り替え
-                messageText.classList.remove('hidden');
-                editForm.classList.add('hidden');
+                messageText.classList.remove('transaction__chat-bubble-text-message--hidden');
+                editForm.classList.add('transaction__edit-form--hidden');
 
-                editButton.classList.remove('hidden');
-                deleteForm.classList.remove('hidden');
+                editButton.classList.remove('transaction__edit-button--hidden');
+                deleteForm.classList.remove('transaction__delete-form--hidden');
 
-                saveButton.classList.add('hidden');
-                cancelButton.classList.add('hidden');
+                saveButton.classList.add('transaction__save-button--hidden');
+                cancelButton.classList.add('transaction__cancel-button--hidden');
             });
         });
 
