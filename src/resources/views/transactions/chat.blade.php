@@ -260,23 +260,34 @@
         ============================= */
 
         const textarea = document.getElementById('chat-message');
-        const storageKey = 'draft_message_user_{{ auth()->id() }}_transaction_{{ $transaction->id }}';
+        if (textarea) {
+            const storageKey = 'draft_message_user_{{ auth()->id() }}_transaction_{{ $transaction->id }}';
 
-        // ページ読み込み時に入力復元
-        textarea.value = localStorage.getItem(storageKey) || '';
+            // 取引完了チェック
+            const isTransactionCompleted = {{ $transaction->status === 'completed' ? 'true' : 'false' }};
 
-        // 入力するたびに localStorage に保存
-        textarea.addEventListener('input', () => {
-            localStorage.setItem(storageKey, textarea.value);
-        });
+            if (isTransactionCompleted) {
+                // 取引完了なら入力保持削除＆textarea空に
+                localStorage.removeItem(storageKey);
+                textarea.value = '';
+            } else {
+                // 取引未完了なら入力保持復元
+                textarea.value = localStorage.getItem(storageKey) || '';
 
-        // 送信時に localStorage から削除
-        const sendForm = document.querySelector('.transaction__chat-send-form');
+                // 入力するたびに localStorage に保存
+                textarea.addEventListener('input', () => {
+                    localStorage.setItem(storageKey, textarea.value);
+                });
 
-        sendForm.addEventListener('submit', () => {
-            localStorage.removeItem(storageKey);
-        });
-
+                // 送信時に localStorage から削除
+                const sendForm = document.querySelector('.transaction__chat-send-form');
+                if (sendForm) {
+                    sendForm.addEventListener('submit', () => {
+                        localStorage.removeItem(storageKey);
+                    });
+                }
+            }
+        }
 
         /* =============================
             チャット編集切り替え
