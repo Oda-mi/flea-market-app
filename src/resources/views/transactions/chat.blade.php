@@ -148,10 +148,10 @@
                 @csrf
                 <div class="form_error">
                     @error('message')
-                        {{ $message }}
+                        <span>{{ $message }}</span>
                     @enderror
                     @error('image')
-                        {{ $message }}
+                        <span>{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="chat-input-area">
@@ -271,13 +271,13 @@
                 const chatActions = editButton.closest('.chat-actions');
                 const chatBubble  = chatActions.previousElementSibling;
 
-                const messageText      = chatBubble.querySelector('.transaction__chat-bubble-text-message');
-                const editForm         = chatBubble.querySelector('.edit-form');
-                const editTextarea     = editForm.querySelector('.edit-textarea');
+                const messageText  = chatBubble.querySelector('.transaction__chat-bubble-text-message');
+                const editForm     = chatBubble.querySelector('.edit-form');
+                const editTextarea = editForm.querySelector('.edit-textarea');
 
-                const saveButton       = chatActions.querySelector('.save-button');
-                const cancelButton     = chatActions.querySelector('.cancel-button');
-                const deleteForm       = chatActions.querySelector('.delete-form');
+                const saveButton   = chatActions.querySelector('.save-button');
+                const cancelButton = chatActions.querySelector('.cancel-button');
+                const deleteForm   = chatActions.querySelector('.delete-form');
 
                 // 表示切り替え
                 messageText.classList.add('hidden');
