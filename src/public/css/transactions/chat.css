@@ -289,6 +289,36 @@
 }
 
 
+.transaction__chat-image-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 6px 30px;
+    padding: 4px 8px;
+    font-size: 12px;
+    color: #FF5655;
+    border: 1px solid #FF5655;
+    border-radius: 4px;
+}
+
+.transaction__chat-image-status--hidden {
+    display: none;
+}
+
+.transaction__chat-image-status button {
+    background: none;
+    border: none;
+    color: #FF5655;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.transaction__chat-image-status button:hover {
+    text-decoration: underline;
+}
+
+
 .transaction__form-error {
     display: flex;
     flex-direction: column;
@@ -461,6 +491,10 @@
     font-size: 24px;
     cursor: pointer;
 }
+
+
+
+
 
 
 

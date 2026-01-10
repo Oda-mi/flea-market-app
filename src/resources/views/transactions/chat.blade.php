@@ -160,6 +160,13 @@
                     class="transaction__chat-send-form"
                     enctype="multipart/form-data">
                 @csrf
+
+                <div class="transaction__chat-image-status transaction__chat-image-status--hidden"
+                    id="chat-image-status" >
+                    ※ 画像が選択されています
+                    <button type="button" id="remove-image">取消</button>
+                </div>
+
                 <div class="transaction__form-error">
                     @error('message')
                         <span>{{ $message }}</span>
@@ -333,6 +340,40 @@
                 cancelButton.classList.add('transaction__cancel-button--hidden');
             });
         });
+
+
+        /* =============================
+            画像選択中メッセージ表示
+        ============================= */
+
+        const imageInput = document.getElementById('chat-image-input');
+        const status     = document.getElementById('chat-image-status');
+        const removeBtn  = document.getElementById('remove-image');
+
+        if (imageInput && status && removeBtn) {
+            // 画像選択時
+            imageInput.addEventListener('change', () => {
+                if (imageInput.files.length) {
+                    status.classList.remove('transaction__chat-image-status--hidden');
+                } else {
+                    status.classList.add('transaction__chat-image-status--hidden');
+                }
+            });
+
+            // 取消ボタン押下時
+            removeBtn.addEventListener('click', () => {
+                imageInput.value = '';
+                status.classList.add('transaction__chat-image-status--hidden');
+            });
+
+            // 送信時に非表示
+            const sendForm = document.querySelector('.transaction__chat-send-form');
+            if (sendForm) {
+                sendForm.addEventListener('submit', () => {
+                    status.classList.add('transaction__chat-image-status--hidden');
+                });
+            }
+        }
 
 
         /* =============================
